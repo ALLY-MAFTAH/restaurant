@@ -1,5 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
 
+
+@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css");
+@import url("https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css");
+
+
+
 :root {
     --header-height: 3rem;
     --nav-width: 68px;
@@ -62,7 +68,7 @@ a {
 
 .header_img img {
     width: 50px;
-   height: 50px
+    height: 50px
 }
 
 .l-navbar {
@@ -93,6 +99,7 @@ a {
     padding-left: 10px;
     margin-bottom: 1rem
 }
+
 .nav_logo,
 .nav_link {
     display: grid;
@@ -189,5 +196,20 @@ a {
 
     .body-pd {
         padding-left: calc(var(--nav-width) + 188px)
+    }
+
+    .btn.btn-primary {
+        background-color: var(--first-color);
+        color: white;
+        --bs-btn-bg: var(--first-color);
+    }
+
+    .btn.btn-primary:hover {
+        background-color: var(--first-color);
+        color: white;
+    }
+
+    a.nav_link {
+        text-decoration: none;
     }
 }

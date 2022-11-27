@@ -16,39 +16,43 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
+    @yield('style')
 
-
+    <style>
+        
+    </style>
 </head>
 
 <body id="body-pd">
-    <!-- Authentication Links -->
-    {{-- @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
 
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif --}}
     @guest
         <div></div>
     @else
         <header class="header" id="header">
             <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+
             <div class="header_toggle">
                 <h3><b> Tanga Raha Restaurant</b></h3>
             </div>
-            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+
+            <div class="dropdown">
+                <a href="#"class="dropdown-toggle" style="text-decoration: none; color:var(--first-color)"
+                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expsanded="false">
+                    {{ Auth::user()->name }}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+            </div>
+
+
+            {{-- <a id="navbarDropdown" class="nav-link dropdown-toggle"
                 aria-haspopup="true" aria-expanded="false" v-pre>
                 {{ Auth::user()->name }}
-            </a>
+            </a> --}}
 
         </header>
         <div class="l-navbar" id="nav-bar">
@@ -82,25 +86,26 @@
                         class="nav_link {{ request()->routeIs('settings') ? 'active' : '' }}"> <i
                             class='bx bx-cog nav_icon'></i> <span class="nav_name">Settings</span>
                     </a>
-                </div>
-                <a href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();"
-                    class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
+                        class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Sign Out</span> </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
             </nav>
 
         </div>
     @endguest
     <br><br>
 
-    <main class="py-5">
+    <main class="">
         @yield('content')
     </main>
     </div>
     <!--Container Main end-->
+    @yield('scripts')
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {
 
@@ -141,8 +146,10 @@
             // Your code to run since DOM is loaded and ready
         });
     </script>
+    <!-- Scripts -->
     <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js;"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js;"></script>
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
 </body>
 

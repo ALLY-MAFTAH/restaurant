@@ -15,12 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
+Route::redirect('/', '/dashboard');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 Route::get('/materials', [App\Http\Controllers\MaterialController::class, 'index'])->name('materials');
 Route::get('/sales', [App\Http\Controllers\SaleController::class, 'index'])->name('sales');
 Route::get('/items', [App\Http\Controllers\ItemController::class, 'index'])->name('items');
