@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Material;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class MaterialController extends Controller
 {
@@ -39,10 +40,10 @@ class MaterialController extends Controller
         $attributes['status'] = true;
         $material = Material::create($attributes);
 
-        alert()->success('Successfully Added; ' . $material->name);
-        return back();
+        notify()->success('Laravel Notify is awesome!');
 
-        return view('materials', compact('materials'));
+        return Redirect::back();
+        // alert()->success('Successfully Added; ' . $material->name);
     }
     public function putMaterial(Request $request, Material $material)
     {
@@ -51,6 +52,20 @@ class MaterialController extends Controller
             'quantity' => 'required',
             'cost' => 'required',
         ]);
+
+        $material->update($attributes);
+
+        alert()->success('Successfully Edited: ' . $material->name);
+        return back();
+    }
+    public function deleteMaterial(Request $request, Material $material)
+    {
+        $attributes = $this->validate($request, [
+            'name' => 'required',
+            'quantity' => 'required',
+            'cost' => 'required',
+        ]);
+
         $material->update($attributes);
 
         alert()->success('Successfully Edited: ' . $material->name);

@@ -17,9 +17,12 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     @yield('style')
-
+    @notifyCss
     <style>
+        .notify {
+            padding-top: 70px;
 
+        }
     </style>
 </head>
 
@@ -28,7 +31,7 @@
     @guest
         <div></div>
     @else
-        <header class="header" id="header">
+        <div class="header" id="header">
             <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
 
             <div class="header_toggle">
@@ -46,14 +49,7 @@
                     <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
             </div>
-
-
-            {{-- <a id="navbarDropdown" class="nav-link dropdown-toggle"
-                aria-haspopup="true" aria-expanded="false" v-pre>
-                {{ Auth::user()->name }}
-            </a> --}}
-
-        </header>
+        </div>
         <div class="l-navbar" id="nav-bar">
             <a href="#" class="app_logo">
                 <div class="header_img"><img style="background: white" src="{{ asset('images/logo.png') }}" alt="">
@@ -102,9 +98,12 @@
     <main class="">
         @yield('content')
     </main>
+
     </div>
-    <!--Container Main end-->
+    <x:notify-messages />
+
     @yield('scripts')
+    @notifyJs
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {
 
