@@ -18,6 +18,7 @@ return new class extends Migration
             $table->bigInteger('item_id');
             $table->double('quantity');
             $table->double('price');
+            $table->boolean('status');
             $table->timestamps();
             $table->softDeletes();
         });
