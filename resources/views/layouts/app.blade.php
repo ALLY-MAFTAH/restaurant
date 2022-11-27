@@ -10,6 +10,7 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    @notifyCss
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
@@ -17,7 +18,6 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     @yield('style')
-    @notifyCss
     <style>
         .notify {
             padding-top: 70px;

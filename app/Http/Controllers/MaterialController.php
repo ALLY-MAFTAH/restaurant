@@ -26,6 +26,7 @@ class MaterialController extends Controller
     {
         $materials = Material::all();
 
+        notify()->success('Laravel Notify is awesome!');
         return view('materials', compact('materials'));
     }
     public function postMaterial(Request $request)
