@@ -15,9 +15,19 @@ class Item extends Model
         'name',
         'quantity',
         'cost',
+        'status',
     ];
 
     protected $dates = [
         'deleted_at'
     ];
+
+    public function materials()
+    {
+        return  $this->belongsToMany(Material::class);
+    }
+    public function products()
+    {
+        return  $this->hasMany(Product::class);
+    }
 }

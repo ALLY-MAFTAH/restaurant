@@ -17,9 +17,19 @@ class Sale extends Model
         'quantity',
         'price',
         'user_id',
+        'status',
+
     ];
 
     protected $dates = [
         'deleted_at'
     ];
+    public function product()
+    {
+        return  $this->belongsTo(Product::class);
+    }
+    public function user()
+    {
+        return  $this->belongsTo(User::class);
+    }
 }

@@ -15,9 +15,20 @@ class Product extends Model
         'item_id',
         'quantity',
         'price',
+        'status',
+
     ];
 
     protected $dates = [
         'deleted_at'
     ];
+
+    public function item()
+    {
+        return  $this->belongsTo(Item::class);
+    }
+    public function sales()
+    {
+        return  $this->hasMany(Sale::class);
+    }
 }
