@@ -10,18 +10,15 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css">
     @notifyCss
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
     @yield('style')
     <style>
         .notify {
             padding-top: 70px;
-
         }
     </style>
 </head>
@@ -31,22 +28,41 @@
     @guest
         <div></div>
     @else
-        <div class="header" id="header">
+        <div class="header shadow" id="header">
             <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
 
-            <div class="header_toggle">
-                <h3><b> Tanga Raha Restaurant</b></h3>
+            <div class="header_toggle ">
+                <h3
+                    style="text-shadow: 0.5px 0.5px white;font-family:Verdana, Geneva, Tahoma, sans-serif;color:var(--first-color)">
+                    <b> Tanga Raha Restaurant</b>
+                </h3>
             </div>
-
-            <div class="dropdown">
-                <a href="#"class="dropdown-toggle" style="text-decoration: none; color:var(--first-color)"
-                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expsanded="false">
-                    {{ Auth::user()->name }}
+            <div class="dropdown prof">
+                <a href="#"class="dropdowsn-toggle" style="text-decoration: none; color:var(--first-color)"
+                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bx bx-user"></i>
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li>
+                        <div class="text-center"><i class="bx bx-user bx-md bx-white"
+                                style="width: 40px; height: 40px;color:white;border-radius: 50%; overflow: hidden;background: rgb(103, 33, 224)"></i>
+                        </div><a class="dropdown-item" href="#">{{ Auth::user()->name }}</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="#">Dark Theme</a></li>
+                    <li><a class="dropdown-item" href="#">Change Language</a></li>
+                    <hr>
+                    <li>
+                        <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault();if(confirm('Are you sure want to logout ?'))
+                document.getElementById('logout-form').submit();"
+                            class="text-danger dropdown-item">
+                            Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -56,7 +72,6 @@
                 </div>
             </a>
             <nav class="nav">
-
                 <div class="nav_list overflow-auto vh-100">
                     <a href="{{ route('dashboard') }}"
                         class="nav_link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
@@ -81,13 +96,7 @@
                         class="nav_link {{ request()->routeIs('settings') ? 'active' : '' }}"> <i
                             class='bx bx-cog nav_icon'></i> <span class="nav_name">Settings</span>
                     </a>
-                    <a href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                document.getElementById('logout-form').submit();"
-                        class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Sign Out</span> </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
+
                 </div>
             </nav>
 
@@ -101,9 +110,15 @@
 
     </div>
     <x:notify-messages />
-
     @yield('scripts')
     @notifyJs
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap5.min.js"></script>
+
+
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {
 
@@ -144,10 +159,22 @@
             // Your code to run since DOM is loaded and ready
         });
     </script>
-    <!-- Scripts -->
-    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js;"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js;"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js;"></script>
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js;"></script> --}}
+    <script>
+        $(document).ready(function() {
+            $(document).on('submit', 'form', function() {
+                $('button').attr('disabled', 'disabled');
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#data-tebo').DataTable();
+        });
+    </script>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    {{-- @vite(['resources/js/app.js']) --}}
 
 </body>
 

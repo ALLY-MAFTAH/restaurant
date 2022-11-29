@@ -26,7 +26,6 @@ class MaterialController extends Controller
     {
         $materials = Material::all();
 
-        notify()->success('Laravel Notify is awesome!');
         return view('materials', compact('materials'));
     }
     public function postMaterial(Request $request)
@@ -34,42 +33,52 @@ class MaterialController extends Controller
         $attributes = $this->validate($request, [
             'name' => 'required',
             'quantity' => 'required',
+            'unit' => 'required',
             'cost' => 'required',
         ]);
-
 
         $attributes['status'] = true;
         $material = Material::create($attributes);
 
-        notify()->success('Laravel Notify is awesome!');
+        notify()->success('You have successful added ' . $material->name . '.');
 
         return Redirect::back();
-        // alert()->success('Successfully Added; ' . $material->name);
+
     }
     public function putMaterial(Request $request, Material $material)
     {
         $attributes = $this->validate($request, [
             'name' => 'required',
             'quantity' => 'required',
+            'unit' => 'required',
             'cost' => 'required',
         ]);
 
         $material->update($attributes);
 
-        alert()->success('Successfully Edited: ' . $material->name);
+        notify()->success('You have successful edited ' . $material->name . '.');
+        return redirect()->back();
+    }
+    public function toggleStatus(Request $request, Material $material)
+    {
+
+        $attributes = $this->validate($request, [
+            'status' => ['required', 'boolean'],
+        ]);
+
+        $material->update($attributes);
+
+        notify()->success('You have successfully updated material status');
         return back();
     }
     public function deleteMaterial(Request $request, Material $material)
     {
-        $attributes = $this->validate($request, [
-            'name' => 'required',
-            'quantity' => 'required',
-            'cost' => 'required',
-        ]);
 
-        $material->update($attributes);
+        $itsName=$material->name;
+        $material->delete();
 
-        alert()->success('Successfully Edited: ' . $material->name);
+        notify()->success('You have successful deleted ' . $itsName . '.');
         return back();
     }
 }
+

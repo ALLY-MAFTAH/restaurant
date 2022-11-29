@@ -22,7 +22,15 @@ Route::redirect('/', '/dashboard');
 Auth::routes();
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+
+// MATERIAL ROUTES
 Route::get('/materials', [App\Http\Controllers\MaterialController::class, 'index'])->name('materials');
+Route::post('/add-material', [App\Http\Controllers\MaterialController::class, 'postMaterial'])->name('add-material');
+Route::put('/edit-material/{material}', [App\Http\Controllers\MaterialController::class, 'putMaterial'])->name('edit-material');
+Route::delete('/delete-material/{material}', [App\Http\Controllers\MaterialController::class, 'deleteMaterial'])->name('delete-material');
+Route::put('materials/{material}/status', [App\Http\Controllers\MaterialController::class, 'toggleStatus'])->name('materials.toggle_status');
+
+
 Route::get('/sales', [App\Http\Controllers\SaleController::class, 'index'])->name('sales');
 Route::get('/items', [App\Http\Controllers\ItemController::class, 'index'])->name('items');
 Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products');

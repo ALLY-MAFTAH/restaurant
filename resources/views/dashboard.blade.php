@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    {{ __("I'm in Dashboard !") }}
+                   .
                 </div>
             </div>
         </div>

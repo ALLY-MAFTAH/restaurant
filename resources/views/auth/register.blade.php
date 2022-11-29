@@ -101,9 +101,6 @@
     </div>
 @endsection
 <div class="text-center text-bold pt-4" style="color:white">
-    <h1>
-        <b>
-            TANGA RAHA RESTAURANT
-        </b>
-    </h1>
+    <h1 style="text-shadow: 3px 3px rgb(50, 49, 49);font-family:Verdana, Geneva, Tahoma, sans-serif;"><b>
+        TANGA RAHA RESTAURANT</b></h1>
 </div>
