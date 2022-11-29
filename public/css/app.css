@@ -236,6 +236,10 @@ a {
 
 }
 
-.form-switch .form-check-input {
+/* .form-switch .form-check-input {
     margin-left: -1em;
+} */
+div.dataTables_wrapper div.dataTables_length select {
+   
+    margin-bottom: 7px;
 }

@@ -24,8 +24,8 @@ class Material extends Model
         'deleted_at'
     ];
 
-    public function items()
+    public function ingredient()
     {
-        return  $this->belongsToMany(Item::class);
+        return  $this->hasOne(Ingredient::class);
     }
 }

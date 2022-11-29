@@ -6,29 +6,32 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Item extends Model
+class Ingredient extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
     protected $fillable = [
+        'item_id',
+        'material_id',
         'name',
         'quantity',
-        'cost',
-        'status',
+        'price',
         'unit',
+        'status',
+
     ];
 
     protected $dates = [
         'deleted_at'
     ];
 
-    public function ingredients()
+    public function material()
     {
-        return  $this->hasMany(Ingredient::class);
+        return  $this->belongsTo(Material::class);
     }
-    public function products()
+    public function item()
     {
-        return  $this->hasMany(Product::class);
+        return  $this->belongsTo(Item::class);
     }
 }

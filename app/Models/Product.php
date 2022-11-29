@@ -15,6 +15,7 @@ class Product extends Model
         'item_id',
         'quantity',
         'price',
+        'unit',
         'status',
 
     ];
