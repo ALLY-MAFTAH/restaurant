@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->double('quantity');
             $table->double('cost');
+            $table->enum('unit', ['Kilograms', 'Litres', 'Counts']);
             $table->boolean('status');
             $table->timestamps();
             $table->softDeletes();

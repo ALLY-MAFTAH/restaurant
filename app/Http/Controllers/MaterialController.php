@@ -26,7 +26,13 @@ class MaterialController extends Controller
     {
         $materials = Material::all();
 
-        return view('materials', compact('materials'));
+        return view('materials.index', compact('materials'));
+    }
+    public function showMaterial(Request $request, Material $material)
+    {
+        $materials = Material::where('status', 1)->get();
+
+        return view('materials.show', compact('material', 'materials'));
     }
     public function postMaterial(Request $request)
     {

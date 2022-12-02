@@ -8,12 +8,16 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title> @yield('title') | {{'Tanga Raha Restaurant'}}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/logo.png') }}">
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+
+
     @notifyCss
     @yield('style')
     <style>
@@ -45,7 +49,7 @@
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li>
                         <div class="text-center"><i class="bx bx-user bx-md bx-white"
-                                style="width: 40px; height: 40px;color:white;border-radius: 50%; overflow: hidden;background: rgb(103, 33, 224)"></i>
+                                style="width: 40px; height: 40px;color:white;border-radius: 50%; overflow: hidden;background: var(--first-color)"></i>
                         </div><a class="dropdown-item" href="#">{{ Auth::user()->name }}</a>
                     </li>
                     <li><a class="dropdown-item" href="#">Profile</a></li>
@@ -77,19 +81,22 @@
                         class="nav_link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
-                    <a href="{{ route('sales') }}" class="nav_link {{ request()->routeIs('sales') ? 'active' : '' }}">
+                    <a href="{{ route('materials.index') }}"
+                    class="nav_link {{ request()->routeIs('materials.index')||request()->routeIs('materials.show') ? 'active' : '' }}"> <i
+                    class='bx bx-layout nav_icon'></i> <span class="nav_name">Materials</span> </a>
+                    <a href="{{ route('items.index') }}"
+                    class="nav_link {{ request()->routeIs('items.index') || request()->routeIs('items.show') ? 'active' : '' }}">
+                    <i class='bx bx-purchase-tag-alt nav_icon'></i> <span class="nav_name">Items</span> </a>
+                    <a href="{{ route('sales.index') }}"
+                        class="nav_link {{ request()->routeIs('sales.index') ? 'active' : '' }}">
                         <i class='bx bx-dollar nav_icon'></i> <span class="nav_name">Sales</span>
                     </a>
-                    <a href="{{ route('materials') }}"
-                        class="nav_link {{ request()->routeIs('materials') ? 'active' : '' }}"> <i
-                            class='bx bx-layout nav_icon'></i> <span class="nav_name">Materials</span> </a>
-                    <a href="{{ route('items') }}" class="nav_link {{ request()->routeIs('items') ? 'active' : '' }}">
-                        <i class='bx bx-purchase-tag-alt nav_icon'></i> <span class="nav_name">Items</span> </a>
-                    <a href="{{ route('products') }}"
-                        class="nav_link {{ request()->routeIs('products') ? 'active' : '' }}"> <i
+                    <a href="{{ route('products.index') }}"
+                        class="nav_link {{ request()->routeIs('products.index') ? 'active' : '' }}"> <i
                             class='bx bx-cart nav_icon'></i> <span class="nav_name">Products</span>
                     </a>
-                    <a href="{{ route('users') }}" class="nav_link {{ request()->routeIs('users') ? 'active' : '' }}">
+                    <a href="{{ route('users.index') }}"
+                        class="nav_link {{ request()->routeIs('users.index') ? 'active' : '' }}">
                         <i class='bx bx-group nav_icon'></i> <span class="nav_name">Users</span>
                     </a>
                     <a href="{{ route('settings') }}"
@@ -104,7 +111,7 @@
     @endguest
     <br><br>
 
-    <main class="">
+    <main class="pt-5">
         @yield('content')
     </main>
 
@@ -117,6 +124,9 @@
     <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap5.min.js"></script>
+
+
+
 
 
     <script>
@@ -171,6 +181,20 @@
     <script>
         $(document).ready(function() {
             $('#data-tebo').DataTable();
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $(".add-more").click(function() {
+                var html = $(".copy").html();
+                $(".after-add-more").after(html);
+            });
+
+            $("body").on("click", ".remove", function() {
+                $(this).parents(".control-group").remove();
+            });
+
         });
     </script>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])

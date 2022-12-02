@@ -24,15 +24,24 @@ Auth::routes();
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
 // MATERIAL ROUTES
-Route::get('/materials', [App\Http\Controllers\MaterialController::class, 'index'])->name('materials');
-Route::post('/add-material', [App\Http\Controllers\MaterialController::class, 'postMaterial'])->name('add-material');
-Route::put('/edit-material/{material}', [App\Http\Controllers\MaterialController::class, 'putMaterial'])->name('edit-material');
-Route::delete('/delete-material/{material}', [App\Http\Controllers\MaterialController::class, 'deleteMaterial'])->name('delete-material');
+Route::get('/materials', [App\Http\Controllers\MaterialController::class, 'index'])->name('materials.index');
+Route::post('/add-material', [App\Http\Controllers\MaterialController::class, 'postMaterial'])->name('materials.add');
+Route::get('/show-material/{material}', [App\Http\Controllers\MaterialController::class, 'showMaterial'])->name('materials.show');
+Route::put('/edit-material/{material}', [App\Http\Controllers\MaterialController::class, 'putMaterial'])->name('materials.edit');
+Route::delete('/delete-material/{material}', [App\Http\Controllers\MaterialController::class, 'deleteMaterial'])->name('materials.delete');
 Route::put('materials/{material}/status', [App\Http\Controllers\MaterialController::class, 'toggleStatus'])->name('materials.toggle_status');
 
+// ITEM ROUTES
+Route::get('/items', [App\Http\Controllers\ItemController::class, 'index'])->name('items.index');
+Route::post('/add-item', [App\Http\Controllers\ItemController::class, 'postItem'])->name('items.add');
+Route::get('/show-item/{item}', [App\Http\Controllers\ItemController::class, 'showItem'])->name('items.show');
+Route::put('/edit-item/{item}', [App\Http\Controllers\ItemController::class, 'putItem'])->name('items.edit');
+Route::delete('/delete-item/{item}', [App\Http\Controllers\ItemController::class, 'deleteItem'])->name('items.delete');
+Route::put('items/{item}/status', [App\Http\Controllers\ItemController::class, 'toggleStatus'])->name('items.toggle_status');
+Route::put('/edit-item-ingredients/{item}', [App\Http\Controllers\ItemController::class, 'putItem'])->name('items.edit_ingredients');
 
-Route::get('/sales', [App\Http\Controllers\SaleController::class, 'index'])->name('sales');
-Route::get('/items', [App\Http\Controllers\ItemController::class, 'index'])->name('items');
-Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products');
-Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users');
+
+Route::get('/sales', [App\Http\Controllers\SaleController::class, 'index'])->name('sales.index');
+Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products.index');
+Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
 Route::get('/settings', [App\Http\Controllers\UserController::class, 'index'])->name('settings');

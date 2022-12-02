@@ -147,16 +147,17 @@ a {
 }
 
 .active {
-    color: var(--white-color)
+    color: var(--white-color);
+    font-weight: bolder;
 }
 
 .active::before {
     content: '';
     position: absolute;
     left: 0;
-    width: 2px;
+    width: 7px;
     height: 32px;
-    background-color: var(--white-color)
+    background-color: var(--white-color);
 }
 
 .height-100 {
@@ -212,10 +213,12 @@ a {
         text-decoration: none;
     }
 }
+
 .header {
     height: calc(var(--header-height) + 1rem);
     background-image: linear-gradient(to right, white, rgb(225, 234, 226), rgb(221, 154, 91), rgb(207, 191, 235), rgb(163, 198, 146), rgb(221, 154, 91), white, rgb(221, 154, 91), rgb(163, 198, 146), rgb(207, 191, 235), rgb(221, 154, 91), white);
 }
+
 .btn.btn-primary {
     background-color: var(--first-color);
     color: white;
@@ -236,10 +239,7 @@ a {
 
 }
 
-/* .form-switch .form-check-input {
-    margin-left: -1em;
-} */
 div.dataTables_wrapper div.dataTables_length select {
-   
+
     margin-bottom: 7px;
 }
