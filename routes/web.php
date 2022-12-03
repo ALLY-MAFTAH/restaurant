@@ -37,9 +37,10 @@ Route::post('/add-item', [App\Http\Controllers\ItemController::class, 'postItem'
 Route::get('/show-item/{item}', [App\Http\Controllers\ItemController::class, 'showItem'])->name('items.show');
 Route::put('/edit-item/{item}', [App\Http\Controllers\ItemController::class, 'putItem'])->name('items.edit');
 Route::delete('/delete-item/{item}', [App\Http\Controllers\ItemController::class, 'deleteItem'])->name('items.delete');
-Route::put('items/{item}/status', [App\Http\Controllers\ItemController::class, 'toggleStatus'])->name('items.toggle_status');
-Route::put('/edit-item-ingredients/{item}', [App\Http\Controllers\ItemController::class, 'putItem'])->name('items.edit_ingredients');
-
+Route::put('items/{item}/status', [App\Http\Controllers\ItemController::class, 'toggleStatus'])->name('items.toggle-status');
+Route::post('/add-ingredients/{item}', [App\Http\Controllers\ItemController::class, 'postIngredients'])->name('items.add-ingredients');
+Route::put('/edit-ingredients/{item}', [App\Http\Controllers\ItemController::class, 'putIngredients'])->name('items.edit-ingredients');
+Route::delete('/delete-ingredient/{ingredient}', [App\Http\Controllers\ItemController::class, 'deleteIngredient'])->name('items.delete-ingredient');
 
 Route::get('/sales', [App\Http\Controllers\SaleController::class, 'index'])->name('sales.index');
 Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products.index');

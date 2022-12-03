@@ -46,7 +46,7 @@ class MaterialController extends Controller
         $attributes['status'] = true;
         $material = Material::create($attributes);
 
-        notify()->success('You have successful added ' . $material->name . '.');
+        notify()->success('You have successful added material');
 
         return Redirect::back();
 
@@ -62,7 +62,7 @@ class MaterialController extends Controller
 
         $material->update($attributes);
 
-        notify()->success('You have successful edited ' . $material->name . '.');
+        notify()->success('You have successful edited material');
         return redirect()->back();
     }
     public function toggleStatus(Request $request, Material $material)

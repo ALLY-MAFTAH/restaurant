@@ -210,7 +210,7 @@
                             <td class="">{{ $item->updated_at->format('D, d M Y \a\t H:i:s') }} </td>
                             <td class="text-center">
                                 <form id="toggle-status-form-{{ $item->id }}" method="POST"
-                                    action="{{ route('items.toggle_status', $item) }}">
+                                    action="{{ route('items.toggle-status', $item) }}">
                                     <div class="form-check form-switch ">
                                         <input type="hidden" name="status" value="0">
                                         <input type="checkbox" name="status" id="status-switch-{{ $item->id }}"

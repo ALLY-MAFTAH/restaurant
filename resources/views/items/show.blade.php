@@ -94,7 +94,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="row">
                         <div class="col-4"><b> Name:</b> </div>
                         <div class="col-8">{{ $item->name }}</div>
@@ -124,34 +124,142 @@
                             @endforelse
                             <div class="text-end">
                                 @if ($ingredients->count() == 0)
-                                    <a id="edit-btn" href="#" style="text-decoration: none;"
-                                        onclick="showForm1()">
+                                    <a id="edit-btn" href="#" style="text-decoration: none;" onclick="showForm1()">
                                         Add Ingredients
                                     </a>
                                 @else
-                                    <a id="edit-btn" href="#"
-                                        style="text-decoration: none;" onclick="showForm2()">
+                                    <a id="edit-btn" href="#" style="text-decoration: none;"
+                                        onclick="showForm2()">
                                         Change Ingredients
                                     </a>
                                 @endif
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <div class="card"id="edit-form" style="display: none">
                         <div class="card-body">
-                            @if ($ingredients->count()!=0)
-                            <form method="POST" action="{{ route('items.edit_ingredients', $item) }}">
-                                @csrf
-                                @method('PUT')
-                                <div class="row">
+                            @if ($ingredients->count() == 0)
+                                <form method="POST" action="{{ route('items.add-ingredients', $item) }}">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col mb-1">
+                                            <div
+                                                class="input-group input-group control-group after-add-more"style="margin-bottom:10px">
+                                                <select id="ingredient_name" class="form-control form-select"
+                                                    name="ingredient_name[]" required
+                                                    style="float: left; width: inaitial; ">
+                                                    <option value="">{{ 'Name' }}</option>
+                                                    @foreach ($materials as $material)
+                                                        <option value="{{ $material->id }}">{{ $material->name }}
+                                                        </option>
+                                                    @endforeach
+                                                    @error('ingredient_name')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </select>
+                                                <input id="ingredient_quantity" type="number" step="any"
+                                                    placeholder="Quantity"
+                                                    class="form-control @error('ingredient_quantity') is-invalid @enderror"
+                                                    name="ingredient_quantity[]" value="{{ old('ingredient_quantity') }}"
+                                                    required autocomplete="ingredient_quantity" autofocus
+                                                    style="float: left;">
+                                                @error('ingredient_quantity')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                                <select id="ingredient_unit" class="form-control form-select"
+                                                    name="ingredient_unit[]" required
+                                                    style="float: left; width: inaitial; background-color:rgb(238, 238, 242)">
+                                                    <option value="">Unit</option>
+                                                    <option value="Kilograms">Kilograms</option>
+                                                    <option value="Litres">Litres</option>
+                                                    <option value="Counts">Counts</option>
+                                                </select>
+                                                @error('ingredient_unit')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-outline-success add-more"
+                                                        type="button"style="border-top-left-radius: 0%;border-bottom-left-radius: 0%"><i
+                                                            class="bx bx-plus"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
 
-                                    <!-- Copy Fields -->
-                                    @foreach ($ingredients as $ingredient)
+                                        <!-- Copy Fields -->
                                         <div class="copy hide">
                                             <div class="input-group control-group" style="margin-bottom:10px">
+                                                <select id="ingredient_name" class="form-control form-select"
+                                                    name="ingredient_name[]" required
+                                                    style="float: left; width: inaitial; ">
+                                                    <option value="">{{ 'Name' }}</option>
+                                                    @foreach ($materials as $material)
+                                                        <option value="{{ $material->id }}">{{ $material->name }}
+                                                        </option>
+                                                    @endforeach
+                                                    @error('ingredient_name')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </select>
+                                                <input id="ingredient_quantity" type="number" step="any"
+                                                    placeholder="Quantity"
+                                                    class="form-control @error('ingredient_quantity') is-invalid @enderror"
+                                                    name="ingredient_quantity[]" value="{{ old('ingredient_quantity') }}"
+                                                    required autocomplete="ingredient_quantity" autofocus
+                                                    style="float: left;">
+                                                @error('ingredient_quantity')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                                <select id="ingredient_unit" class="form-control form-select"
+                                                    name="ingredient_unit[]" required
+                                                    style="float: left; width: inaitial; background-color:rgb(238, 238, 242)">
+                                                    <option value="">Unit</option>
+                                                    <option value="Kilograms">Kilograms</option>
+                                                    <option value="Litres">Litres</option>
+                                                    <option value="Counts">Counts</option>
+                                                </select>
+                                                @error('ingredient_unit')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-outline-danger remove"
+                                                        type="button"style="border-top-left-radius: 0%;border-bottom-left-radius: 0%"><i
+                                                            class="bx bx-minus"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-1 mt-2">
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-sm btn-outline-primary">
+                                                {{ __('Submit') }}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            @else
+                                <form id="update-ingredients" method="POST"
+                                    action="{{ route('items.edit-ingredients', $item) }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="row">
+                                        @foreach ($ingredients as $ingredient)
+                                            <div class="input-group control-group" style="margin-bottom:10px">
+                                                <input hidden name="ingredient_id[]" value="{{ $ingredient->id }}"
+                                                    type="text">
                                                 <select id="ingredient_name" class="form-control form-select"
                                                     name="ingredient_name[]" required
                                                     style="float: left; width: inaitial; ">
@@ -199,75 +307,35 @@
                                                     </span>
                                                 @enderror
                                                 <span class="input-group-btn">
-                                                    <button class="btn btn-outline-danger remove"
-                                                        type="button"style="border-top-left-radius: 0%;border-bottom-left-radius: 0%"><i
-                                                            class="bx bx-minus"></i></button>
+                                                    <button class="btn btn-outline-danger"
+                                                        type="button"style="border-top-left-radius: 0%;border-bottom-left-radius: 0%"
+                                                        onclick="if(confirm('{{ $ingredient->name }} will be deleted from this item\'s ingredients.')) document.getElementById('delete-ingredient-{{ $ingredient->id }}').submit()">
+                                                        <i class="bx bx-trash"></i></button>
+
                                                 </span>
                                             </div>
+                                        @endforeach
+                                        <div class=" mb-1">
+                                            <div class="text-center">
+                                                <button type="" class="btn btn-sm btn-outline-primary"
+                                                    onclick="document.getElementById('update-ingredients').submit()">
+                                                    {{ __('Update') }}
+                                                </button>
+                                            </div>
                                         </div>
-                                    @endforeach
+                                        <hr>
+                                    </div>
+                                </form>
+                                <form id="delete-ingredient-{{ $ingredient->id }}" method="post"
+                                    action="{{ route('items.delete-ingredient', $ingredient) }}">@csrf
+                                    @method('delete')
+                                </form>
+                                <form method="POST" action="{{ route('items.add-ingredients', $item) }}">
+                                    @csrf
                                     <div class="text-right after-add-more"style="margin-bottom:10px;">
                                         <a class="add-more" type="button"style="text-decoration:none">Add
                                             Another Ingredient</a>
                                     </div>
-                                </div>
-                                <div class="row mb-1 mt-2">
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-sm btn-outline-primary">
-                                            {{ __('Submit') }}
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                            @else
-                            <form method="POST" action="{{ route('items.add') }}">
-                                @csrf
-                                <div class="row">
-                                    <div class="col mb-1">
-                                       <div
-                                            class="input-group input-group control-group after-add-more"style="margin-bottom:10px">
-                                            <select id="ingredient_name" class="form-control form-select"
-                                                name="ingredient_name[]" required style="float: left; width: inaitial; ">
-                                                <option value="">{{ 'Name' }}</option>
-                                                @foreach ($materials as $material)
-                                                    <option value="{{ $material->id }}">{{ $material->name }}</option>
-                                                @endforeach
-                                                @error('ingredient_name')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </select>
-                                            <input id="ingredient_quantity" type="number" step="any" placeholder="Quantity"
-                                                class="form-control @error('ingredient_quantity') is-invalid @enderror"
-                                                name="ingredient_quantity[]" value="{{ old('ingredient_quantity') }}" required
-                                                autocomplete="ingredient_quantity" autofocus style="float: left;">
-                                            @error('ingredient_quantity')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                            <select id="ingredient_unit" class="form-control form-select"
-                                                name="ingredient_unit[]" required
-                                                style="float: left; width: inaitial; background-color:rgb(238, 238, 242)">
-                                                <option value="">Unit</option>
-                                                <option value="Kilograms">Kilograms</option>
-                                                <option value="Litres">Litres</option>
-                                                <option value="Counts">Counts</option>
-                                            </select>
-                                            @error('ingredient_unit')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-outline-success add-more"
-                                                    type="button"style="border-top-left-radius: 0%;border-bottom-left-radius: 0%"><i
-                                                        class="bx bx-plus"></i></button>
-                                            </span>
-                                        </div>
-                                    </div>
-
                                     <!-- Copy Fields -->
                                     <div class="copy hide">
                                         <div class="input-group control-group" style="margin-bottom:10px">
@@ -287,7 +355,8 @@
                                                 placeholder="Quantity"
                                                 class="form-control @error('ingredient_quantity') is-invalid @enderror"
                                                 name="ingredient_quantity[]" value="{{ old('ingredient_quantity') }}"
-                                                required autocomplete="ingredient_quantity" autofocus style="float: left;">
+                                                required autocomplete="ingredient_quantity" autofocus
+                                                style="float: left;">
                                             @error('ingredient_quantity')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -313,45 +382,44 @@
                                             </span>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row mb-1 mt-2">
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-sm btn-outline-primary">
-                                            {{ __('Submit') }}
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                            @endif
-
                         </div>
+                        <div class="row mb-1 mt-2">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-sm btn-outline-primary">
+                                    {{ __('Submit') }}
+                                </button>
+                            </div>
+                        </div>
+                        </form>
+                        @endif
+
                     </div>
                 </div>
             </div>
-            <br>
-            <div class="card">
-                <div class="card-header">Utilization Records</div>
-                <div class="card-body">
-                    <table id="data-tebo"
-                        class=" dt-responsive nowrap table table-bordered table-responsive table-striped">
-                        <thead>
-                            <th>#</th>
-                            <th>Date</th>
-                            <th>Action</th>
-                            <th>Issued By</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class="card-header">Utilization Records</div>
+            <div class="card-body">
+                <table id="data-tebo" class=" dt-responsive nowrap table table-bordered table-responsive table-striped">
+                    <thead>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                        <th>Issued By</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
     </div>
 @endsection
 @section('scripts')
