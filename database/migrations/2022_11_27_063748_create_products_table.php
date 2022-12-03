@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('item_id');
             $table->string('name');
+            $table->string('container');
             $table->double('quantity');
             $table->enum('unit', ['Kilograms', 'Litres', 'Counts']);
             $table->double('price');

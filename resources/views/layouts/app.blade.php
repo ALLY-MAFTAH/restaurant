@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title> @yield('title') | {{'Tanga Raha Restaurant'}}</title>
+    <title> @yield('title') | {{ 'Tanga Raha Restaurant' }}</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/logo.png') }}">
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -82,21 +82,21 @@
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
                     <a href="{{ route('materials.index') }}"
-                    class="nav_link {{ request()->routeIs('materials.index')||request()->routeIs('materials.show') ? 'active' : '' }}"> <i
-                    class='bx bx-layout nav_icon'></i> <span class="nav_name">Materials</span> </a>
+                        class="nav_link {{ request()->routeIs('materials.index') || request()->routeIs('materials.show') ? 'active' : '' }}">
+                        <i class='bx bx-layout nav_icon'></i> <span class="nav_name">Materials</span> </a>
                     <a href="{{ route('items.index') }}"
-                    class="nav_link {{ request()->routeIs('items.index') || request()->routeIs('items.show') ? 'active' : '' }}">
-                    <i class='bx bx-purchase-tag-alt nav_icon'></i> <span class="nav_name">Items</span> </a>
-                    <a href="{{ route('sales.index') }}"
-                        class="nav_link {{ request()->routeIs('sales.index') ? 'active' : '' }}">
-                        <i class='bx bx-dollar nav_icon'></i> <span class="nav_name">Sales</span>
-                    </a>
+                        class="nav_link {{ request()->routeIs('items.index') || request()->routeIs('items.show') ? 'active' : '' }}">
+                        <i class='bx bx-purchase-tag-alt nav_icon'></i> <span class="nav_name">Items</span> </a>
                     <a href="{{ route('products.index') }}"
                         class="nav_link {{ request()->routeIs('products.index') ? 'active' : '' }}"> <i
                             class='bx bx-cart nav_icon'></i> <span class="nav_name">Products</span>
                     </a>
+                    <a href="{{ route('sales.index') }}"
+                        class="nav_link {{ request()->routeIs('sales.index') ? 'active' : '' }}">
+                        <i class='bx bx-dollar nav_icon'></i> <span class="nav_name">Sales</span>
+                    </a>
                     <a href="{{ route('users.index') }}"
-                        class="nav_link {{ request()->routeIs('users.index') ? 'active' : '' }}">
+                        class="nav_link {{ request()->routeIs('users.index')|| request()->routeIs('users.show') ? 'active' : '' }}">
                         <i class='bx bx-group nav_icon'></i> <span class="nav_name">Users</span>
                     </a>
                     <a href="{{ route('settings') }}"

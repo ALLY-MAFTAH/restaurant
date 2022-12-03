@@ -29,7 +29,7 @@ Route::post('/add-material', [App\Http\Controllers\MaterialController::class, 'p
 Route::get('/show-material/{material}', [App\Http\Controllers\MaterialController::class, 'showMaterial'])->name('materials.show');
 Route::put('/edit-material/{material}', [App\Http\Controllers\MaterialController::class, 'putMaterial'])->name('materials.edit');
 Route::delete('/delete-material/{material}', [App\Http\Controllers\MaterialController::class, 'deleteMaterial'])->name('materials.delete');
-Route::put('materials/{material}/status', [App\Http\Controllers\MaterialController::class, 'toggleStatus'])->name('materials.toggle_status');
+Route::put('materials/{material}/status', [App\Http\Controllers\MaterialController::class, 'toggleStatus'])->name('materials.toggle-status');
 
 // ITEM ROUTES
 Route::get('/items', [App\Http\Controllers\ItemController::class, 'index'])->name('items.index');
@@ -42,7 +42,24 @@ Route::post('/add-ingredients/{item}', [App\Http\Controllers\ItemController::cla
 Route::put('/edit-ingredients/{item}', [App\Http\Controllers\ItemController::class, 'putIngredients'])->name('items.edit-ingredients');
 Route::delete('/delete-ingredient/{ingredient}', [App\Http\Controllers\ItemController::class, 'deleteIngredient'])->name('items.delete-ingredient');
 
+// PRODUCTS ROUTES
+Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products.index');
+Route::post('/add-product', [App\Http\Controllers\ProductController::class, 'postProduct'])->name('products.add');
+Route::get('/show-product/{product}', [App\Http\Controllers\ProductController::class, 'showProduct'])->name('products.show');
+Route::put('/edit-product/{product}', [App\Http\Controllers\ProductController::class, 'putProduct'])->name('products.edit');
+Route::delete('/delete-product/{product}', [App\Http\Controllers\ProductController::class, 'deleteProduct'])->name('products.delete');
+Route::put('products/{product}/status', [App\Http\Controllers\ProductController::class, 'toggleStatus'])->name('products.toggle-status');
+
+
 Route::get('/sales', [App\Http\Controllers\SaleController::class, 'index'])->name('sales.index');
 Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products.index');
+Route::get('/settings', [App\Http\Controllers\SettingController::class, 'index'])->name('settings');
+
+// USERS ROUTES
 Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
-Route::get('/settings', [App\Http\Controllers\UserController::class, 'index'])->name('settings');
+Route::get('/show-user/{user}', [App\Http\Controllers\UserController::class, 'showUser'])->name('users.show');
+Route::post('/add-user', [App\Http\Controllers\UserController::class, 'postUser'])->name('users.add');
+Route::put('users/{user}/status', [App\Http\Controllers\UserController::class, 'toggleStatus'])->name('users.toggle-status');
+Route::put('edit-user/{user}', [App\Http\Controllers\UserController::class, 'pustUser'])->name('users.edit');
+Route::delete('/delete-user/{user}', [App\Http\Controllers\MaterialController::class, 'deleteUser'])->name('users.delete');
+

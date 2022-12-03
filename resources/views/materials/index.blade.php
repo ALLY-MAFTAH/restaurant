@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Material
+    Materials
 @endsection
 @section('style')
 @endsection
@@ -118,7 +118,7 @@
                             <td class="">{{ $material->updated_at->format('D, d M Y \a\t H:i:s') }} </td>
                             <td class="text-center">
                                 <form id="toggle-status-form-{{ $material->id }}" method="POST"
-                                    action="{{ route('materials.toggle_status', $material) }}">
+                                    action="{{ route('materials.toggle-status', $material) }}">
                                     <div class="form-check form-switch ">
                                         <input type="hidden" name="status" value="0">
                                         <input type="checkbox" name="status" id="status-switch-{{ $material->id }}"
