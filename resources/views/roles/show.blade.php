@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    User
+    Role
 @endsection
 @section('style')
 @endsection
@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col">
                     <div class=" text-left">
-                        <h5><b>{{ $user->name }}
+                        <h5><b>{{ $role->name }}
                             </b>
                         </h5>
                     </div>
@@ -19,7 +19,7 @@
                     <a href="#" class="btn btn-sm btn-outline-primary collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 
-                        <i class="feather icon-plus"></i> Edit User
+                        <i class="feather icon-plus"></i> Edit Role
 
                     </a>
                 </div>
@@ -30,36 +30,16 @@
                 aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <div class="card mb-1 p-2" style="background: var(--form-bg-color)">
-                        <form method="POST" action="{{ route('users.edit', $user) }}">
+                        <form method="POST" action="{{ route('roles.edit', $role) }}">
                             @method('PUT')
                             @csrf
                             <div class="row">
-                                <div class="text-start mb-1">
-                                    <label for="role_id"
-                                        class=" col-form-label text-sm-start">{{ __('Role') }}</label>
-                                    <select id="role_id" type="text"
-                                        class="form-control form-select @error('role_id') is-invalid @enderror"
-                                        name="role_id" value="{{ old('role_id', $user->role_id) }}"
-                                        required autocomplete="role_id" autofocus>
-                                        @foreach ($roles as $role)
-                                            <option
-                                                value="{{ $role->id }}" {{ $role->id == $user->role_id ? 'selected' : '' }}>
-                                                {{ $role->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('role_id')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="col-sm-4 mb-1">
+                                <div class="col-sm-6 mb-1">
                                     <label for="name" class=" col-form-label text-sm-start">{{ __('Name') }}</label>
                                     <div class="">
                                         <input id="name" type="text" placeholder=""
                                             class="form-control @error('name') is-invalid @enderror" name="name"
-                                            value="{{ old('name', $user->name) }}" required autocomplete="name" autofocus>
+                                            value="{{ old('name',$role->name) }}" required autocomplete="name" autofocus>
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -67,14 +47,14 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-sm-4 mb-1">
-                                    <label for="email"
+                                <div class="col-sm-6 mb-1">
+                                    <label for="description"
                                         class=" col-form-label text-sm-start">{{ __('Description') }}</label>
                                     <div class="">
-                                        <input id="email" type="email" placeholder="Description"
-                                            class="form-control @error('email') is-invalid @enderror" name="email"
-                                            value="{{ old('email', $user->email) }}" required autocomplete="email" autofocus>
-                                        @error('email')
+                                        <input id="description" type="text" placeholder="Description"
+                                            class="form-control @error('description') is-invalid @enderror" name="description"
+                                            value="{{ old('description',$role->description) }}" required autocomplete="description" autofocus>
+                                        @error('description')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -98,19 +78,27 @@
                 <div class="col-md-5">
                     <div class="row">
                         <div class="col-4"><b> Name:</b> </div>
-                        <div class="col-8">{{ $user->name }}</div>
+                        <div class="col-8">{{ $role->name }}</div>
                     </div>
                     <div class="row">
-                        <div class="col-4"><b> Email:</b> </div>
-                        <div class="col-8">{{ $user->email }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-4"><b> Role:</b> </div>
-                        <div class="col-8">{{ $user->role->name }}</div>
+                        <div class="col-4"><b> Description:</b> </div>
+                        <div class="col-8">{{ $role->description }}</div>
                     </div>
                     <div class="row">
                         <div class="col-4"><b> Created:</b> </div>
-                        <div class="col-8">{{ $user->created_at->format('D, d M Y \a\t H:i') }}</div>
+                        <div class="col-8">{{ $role->created_at->format('D, d M Y \a\t H:i') }}</div>
+                    </div>
+                    <div class="row pb-2">
+                        <div class="col-4"><b> Users:</b> </div>
+                        <div class="col-8" style="background: rgb(234, 232, 244); border-radius:5px">
+                            @forelse ($role->users as $user)
+                                <span style="">
+                                    {{ $user->name . ' | ' . $user->email }}
+                                </span><br>
+                            @empty
+                                No User
+                            @endforelse
+                        </div>
                     </div>
                 </div>
                 <div class="col-7">

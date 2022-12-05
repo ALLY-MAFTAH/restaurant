@@ -50,16 +50,23 @@ Route::put('/edit-product/{product}', [App\Http\Controllers\ProductController::c
 Route::delete('/delete-product/{product}', [App\Http\Controllers\ProductController::class, 'deleteProduct'])->name('products.delete');
 Route::put('products/{product}/status', [App\Http\Controllers\ProductController::class, 'toggleStatus'])->name('products.toggle-status');
 
-
-Route::get('/sales', [App\Http\Controllers\SaleController::class, 'index'])->name('sales.index');
-Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products.index');
-Route::get('/settings', [App\Http\Controllers\SettingController::class, 'index'])->name('settings');
-
 // USERS ROUTES
 Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
 Route::get('/show-user/{user}', [App\Http\Controllers\UserController::class, 'showUser'])->name('users.show');
 Route::post('/add-user', [App\Http\Controllers\UserController::class, 'postUser'])->name('users.add');
 Route::put('users/{user}/status', [App\Http\Controllers\UserController::class, 'toggleStatus'])->name('users.toggle-status');
-Route::put('edit-user/{user}', [App\Http\Controllers\UserController::class, 'pustUser'])->name('users.edit');
-Route::delete('/delete-user/{user}', [App\Http\Controllers\MaterialController::class, 'deleteUser'])->name('users.delete');
+Route::put('edit-user/{user}', [App\Http\Controllers\UserController::class, 'putUser'])->name('users.edit');
+Route::delete('/delete-user/{user}', [App\Http\Controllers\UserController::class, 'deleteUser'])->name('users.delete');
 
+// ROLES ROUTES
+Route::get('/roles', [App\Http\Controllers\RoleController::class, 'index'])->name('roles.index');
+Route::get('/show-role/{role}', [App\Http\Controllers\RoleController::class, 'showRole'])->name('roles.show');
+Route::post('/add-role', [App\Http\Controllers\RoleController::class, 'postRole'])->name('roles.add');
+Route::put('roles/{role}/status', [App\Http\Controllers\RoleController::class, 'toggleStatus'])->name('roles.toggle-status');
+Route::put('edit-role/{role}', [App\Http\Controllers\RoleController::class, 'putRole'])->name('roles.edit');
+Route::delete('/delete-role/{role}', [App\Http\Controllers\RoleController::class, 'deleteRole'])->name('roles.delete');
+
+
+Route::get('/sales', [App\Http\Controllers\SaleController::class, 'index'])->name('sales.index');
+Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products.index');
+Route::get('/settings', [App\Http\Controllers\SettingController::class, 'index'])->name('settings');

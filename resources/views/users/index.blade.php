@@ -9,15 +9,23 @@
         <div class=" card-header">
             <div class="row">
                 <div class="col">
-                    <div class=" text-left">
-                        <h5><b>{{ __('USERS') . ' - ' . $users->count() }}
-                            </b>
+                    <div class="text-left">
+                        <h5 class="my-0">
+                            <span class="">
+                                <b>{{ __('USERS') .' - '}}
+                                </b>
+                                <div class="btn btn-icon round"
+                                    style="height: 32px;width:32px;cursor: auto;padding: 0;font-size: 15px;line-height:2rem; border-radius:50%;background-color:rgb(229, 207, 242);color:var(--first-color)">
+                                    {{ $users->count() }}
+                                </div>
+                            </span>
                         </h5>
                     </div>
                 </div>
                 <div class="col text-right">
-                    <a href="#" class="btn btn-sm btn-outline-primary collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <a href="#" class="btn btn-sm btn-outline-primary collapsed" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
+                        aria-controls="collapseTwo">
 
                         <i class="feather icon-plus"></i> Add User
 
@@ -34,9 +42,26 @@
                             @csrf
                             <div class="row">
                                 <div class="col-sm-4 mb-1">
+                                    <label for="role_id" class=" col-form-label text-sm-start">{{ __('Role') }}</label>
+                                    <select id="role_id" type="text"
+                                        class="form-control form-select @error('role_id') is-invalid @enderror"
+                                        name="role_id" value="{{ old('role_id') }}" required autocomplete="role_id"
+                                        autofocus>
+                                        @foreach ($roles as $role)
+                                            <option value="{{ $role->id }}">{{ $role->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('role_id')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-sm-4 mb-1">
                                     <label for="name" class=" col-form-label text-sm-start">{{ __('Name') }}</label>
                                     <div class="">
-                                        <input id="name" type="text" placeholder=""
+                                        <input id="name" type="text" placeholder="Name"
                                             class="form-control @error('name') is-invalid @enderror" name="name"
                                             value="{{ old('name') }}" required autocomplete="name" autofocus>
                                         @error('name')
@@ -46,34 +71,14 @@
                                         @enderror
                                     </div>
                                 </div>
+
                                 <div class="col-sm-4 mb-1">
-                                    <label for="quantity" class=" col-form-label text-sm-start">{{ __('Quantity') }}</label>
-                                    <div class="input-group">
-                                        <input id="quantity" type="number" step="any" placeholder="00"
-                                            class="form-control @error('quantity') is-invalid @enderror" name="quantity"
-                                            value="{{ old('quantity') }}" required autocomplete="quantity" autofocus
-                                            style="float: left;">
-                                        <select class="form-control form-select" name="unit" required
-                                            style="float: left;max-width:115px; width: inaitial; background-color:rgb(238, 238, 242)">
-                                            <option value="Kilograms">Kilograms</option>
-                                            <option value="Litres">Litres</option>
-                                            <option value="Counts">Counts</option>
-                                        </select>
-                                        @error('quantity')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-sm-4 mb-1">
-                                    <label for="cost"
-                                        class=" col-form-label text-sm-start">{{ __('Cost (Tsh)') }}</label>
+                                    <label for="email" class=" col-form-label text-sm-start">{{ __('Email') }}</label>
                                     <div class="">
-                                        <input id="cost" type="number" placeholder="Tsh"
-                                            class="form-control @error('cost') is-invalid @enderror" name="cost"
-                                            value="{{ old('cost') }}" required autocomplete="cost" autofocus>
-                                        @error('cost')
+                                        <input id="email" type="email" placeholder="user@user.com"
+                                            class="form-control @error('email') is-invalid @enderror" name="email"
+                                            value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                        @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -114,7 +119,7 @@
                             <td>{{ ++$index }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td> {{$user->role->name }} </td>
+                            <td> {{ $user->role->name }} </td>
                             <td class="">{{ $user->updated_at->format('D, d M Y \a\t H:i:s') }} </td>
                             <td class="text-center">
                                 <form id="toggle-status-form-{{ $user->id }}" method="POST"
@@ -156,9 +161,29 @@
                                                     @method('PUT')
                                                     @csrf
                                                     <div class="text-start mb-1">
+                                                        <label for="role_id"
+                                                            class=" col-form-label text-sm-start">{{ __('Role') }}</label>
+                                                        <select id="role_id" type="text"
+                                                            class="form-control form-select @error('role_id') is-invalid @enderror"
+                                                            name="role_id" value="{{ old('role_id', $user->role_id) }}"
+                                                            required autocomplete="role_id" autofocus>
+                                                            @foreach ($roles as $role)
+                                                                <option value="{{ $role->id }}"
+                                                                    {{ $role->id == $user->role_id ? 'selected' : '' }}>
+                                                                    {{ $role->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('role_id')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="text-start mb-1">
                                                         <label for="name"
                                                             class=" col-form-label text-sm-start">{{ __('Name') }}</label>
-                                                        <input id="name" type="text" placeholder=""
+                                                        <input id="name" type="text" placeholder="Name"
                                                             class="form-control @error('name') is-invalid @enderror"
                                                             name="name" value="{{ old('name', $user->name) }}"
                                                             required autocomplete="name" autofocus>
@@ -169,43 +194,13 @@
                                                         @enderror
                                                     </div>
                                                     <div class="text-start mb-1">
-                                                        <label for="quantity"
-                                                            class=" col-form-label text-sm-start">{{ __('Quantity') }}</label>
-                                                        <div class="input-group">
-                                                            <input id="quantity" type="number" step="any"
-                                                                placeholder="00"
-                                                                class="form-control @error('quantity') is-invalid @enderror"
-                                                                name="quantity"
-                                                                value="{{ old('quantity', $user->quantity) }}" required
-                                                                autocomplete="quantity" autofocus style="float: left;">
-                                                            <select class="form-control form-select" name="unit"
-                                                                required
-                                                                style="float: left;max-width:115px; width: inaitial; background-color:rgb(238, 238, 242)">
-                                                                <option value="Kilograms"
-                                                                    {{ $user->unit == 'Kilograms' ? 'selected' : '' }}>
-                                                                    Kilograms</option>
-                                                                <option value="Litres"
-                                                                    {{ $user->unit == 'Litres' ? 'selected' : '' }}>
-                                                                    Litres</option>
-                                                                <option value="Counts"
-                                                                    {{ $user->unit == 'Counts' ? 'selected' : '' }}>
-                                                                    Counts</option>
-                                                            </select>
-                                                            @error('quantity')
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $message }}</strong>
-                                                                </span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    <div class="text-start mb-1">
-                                                        <label for="cost"
-                                                            class="col-form-label text-sm-start">{{ __('Cost') }}</label>
-                                                        <input id="cost" type="number" placeholder="Tsh"
-                                                            class="form-control @error('cost', $user->cost) is-invalid @enderror"
-                                                            name="cost" value="{{ old('cost', $user->cost) }}"
-                                                            required autocomplete="cost" autofocus>
-                                                        @error('cost')
+                                                        <label for="email"
+                                                            class="col-form-label text-sm-start">{{ __('Email') }}</label>
+                                                        <input id="email" type="email" placeholder="user@user.com"
+                                                            class="form-control @error('email') is-invalid @enderror"
+                                                            name="email" value="{{ old('email', $user->email) }}"
+                                                            required autocomplete="email" autofocus>
+                                                        @error('email')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>

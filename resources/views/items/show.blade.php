@@ -85,7 +85,7 @@
                             <div class="row mb-1 mt-2">
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-sm btn-outline-primary">
-                                        {{ __('Submit') }}
+                                        {{ __('Update') }}
                                     </button>
                                 </div>
                             </div>

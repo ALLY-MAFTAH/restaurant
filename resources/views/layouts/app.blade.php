@@ -88,7 +88,7 @@
                         class="nav_link {{ request()->routeIs('items.index') || request()->routeIs('items.show') ? 'active' : '' }}">
                         <i class='bx bx-purchase-tag-alt nav_icon'></i> <span class="nav_name">Items</span> </a>
                     <a href="{{ route('products.index') }}"
-                        class="nav_link {{ request()->routeIs('products.index') ? 'active' : '' }}"> <i
+                        class="nav_link {{ request()->routeIs('products.index')|| request()->routeIs('products.show') ? 'active' : '' }}"> <i
                             class='bx bx-cart nav_icon'></i> <span class="nav_name">Products</span>
                     </a>
                     <a href="{{ route('sales.index') }}"
@@ -96,8 +96,12 @@
                         <i class='bx bx-dollar nav_icon'></i> <span class="nav_name">Sales</span>
                     </a>
                     <a href="{{ route('users.index') }}"
-                        class="nav_link {{ request()->routeIs('users.index')|| request()->routeIs('users.show') ? 'active' : '' }}">
+                        class="nav_link {{ request()->routeIs('users.index') || request()->routeIs('users.show') ? 'active' : '' }}">
                         <i class='bx bx-group nav_icon'></i> <span class="nav_name">Users</span>
+                    </a>
+                    <a href="{{ route('roles.index') }}"
+                        class="nav_link {{ request()->routeIs('roles.index') || request()->routeIs('roles.show') ? 'active' : '' }}">
+                        <i class='bx bx-registered nav_icon'></i> <span class="nav_name">Roles</span>
                     </a>
                     <a href="{{ route('settings') }}"
                         class="nav_link {{ request()->routeIs('settings') ? 'active' : '' }}"> <i

@@ -97,10 +97,24 @@
             </div>
 
             <div class="row">
-                <div><b> Name:</b> {{ $material->name }}</div>
-                <div><b> Quantity:</b> {{ $material->quantity . ' ' . $material->unit }}</div>
-                <div><b> Cost:</b> {{ number_format($material->cost, 0, '.', ',') }} Tsh</div>
-                <div><b> Recorded:</b> {{ $material->created_at->format('D, d M Y \a\t H:i') }}</div>
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-4"><b> Name:</b> </div>
+                        <div class="col-8">{{ $material->name }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4"><b> Quantity:</b> </div>
+                        <div class="col-8">{{ $material->quantity . ' ' . $material->unit }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4"><b> Cost:</b> </div>
+                        <div class="col-8">{{ number_format($material->cost, 0, '.', ',') }} Tsh</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4"><b> Created:</b> </div>
+                        <div class="col-8">{{ $material->created_at->format('D, d M Y \a\t H:i') }}</div>
+                    </div>
+                </div>
             </div><br>
             <div class="card">
                 <div class="card-header">Utilization Records</div>

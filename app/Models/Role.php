@@ -17,7 +17,10 @@ class Role extends Model
         'description',
     ];
 
-    public function user()
+    public const ADMIN = 'System Admin';
+    public const CASHIER = 'Restaurant Cashier';
+    
+    public function users()
     {
         return  $this->hasMany (User::class);
     }

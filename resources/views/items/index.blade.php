@@ -10,8 +10,15 @@
             <div class="row">
                 <div class="col">
                     <div class=" text-left">
-                        <h5><b>{{ __('ITEMS') . ' - ' . $items->count() }}
-                            </b>
+                        <h5 class="my-0">
+                            <span class="">
+                                <b>{{ __('ITEMS') .' - '}}
+                                </b>
+                                <div class="btn btn-icon round"
+                                    style="height: 32px;width:32px;cursor: auto;padding: 0;font-size: 15px;line-height:2rem; border-radius:50%;background-color:rgb(229, 207, 242);color:var(--first-color)">
+                                    {{ $items->count() }}
+                                </div>
+                            </span>
                         </h5>
                     </div>
                 </div>
