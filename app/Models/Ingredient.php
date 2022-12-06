@@ -15,7 +15,6 @@ class Ingredient extends Model
         'item_id',
         'material_id',
         'quantity',
-        'price',
         'unit',
         'status',
 

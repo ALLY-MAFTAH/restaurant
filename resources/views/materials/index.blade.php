@@ -62,6 +62,7 @@
                                             style="float: left;">
                                         <select class="form-control form-select" name="unit" required
                                             style="float: left;max-width:115px; width: inaitial; background-color:rgb(238, 238, 242)">
+                                            <option value="">Unit</option>
                                             <option value="Kilograms">Kilograms</option>
                                             <option value="Litres">Litres</option>
                                             <option value="Counts">Counts</option>

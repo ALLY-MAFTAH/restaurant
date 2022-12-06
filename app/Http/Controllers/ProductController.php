@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\Product;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -47,27 +48,30 @@ class ProductController extends Controller
     {
 
         $item = Item::findOrFail($request->input('item_id'));
+        try {
+            $attributes = $this->validate($request, [
+                'container' => 'required',
+                'quantity' => 'required',
+                'unit' => 'required',
+                'price' => 'required',
+                'item_id' => 'required',
+            ]);
 
-        $attributes = $this->validate($request, [
-            'container' => 'required',
-            'quantity' => 'required',
-            'unit' => 'required',
-            'price' => 'required',
-            'item_id' => 'required',
-        ]);
+            $attributes['status'] = true;
 
-        $attributes['status'] = true;
+            $product = Product::create($attributes);
 
-        $product = Product::create($attributes);
+            $item->products()->save($product);
+            $newQuantity = $item->quantity - $product->quantity;
 
-        $item->products()->save($product);
-        $newQuantity = $item->quantity - $product->quantity;
-
-        $item->update([
-            'quantity' => $newQuantity,
-        ]);
-        $item->save();
-
+            $item->update([
+                'quantity' => $newQuantity,
+            ]);
+            $item->save();
+        } catch (QueryException $th) {
+            notify()->error('Product "' . $request->name . '" with quantity of "' . $request->quantity . '" already exists.');
+            return back();
+        }
         notify()->success('You have successful added a product');
 
         return Redirect::back();
@@ -76,26 +80,30 @@ class ProductController extends Controller
     // EDIT PRODUCT
     public function putProduct(Request $request, Product $product)
     {
-        $item=Item::findOrFail($request->item_id);
+        $item = Item::findOrFail($request->item_id);
 
-        // dd('s');
-        $attributes = $this->validate($request, [
-            'container' => 'required',
-            'quantity' => 'required',
-            'unit' => 'required',
-            'price' => 'required',
-        ]);
+        try {
+            $attributes = $this->validate($request, [
+                'container' => 'required',
+                'quantity' => 'required',
+                'unit' => 'required',
+                'price' => 'required',
+            ]);
 
-        $attributes['item_id'] = $item->id;
+            $attributes['item_id'] = $item->id;
 
-        $product->update($attributes);
+            $product->update($attributes);
 
-        $newQuantity = $item->quantity - $product->quantity;
+            $newQuantity = $item->quantity - $product->quantity;
 
-        $item->update([
-            'quantity' => $newQuantity,
-        ]);
-        $item->save();
+            $item->update([
+                'quantity' => $newQuantity,
+            ]);
+            $item->save();
+        } catch (QueryException $th) {
+            notify()->error('Product "' . $request->name . '" with quantity of "' . $request->quantity . '" already exists.');
+            return back();
+        }
         notify()->success('You have successful edited an product');
         return redirect()->back();
     }

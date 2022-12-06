@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ingredient;
 use App\Models\Item;
 use App\Models\Material;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -45,51 +46,39 @@ class ItemController extends Controller
     // POST ITEM
     public function postItem(Request $request)
     {
-
-        $attributes = $this->validate($request, [
-            'name' => 'required',
-            'quantity' => 'required',
-            'unit' => 'required',
-            'cost' => 'required',
-        ]);
-
-        $attributes['status'] = true;
-        $item = Item::create($attributes);
-
-        // Add Item Ingredients
-        $ingredientsIds = $request->input('ids');
-        $ingredientsQuantities = $request->input('quantities');
-        $ingredientsUnits = $request->input('units');
-
-        for ($i = 0; $i < count($ingredientsIds); $i++) {
-
-
-            $ingredient = new Ingredient();
-            $ingredient->quantity = $ingredientsQuantities[$i];
-            $ingredient->unit = $ingredientsUnits[$i];
-            $ingredient->item_id = $item->id;
-            $ingredient->material_id = $ingredientsIds[$i];
-            $ingredient->status = true;
-
-            $item->ingredients()->save($ingredient);
-
-            $material = Material::findOrFail($ingredientsIds[$i]);
-            $newQuantity = $material->quantity - $ingredient->quantity;
-
-            $material->update([
-                'quantity' => $newQuantity,
+        try {
+            $attributes = $this->validate($request, [
+                'name' => 'required',
+                'quantity' => 'required',
+                'unit' => 'required',
+                'cost' => 'required',
             ]);
-            $material->save();
+
+            $attributes['status'] = true;
+            $item = Item::create($attributes);
+        } catch (QueryException $th) {
+            notify()->error('Failed to add item "' . $request->name . '". It already exists.');
+            return back();
         }
+        // Add Item Ingredients
+        try {
 
-        notify()->success('You have successful added an item');
+            self::postIngredients($request, $item);
+            notify()->success('You have successful added an item');
+            return back();
+        } catch (QueryException $th) {
+            $failedId = $th->getBindings()[3];
 
-        return Redirect::back();
+            $material = Material::findOrFail($failedId);
+            notify()->error($material->name . ' already exist in ' . $item->name);
+            return back()->with('error', 'Failed to add ingredient "' . $material->name . '". It already exists in ' . $item->name);
+        }
     }
 
     // EDIT ITEM
     public function putItem(Request $request, Item $item)
     {
+        try{
         $attributes = $this->validate($request, [
             'name' => 'required',
             'quantity' => 'required',
@@ -98,7 +87,10 @@ class ItemController extends Controller
         ]);
 
         $item->update($attributes);
-
+    } catch (QueryException $th) {
+        notify()->error('Failed to edit item. "' . $request->name . '" already exists.');
+        return back();
+    }
         notify()->success('You have successful edited an item');
         return redirect()->back();
     }
@@ -111,33 +103,42 @@ class ItemController extends Controller
         $ingredientsQuantities = $request->input('quantities');
         $ingredientsUnits = $request->input('units');
 
-        for ($i = 0; $i < count($ingredientsIds); $i++) {
+        try {
 
-            $ingredient = new Ingredient();
-            $ingredient->quantity = $ingredientsQuantities[$i];
-            $ingredient->unit = $ingredientsUnits[$i];
-            $ingredient->item_id = $item->id;
-            $ingredient->material_id = $ingredientsIds[$i];
-            $ingredient->status = true;
+            for ($i = 0; $i < count($ingredientsIds); $i++) {
 
-            $item->ingredients()->save($ingredient);
-            $material = Material::findOrFail($ingredientsIds[$i]);
-            $newQuantity = $material->quantity - $ingredient->quantity;
+                $ingredient = new Ingredient();
+                $ingredient->quantity = $ingredientsQuantities[$i];
+                $ingredient->unit = $ingredientsUnits[$i];
+                $ingredient->item_id = $item->id;
+                $ingredient->material_id = $ingredientsIds[$i];
+                $ingredient->status = true;
 
-            $material->update([
-                'quantity' => $newQuantity,
-            ]);
-            $material->save();
+                $item->ingredients()->save($ingredient);
+                $material = Material::findOrFail($ingredientsIds[$i]);
+                $newQuantity = $material->quantity - $ingredient->quantity;
+
+                $material->update([
+                    'quantity' => $newQuantity,
+                ]);
+                $material->save();
+            }
+            notify()->success('You have successful added ingredients in ' . $item->name);
+            return redirect()->back();
+        } catch (QueryException $th) {
+            // dd($th->getBindings());
+            $failedId = $th->getBindings()[3];
+
+            $material = Material::findOrFail($failedId);
+            notify()->error($material->name . ' already exist in ' . $item->name);
+            return back()->with('error', 'Failed to add ingredient "' . $material->name . '". It already exists in ' . $item->name);
         }
-        notify()->success('You have successful updated ' . $item->name . ' ingredients');
-        return redirect()->back();
     }
     // EDIT INGREDIENTS
     public function putIngredients(Request $request, Item $item)
     {
         // Add Item Ingredients
         $ingredientIds = $request->input('ingredient_id');
-        // $ingredientsIds = $request->input('ids');
         $ingredientsQuantities = $request->input('quantities');
         $ingredientsUnits = $request->input('units');
 
@@ -149,7 +150,7 @@ class ItemController extends Controller
             ]);
             $ingredient->save();
 
-            $material = Material::findOrFail($ingredient->material_id );
+            $material = Material::findOrFail($ingredient->material_id);
 
             $newQuantity = $material->quantity - $ingredient->quantity;
 

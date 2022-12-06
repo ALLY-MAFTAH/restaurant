@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Material;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -36,23 +37,27 @@ class MaterialController extends Controller
     }
     public function postMaterial(Request $request)
     {
-        $attributes = $this->validate($request, [
-            'name' => 'required',
-            'quantity' => 'required',
-            'unit' => 'required',
-            'cost' => 'required',
-        ]);
+        try {
+            $attributes = $this->validate($request, [
+                'name' => 'required',
+                'quantity' => 'required',
+                'unit' => 'required',
+                'cost' => 'required',
+            ]);
 
-        $attributes['status'] = true;
-        $material = Material::create($attributes);
-
+            $attributes['status'] = true;
+            $material = Material::create($attributes);
+        } catch (QueryException $th) {
+            notify()->error('Failed to add material "' . $request->name . '". It already exists.');
+            return back();
+        }
         notify()->success('You have successful added material');
 
         return Redirect::back();
-
     }
     public function putMaterial(Request $request, Material $material)
     {
+        try{
         $attributes = $this->validate($request, [
             'name' => 'required',
             'quantity' => 'required',
@@ -61,7 +66,10 @@ class MaterialController extends Controller
         ]);
 
         $material->update($attributes);
-
+    } catch (QueryException $th) {
+        notify()->error('Failed to edit material. "' . $request->name . '" already exists.');
+        return back();
+    }
         notify()->success('You have successful edited material');
         return redirect()->back();
     }
@@ -80,11 +88,10 @@ class MaterialController extends Controller
     public function deleteMaterial(Request $request, Material $material)
     {
 
-        $itsName=$material->name;
+        $itsName = $material->name;
         $material->delete();
 
         notify()->success('You have successful deleted ' . $itsName . '.');
         return back();
     }
 }
-

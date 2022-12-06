@@ -138,6 +138,10 @@
                     </div>
                 </div>
                 <div class="col-md-7">
+                    @if (Session::has('error'))
+                    <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('error') }}
+                    </p>
+                @endif
                     <div class="card"id="edit-form" style="display: none">
                         <div class="card-body">
                             @if ($ingredients->count() == 0)
@@ -309,7 +313,7 @@
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-outline-danger"
                                                         type="button"style="border-top-left-radius: 0%;border-bottom-left-radius: 0%"
-                                                        onclick="if(confirm('{{ $ingredient->name }} will be deleted from this item\'s ingredients.')) document.getElementById('delete-ingredient-{{ $ingredient->id }}').submit()">
+                                                        onclick="if(confirm('{{ $ingredient->material->name }} will be deleted from this item\'s ingredients.')) document.getElementById('delete-ingredient-{{ $ingredient->id }}').submit()">
                                                         <i class="bx bx-trash"></i></button>
 
                                                 </span>

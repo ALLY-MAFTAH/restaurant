@@ -192,6 +192,10 @@
                     </div>
                 </div>
             </div>
+            @if (Session::has('error'))
+            <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('error') }}
+            </p>
+        @endif
             <table id="data-tebo"
                 class="dt-responsive nowrap table table-bordered table-responsive-sm  table-striped table-hover"
                 style="width: 100%">
