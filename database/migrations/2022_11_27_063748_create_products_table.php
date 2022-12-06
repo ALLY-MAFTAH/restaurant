@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('item_id');
-            $table->string('name');
             $table->string('container');
             $table->double('quantity');
             $table->enum('unit', ['Kilograms', 'Litres', 'Counts']);

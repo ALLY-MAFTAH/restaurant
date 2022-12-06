@@ -40,7 +40,7 @@
                             <div class="row">
                                 <div class="col-sm-3 mb-1">
                                     <label for="name" class=" col-form-label text-sm-start">{{ __('Name') }}</label>
-                                    <select id="name" class="form-control form-select" name="name" required
+                                    <select id="name" class="form-control form-select" name="item_id" required
                                         style="float: left; width: inaitial; ">
                                         <option value="">{{ 'Name' }}</option>
                                         @foreach ($items as $item)
@@ -133,7 +133,7 @@
                     @foreach ($products as $index => $product)
                         <tr>
                             <td>{{ ++$index }}</td>
-                            <td>{{ $product->name }}</td>
+                            <td>{{ $product->item->name }}</td>
                             <td>{{ $product->container }}</td>
                             <td>{{ $product->quantity . ' ' . $product->unit }}</td>
                             <td class="text-right">{{ number_format($product->price, 0, '.', ',') }} </td>
@@ -181,10 +181,10 @@
                                                         <label for="name"
                                                             class=" col-form-label text-sm-start">{{ __('Name') }}</label>
                                                         <select id="name" class="form-control form-select"
-                                                            name="name" required autocomplete="container" autofocus>
+                                                            name="item_id" required autocomplete="container" autofocus>
                                                             @foreach ($items as $item)
                                                                 <option
-                                                                    value="{{ $item->name }}"{{ $product->name == $item->name ? 'selected' : '' }}>
+                                                                    value="{{ $item->id }}"{{ $product->item_id == $item->id ? 'selected' : '' }}>
                                                                     {{ $item->name }}</option>
                                                             @endforeach
                                                             @error('name')

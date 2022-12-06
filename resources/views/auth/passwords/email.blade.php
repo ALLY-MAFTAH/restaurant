@@ -1,6 +1,8 @@
 
 @extends('layouts.app')
-
+@section('title')
+    Reset Password
+@endsection
 @section('style')
     <style>
         #body-pd {

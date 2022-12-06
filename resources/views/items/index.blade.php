@@ -93,7 +93,7 @@
                                     <div
                                         class="input-group input-group control-group after-add-more"style="margin-bottom:10px">
                                         <select id="ingredient_name" class="form-control form-select"
-                                            name="ingredient_name[]" required style="float: left; width: inaitial; ">
+                                            name="ids[]" required style="float: left; width: inaitial; ">
                                             <option value="">{{ 'Name' }}</option>
                                             @foreach ($materials as $material)
                                                 <option value="{{ $material->id }}">{{ $material->name }}</option>
@@ -106,7 +106,7 @@
                                         </select>
                                         <input id="ingredient_quantity" type="number" step="any" placeholder="Quantity"
                                             class="form-control @error('ingredient_quantity') is-invalid @enderror"
-                                            name="ingredient_quantity[]" value="{{ old('ingredient_quantity') }}" required
+                                            name="quantities[]" value="{{ old('ingredient_quantity') }}" required
                                             autocomplete="ingredient_quantity" autofocus style="float: left;">
                                         @error('ingredient_quantity')
                                             <span class="invalid-feedback" role="alert">
@@ -114,7 +114,7 @@
                                             </span>
                                         @enderror
                                         <select id="ingredient_unit" class="form-control form-select"
-                                            name="ingredient_unit[]" required
+                                            name="units[]" required
                                             style="float: left; width: inaitial; background-color:rgb(238, 238, 242)">
                                             <option value="">Unit</option>
                                             <option value="Kilograms">Kilograms</option>
@@ -138,7 +138,7 @@
                                 <div class="copy hide">
                                     <div class="input-group control-group" style="margin-bottom:10px">
                                         <select id="ingredient_name" class="form-control form-select"
-                                            name="ingredient_name[]" required style="float: left; width: inaitial; ">
+                                            name="ids[]" required style="float: left; width: inaitial; ">
                                             <option value="">{{ 'Name' }}</option>
                                             @foreach ($materials as $material)
                                                 <option value="{{ $material->id }}">{{ $material->name }}</option>
@@ -152,7 +152,7 @@
                                         <input id="ingredient_quantity" type="number" step="any"
                                             placeholder="Quantity"
                                             class="form-control @error('ingredient_quantity') is-invalid @enderror"
-                                            name="ingredient_quantity[]" value="{{ old('ingredient_quantity') }}"
+                                            name="quantities[]" value="{{ old('ingredient_quantity') }}"
                                             required autocomplete="ingredient_quantity" autofocus style="float: left;">
                                         @error('ingredient_quantity')
                                             <span class="invalid-feedback" role="alert">
@@ -160,7 +160,7 @@
                                             </span>
                                         @enderror
                                         <select id="ingredient_unit" class="form-control form-select"
-                                            name="ingredient_unit[]" required
+                                            name="units[]" required
                                             style="float: left; width: inaitial; background-color:rgb(238, 238, 242)">
                                             <option value="">Unit</option>
                                             <option value="Kilograms">Kilograms</option>

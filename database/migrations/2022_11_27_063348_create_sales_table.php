@@ -16,9 +16,7 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
-            $table->string('product');
-            $table->double('quantity');
-            $table->double('price');
+            $table->string('product_id');
             $table->boolean('status');
             $table->timestamps();
             $table->softDeletes();

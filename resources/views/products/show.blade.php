@@ -36,13 +36,13 @@
                             <div class="row">
                                 <div class="col-sm-3 mb-1">
                                     <label for="name" class=" col-form-label text-sm-start">{{ __('Name') }}</label>
-                                    <select id="name" class="form-control form-select" name="name" required
+                                    <select id="name" class="form-control form-select" name="item_id" required
                                         style="float: left; width: inaitial; ">
                                         <option value="">{{ 'Name' }}</option>
                                         @foreach ($items as $item)
-                                            <option
-                                                value="{{ $item->id }} {{ $item->id == $product->item->id ? 'selected' : '' }} ">
-                                                {{ $item->name }}</option>
+
+                                        <option  value="{{ $item->id }}" {{ $item->id == $product->item_id ? 'selected' : '' }}>
+                                            {{ $item->name }}</option>
                                         @endforeach
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
@@ -117,7 +117,7 @@
                 <div class="col-md-5">
                     <div class="row">
                         <div class="col-4"><b> Name:</b> </div>
-                        <div class="col-8">{{ $product->name }}</div>
+                        <div class="col-8">{{ $product->item->name }}</div>
                     </div>
                     <div class="row">
                         <div class="col-4"><b> Quantity:</b> </div>

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('item_id');
             $table->bigInteger('material_id');
-            $table->string('name');
+            $table->unique(['item_id', 'material_id']);
             $table->double('quantity');
             $table->enum('unit', ['Kilograms', 'Litres', 'Counts']);
             $table->boolean('status');

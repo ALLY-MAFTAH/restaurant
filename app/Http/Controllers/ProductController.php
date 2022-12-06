@@ -45,20 +45,18 @@ class ProductController extends Controller
     // POST PRODUCT
     public function postProduct(Request $request)
     {
-        $itemId = $request->input('name');
 
-        $item = Item::findOrFail($itemId);
-        // dd($item->name);
+        $item = Item::findOrFail($request->input('item_id'));
+
         $attributes = $this->validate($request, [
             'container' => 'required',
             'quantity' => 'required',
             'unit' => 'required',
             'price' => 'required',
+            'item_id' => 'required',
         ]);
 
         $attributes['status'] = true;
-        $attributes['name'] = $item->name;
-        $attributes['item_id'] = $itemId;
 
         $product = Product::create($attributes);
 
@@ -78,17 +76,16 @@ class ProductController extends Controller
     // EDIT PRODUCT
     public function putProduct(Request $request, Product $product)
     {
-        $item=Item::where('name',$request->name)->first();
+        $item=Item::findOrFail($request->item_id);
 
+        // dd('s');
         $attributes = $this->validate($request, [
-            'name' => 'required',
             'container' => 'required',
             'quantity' => 'required',
             'unit' => 'required',
             'price' => 'required',
         ]);
 
-        $attributes['name'] = $item->name;
         $attributes['item_id'] = $item->id;
 
         $product->update($attributes);

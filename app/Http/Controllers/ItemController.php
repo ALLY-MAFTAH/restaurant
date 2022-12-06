@@ -38,7 +38,6 @@ class ItemController extends Controller
         $items = Item::all();
         $materials = Material::where('status', 1)->get();
         $ingredients = $item->ingredients;
-        // dd($ingredients);
 
         return view('items.show', compact('items', 'item', 'ingredients', 'materials'));
     }
@@ -58,16 +57,14 @@ class ItemController extends Controller
         $item = Item::create($attributes);
 
         // Add Item Ingredients
-        $ingredientsIds = $request->input('ingredient_name');
-        $ingredientsQuantities = $request->input('ingredient_quantity');
-        $ingredientsUnits = $request->input('ingredient_unit');
-
+        $ingredientsIds = $request->input('ids');
+        $ingredientsQuantities = $request->input('quantities');
+        $ingredientsUnits = $request->input('units');
 
         for ($i = 0; $i < count($ingredientsIds); $i++) {
-            // dd($i);
-            $material = Material::findOrFail($ingredientsIds[$i]);
+
+
             $ingredient = new Ingredient();
-            $ingredient->name = $material->name;
             $ingredient->quantity = $ingredientsQuantities[$i];
             $ingredient->unit = $ingredientsUnits[$i];
             $ingredient->item_id = $item->id;
@@ -75,6 +72,8 @@ class ItemController extends Controller
             $ingredient->status = true;
 
             $item->ingredients()->save($ingredient);
+
+            $material = Material::findOrFail($ingredientsIds[$i]);
             $newQuantity = $material->quantity - $ingredient->quantity;
 
             $material->update([
@@ -107,18 +106,14 @@ class ItemController extends Controller
     // POST INGREDIENTS
     public function postIngredients(Request $request, Item $item)
     {
-        // dd('d');
-
         // Add Item Ingredients
-        $ingredientsIds = $request->input('ingredient_name');
-        $ingredientsQuantities = $request->input('ingredient_quantity');
-        $ingredientsUnits = $request->input('ingredient_unit');
+        $ingredientsIds = $request->input('ids');
+        $ingredientsQuantities = $request->input('quantities');
+        $ingredientsUnits = $request->input('units');
 
         for ($i = 0; $i < count($ingredientsIds); $i++) {
-            // dd($i);
-            $material = Material::findOrFail($ingredientsIds[$i]);
+
             $ingredient = new Ingredient();
-            $ingredient->name = $material->name;
             $ingredient->quantity = $ingredientsQuantities[$i];
             $ingredient->unit = $ingredientsUnits[$i];
             $ingredient->item_id = $item->id;
@@ -126,6 +121,7 @@ class ItemController extends Controller
             $ingredient->status = true;
 
             $item->ingredients()->save($ingredient);
+            $material = Material::findOrFail($ingredientsIds[$i]);
             $newQuantity = $material->quantity - $ingredient->quantity;
 
             $material->update([
@@ -139,24 +135,21 @@ class ItemController extends Controller
     // EDIT INGREDIENTS
     public function putIngredients(Request $request, Item $item)
     {
-        // dd($item->name);
-
         // Add Item Ingredients
-        $ingredientsIds = $request->input('ingredient_id');
-        $ingredientsNames = $request->input('ingredient_name');
-        $ingredientsQuantities = $request->input('ingredient_quantity');
-        $ingredientsUnits = $request->input('ingredient_unit');
+        $ingredientIds = $request->input('ingredient_id');
+        // $ingredientsIds = $request->input('ids');
+        $ingredientsQuantities = $request->input('quantities');
+        $ingredientsUnits = $request->input('units');
 
-        for ($i = 0; $i < count($ingredientsIds); $i++) {
-            $ingredient = Ingredient::findOrFail($ingredientsIds[$i]);
+        for ($i = 0; $i < count($ingredientIds); $i++) {
+            $ingredient = Ingredient::findOrFail($ingredientIds[$i]);
             $ingredient->update([
-                'name' => $ingredientsNames[$i],
                 'quantity' => $ingredientsQuantities[$i],
                 'unit' => $ingredientsUnits[$i],
             ]);
             $ingredient->save();
-            
-            $material = Material::where('name', $ingredientsNames[$i])->first();
+
+            $material = Material::findOrFail($ingredient->material_id );
 
             $newQuantity = $material->quantity - $ingredient->quantity;
 

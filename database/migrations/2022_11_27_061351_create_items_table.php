@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->double('quantity');
             $table->double('cost');
             $table->enum('unit', ['Kilograms', 'Litres', 'Counts']);
