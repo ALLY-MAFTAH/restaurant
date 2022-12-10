@@ -7,53 +7,78 @@
 @section('content')
     <div class="card">
         <div class="text-center card-header">
-            <h5 class="my-0">
-                <b>{{ __("TODAY'S PRODUCTS") }}</b>
-            </h5>
+            <h4 class="my-0">
+                <b>{{ __('PRODUCTS AVAILABLE FOR SELL') }}</b>
+            </h4>
         </div>
         <div class="card-body px-2">
-
-
             @foreach ($items as $index => $item)
-                <div class="card my-3 shadow">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-3" style="font-size: 22px;font-weight:bolder">{{ $item->name }}</div>
-                            <div class="col-md-8 ">
-                                <div class="row ">
-                                    @foreach ($item->products as $product)
-                                        <div class=" col text-center">
-                                            <div class="py-2 px-1"
-                                                style="position:absolut; background:orange; border-radius:10px;">
-                                                <div class=" ">
-                                                    <div class="text-white">
-                                                        <h4> {{ number_format($product->price, 0, '.', ',') }} Tsh</h4>
+                @if ($item->products->count() != 0)
+                    <div class="card my-2" style="background-image: linear-gradient(to right, white,rgb(212, 208, 238));">
+                        <div class="card-body my-1 py-0">
+                            <div class="row"style="align-items:center;">
+                                <div class="col-md-3">
+                                    <div style="background:white;">
+                                        <h4 style="font-weight:bolder;font-size: 22px;">{{ $item->name }}</h4>
+                                        <div style="color:rgb(118, 7, 7); font-size: 15px;">Remained Amount:
+                                            <b>{{ $item->quantity }} </b> {{ $item->unit }}
+                                        </div>
+                                        <a href="{{ route('items.show', $item) }}" style="text-decoration: none">View</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-9 ">
+                                    <div class="row ">
+                                        @foreach ($item->products as $product)
+                                            <div class=" col text-center ">
+                                                <div class="py-2 px-1 my-1 shadow"
+                                                    style="max-width:260px; background:white;  border-radius:5px;">
+                                                    <div class="row pb-2">
+                                                        <span class="col text-start "
+                                                            style="color: green; font-weight:bold;">
+                                                            {{ $product->quantity . ' ' . $product->unit }}
+                                                        </span>
+                                                        <span class="col-1"></span>
+                                                        <span class="col text-end" style="color: rgb(243, 119, 4);">
+                                                            <b> {{ number_format($product->price, 0, '.', ',') }}</b> Tsh
+                                                        </span>
                                                     </div>
-                                                </div>
-                                                <div class="">
-                                                    <div class="">
-                                                        <h3> {{ $product->quantity . ' ' . $product->unit }} </h3>
-                                                    </div>
-                                                </div>
-                                                <div class="">
-                                                    <div class="">
-                                                        <button href="#" class="btn btn-primary mx-1 my-1">
-                                                         1 {{ $product->container }}
-                                                        </button>
-                                                        <button href="#" class="btn  btn-primary mx-1">
-                                                        2 {{ $product->container }}
-                                                        </button>
-                                                    </div>
+                                                    <div style="display:none">{{ $totalAmount = 0 }}</div>
+                                                    @for ($i = 1; $i <= 3; $i++)
+                                                        <div style="display:none">{{ $totalAmount += $product->quantity }}
+                                                        </div>
+                                                        @if ($totalAmount > $product->item->quantity)
+                                                            <span class="d-inline-block" tabindex="0"
+                                                                data-toggle="tooltip"
+                                                                title="{{ $product->item->name . ' sold out.' }}">
+                                                                <button href="#" class="btn btn-sm btn-primary my-1"
+                                                                    style="opacity: var(--bs-btn-disabled-opacity);cursor:auto;pointer-events: none;">
+                                                                    {{ $i . ' ' . $product->container }}
+
+                                                                </button>
+                                                            </span>
+                                                        @else
+                                                            <button href="#" class="btn btn-sm btn-primary my-1"
+                                                                onclick="document.getElementById('sell-{{ $product->id }}-{{ $i }}').submit()">
+                                                                {{ $i . ' ' . $product->container }}
+                                                                <form id="sell-{{ $product->id }}-{{ $i }}"
+                                                                    method="post"
+                                                                    action="{{ route('products.sell', $product) }}">@csrf
+                                                                    @method('post')
+                                                                    <input hidden type="number" name="iteration"
+                                                                        value="{{ $i }}">
+                                                                </form>
+                                                            </button>
+                                                        @endif
+                                                    @endfor
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-1"></div>
                         </div>
                     </div>
-                </div>
+                @endif
             @endforeach
         </div>
     </div>
@@ -94,89 +119,21 @@
                 <thead>
                     <th style="max-width: 20px">#</th>
                     <th>Name</th>
-                    <th>Container</th>
                     <th>Quantity</th>
                     <th class="text-right">Price (Tsh)</th>
-                    <th>Last Updated</th>
-                    <th style="max-width: 50px">Status</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th>Date</th>
+                    <th>Issued By</th>
 
                 </thead>
                 <tbody>
-                    @foreach ($products as $index => $product)
+                    @foreach ($sales as $index => $sale)
                         <tr>
                             <td>{{ ++$index }}</td>
-                            <td>{{ $product->name }}</td>
-                            <td>{{ $product->container }}</td>
-                            <td>{{ $product->quantity . ' ' . $product->unit }}</td>
-                            <td class="text-right">{{ number_format($product->price, 0, '.', ',') }} </td>
-                            <td class="">{{ $product->updated_at->format('D, d M Y \a\t H:i:s') }} </td>
-                            <td class="text-center">
-                                <form id="toggle-status-form-{{ $product->id }}" method="POST"
-                                    action="{{ route('products.toggle-status', $product) }}">
-                                    <div class="form-check form-switch ">
-                                        <input type="hidden" name="status" value="0">
-                                        <input type="checkbox" name="status" id="status-switch-{{ $product->id }}"
-                                            class="form-check-input " @if ($product->status) checked @endif
-                                            @if ($product->trashed()) disabled @endif value="1"
-                                            onclick="this.form.submit()" />
-                                    </div>
-                                    @csrf
-                                    @method('PUT')
-                                </form>
-                            </td>
-                            <td>
-                                <a href="{{ route('products.show', $product) }}"
-                                    class="btn btn-sm btn-outline-info collapsed" type="button">
-                                    <i class="feather icon-edit"></i> View
-                                </a>
-                            </td>
-                            <td class="text-center">
-                                <a href="#" class="btn btn-sm btn-outline-primary collapsed" type="button"
-                                    data-bs-toggle="modal" data-bs-target="#editModal-{{ $product->id }}"
-                                    aria-expanded="false" aria-controls="collapseTwo">
-                                    <i class="feather icon-edit"></i> Edit
-                                </a>
-                                <div class="modal modal-sm fade" id="editModal-{{ $product->id }}" tabindex="-1"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form method="POST" action="{{ route('products.edit', $product) }}">
-                                                    @method('PUT')
-                                                    @csrf
-
-
-
-                                                    <div class="row mb-1 mt-2">
-                                                        <div class="text-center">
-                                                            <button type="submit" class="btn btn-sm btn-outline-primary">
-                                                                {{ __('Submit') }}
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="text-center">
-                                <a href="#" class="btn btn-sm btn-outline-danger"
-                                    onclick="if(confirm('Are you sure want to delete {{ $product->name }}?')) document.getElementById('delete-product-{{ $product->id }}').submit()">
-                                    <i class="f"></i>Delete
-                                </a>
-                                <form id="delete-product-{{ $product->id }}" method="post"
-                                    action="{{ route('products.delete', $product) }}">@csrf @method('delete')
-                                </form>
-                            </td>
+                            <td>{{ $sale->product->item->name }}</td>
+                            <td>{{ $sale->product->container . ' of ' .$sale->product->quantity . ' ' . $sale->product->unit }}</td>
+                            <td class="text-right">{{ number_format($sale->product->price, 0, '.', ',') }} </td>
+                            <td class="">{{ $sale->created_at->format('D, d M Y \a\t H:i:s') }} </td>
+                            <td>{{ $sale->user->name . ' (' . $sale->user->role->name . ')' }}</td>
                         </tr>
                     @endforeach
                 </tbody>

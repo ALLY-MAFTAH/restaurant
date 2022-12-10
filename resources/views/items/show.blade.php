@@ -10,14 +10,16 @@
             <div class="row">
                 <div class="col">
                     <div class=" text-left">
-                        <h5><b>{{ $item->name }}
-                            </b>
-                        </h5>
+                        <a href="{{ route('items.index') }}" style="text-decoration: none;font-size:15px">
+                            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                            Back
+                        </a>
                     </div>
                 </div>
                 <div class="col text-right">
-                    <a href="#" class="btn btn-sm btn-outline-primary collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <a href="#" class="btn btn-sm btn-outline-primary collapsed" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
+                        aria-controls="collapseTwo">
 
                         <i class="feather icon-plus"></i> Edit Item
 
@@ -124,7 +126,8 @@
                             @endforelse
                             <div class="text-end">
                                 @if ($ingredients->count() == 0)
-                                    <a id="edit-btn" href="#" style="text-decoration: none;" onclick="showForm1()">
+                                    <a id="edit-btn" href="#" style="text-decoration: none;"
+                                        onclick="showForm1()">
                                         Add Ingredients
                                     </a>
                                 @else
@@ -139,9 +142,9 @@
                 </div>
                 <div class="col-md-7">
                     @if (Session::has('error'))
-                    <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('error') }}
-                    </p>
-                @endif
+                        <p class="alert {{ Session::get('alert-class', 'alert-danger') }}">{{ Session::get('error') }}
+                        </p>
+                    @endif
                     <div class="card"id="edit-form" style="display: none">
                         <div class="card-body">
                             @if ($ingredients->count() == 0)
@@ -152,8 +155,7 @@
                                             <div
                                                 class="input-group input-group control-group after-add-more"style="margin-bottom:10px">
                                                 <select id="ingredient_name" class="form-control form-select"
-                                                    name="ids[]" required
-                                                    style="float: left; width: inaitial; ">
+                                                    name="ids[]" required style="float: left; width: inaitial; ">
                                                     <option value="">{{ 'Name' }}</option>
                                                     @foreach ($materials as $material)
                                                         <option value="{{ $material->id }}">{{ $material->name }}
@@ -168,9 +170,8 @@
                                                 <input id="ingredient_quantity" type="number" step="any"
                                                     placeholder="Quantity"
                                                     class="form-control @error('ingredient_quantity') is-invalid @enderror"
-                                                    name="quantities[]" value="{{ old('ingredient_quantity') }}"
-                                                    required autocomplete="ingredient_quantity" autofocus
-                                                    style="float: left;">
+                                                    name="quantities[]" value="{{ old('ingredient_quantity') }}" required
+                                                    autocomplete="ingredient_quantity" autofocus style="float: left;">
                                                 @error('ingredient_quantity')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -201,8 +202,7 @@
                                         <div class="copy hide">
                                             <div class="input-group control-group" style="margin-bottom:10px">
                                                 <select id="ingredient_name" class="form-control form-select"
-                                                    name="ids[]" required
-                                                    style="float: left; width: inaitial; ">
+                                                    name="ids[]" required style="float: left; width: inaitial; ">
                                                     <option value="">{{ 'Name' }}</option>
                                                     @foreach ($materials as $material)
                                                         <option value="{{ $material->id }}">{{ $material->name }}
@@ -217,9 +217,8 @@
                                                 <input id="ingredient_quantity" type="number" step="any"
                                                     placeholder="Quantity"
                                                     class="form-control @error('ingredient_quantity') is-invalid @enderror"
-                                                    name="quantities[]" value="{{ old('ingredient_quantity') }}"
-                                                    required autocomplete="ingredient_quantity" autofocus
-                                                    style="float: left;">
+                                                    name="quantities[]" value="{{ old('ingredient_quantity') }}" required
+                                                    autocomplete="ingredient_quantity" autofocus style="float: left;">
                                                 @error('ingredient_quantity')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -265,8 +264,7 @@
                                                 <input hidden name="ingredient_id[]" value="{{ $ingredient->id }}"
                                                     type="text">
                                                 <select disabled id="ingredient_name" class="form-control forsm-select"
-                                                    name="ids[]" required
-                                                    style="float: left; width: inaitial; ">
+                                                    name="ids[]" required style="float: left; width: inaitial; ">
                                                     @foreach ($materials as $material)
                                                         <option
                                                             value="{{ $material->id }}"{{ $ingredient->material_id == $material->id ? 'selected' : '' }}>
@@ -343,8 +341,8 @@
                                     <!-- Copy Fields -->
                                     <div class="copy hide">
                                         <div class="input-group control-group" style="margin-bottom:10px">
-                                            <select id="ingredient_name" class="form-control form-select"
-                                                name="ids[]" required style="float: left; width: inaitial; ">
+                                            <select id="ingredient_name" class="form-control form-select" name="ids[]"
+                                                required style="float: left; width: inaitial; ">
                                                 <option value="">{{ 'Name' }}</option>
                                                 @foreach ($materials as $material)
                                                     <option value="{{ $material->id }}">{{ $material->name }}</option>
@@ -358,16 +356,15 @@
                                             <input id="ingredient_quantity" type="number" step="any"
                                                 placeholder="Quantity"
                                                 class="form-control @error('ingredient_quantity') is-invalid @enderror"
-                                                name="quantities[]" value="{{ old('ingredient_quantity') }}"
-                                                required autocomplete="ingredient_quantity" autofocus
-                                                style="float: left;">
+                                                name="quantities[]" value="{{ old('ingredient_quantity') }}" required
+                                                autocomplete="ingredient_quantity" autofocus style="float: left;">
                                             @error('ingredient_quantity')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                            <select id="ingredient_unit" class="form-control form-select"
-                                                name="units[]" required
+                                            <select id="ingredient_unit" class="form-control form-select" name="units[]"
+                                                required
                                                 style="float: left; width: inaitial; background-color:rgb(238, 238, 242)">
                                                 <option value="">Unit</option>
                                                 <option value="Kilograms">Kilograms</option>

@@ -66,7 +66,10 @@ Route::put('roles/{role}/status', [App\Http\Controllers\RoleController::class, '
 Route::put('edit-role/{role}', [App\Http\Controllers\RoleController::class, 'putRole'])->name('roles.edit');
 Route::delete('/delete-role/{role}', [App\Http\Controllers\RoleController::class, 'deleteRole'])->name('roles.delete');
 
-
+// SALEs ROUTES
 Route::get('/sales', [App\Http\Controllers\SaleController::class, 'index'])->name('sales.index');
+Route::post('/sell-product/{product}', [App\Http\Controllers\SaleController::class, 'sellProduct'])->name('products.sell');
+
+
 Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products.index');
 Route::get('/settings', [App\Http\Controllers\SettingController::class, 'index'])->name('settings');

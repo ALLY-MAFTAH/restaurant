@@ -14,8 +14,8 @@
 @section('content')
     <div class="row justify-content-md-center">
         <div class="col-sm-3 pr-5">
-            <div class=" shadow-lg card"style="min-width: 250px">
-                <div class="card-header text-center" style="color: var(--first-color); font-weight:bold">
+            <div class=" shadow-lg card"style="min-width: 250px; ">
+                <div class="card-header text-center" style="background:rgb(185, 185, 247); color: var(--first-color); font-weight:bold">
                     {{ __('Login') }}
                 </div>
 

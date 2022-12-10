@@ -143,7 +143,13 @@ a {
 }
 
 .body-pd {
-    padding-left: calc(var(--nav-width) + 1rem)
+    padding-left: calc(var(--nav-width) + 1rem);
+
+}
+
+#body-pd {
+    background-color: white;
+
 }
 
 .active {
@@ -228,6 +234,8 @@ a {
 .btn.btn-primary:hover {
     background-color: var(--first-color);
     color: white;
+    transition: transform .2s;
+    transform: scale(1.1);
 }
 
 .btn.btn-outline-primary {
@@ -242,4 +250,22 @@ a {
 div.dataTables_wrapper div.dataTables_length select {
 
     margin-bottom: 7px;
+}
+
+textarea:focus,
+a.btn.btn-sm:focus,
+button.btn.btn-sm:focus,
+textarea.form-control:focus,
+input.form-control:focus,
+select.form-control:focus,
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=email]:focus,
+input[type=number]:focus,
+[type=text].form-control:focus,
+[type=password].form-control:focus,
+[type=email].form-control:focus,
+[type=tel].form-control:focus,
+[contenteditable].form-control:focus {
+    box-shadow: inset 0 -1px 0 #ddd;
 }

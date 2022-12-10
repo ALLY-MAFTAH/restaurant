@@ -12,6 +12,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/logo.png') }}">
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <script src="https://use.fontawesome.com/3076bdb328.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css">
@@ -88,12 +89,12 @@
                         class="nav_link {{ request()->routeIs('items.index') || request()->routeIs('items.show') ? 'active' : '' }}">
                         <i class='bx bx-purchase-tag-alt nav_icon'></i> <span class="nav_name">Items</span> </a>
                     <a href="{{ route('products.index') }}"
-                        class="nav_link {{ request()->routeIs('products.index')|| request()->routeIs('products.show') ? 'active' : '' }}"> <i
-                            class='bx bx-cart nav_icon'></i> <span class="nav_name">Products</span>
+                        class="nav_link {{ request()->routeIs('products.index') || request()->routeIs('products.show') ? 'active' : '' }}">
+                        <i class='fa fa-product-hunt fa-lg nav_icon'></i> <span class="nav_name">Products</span>
                     </a>
                     <a href="{{ route('sales.index') }}"
                         class="nav_link {{ request()->routeIs('sales.index') ? 'active' : '' }}">
-                        <i class='bx bx-dollar nav_icon'></i> <span class="nav_name">Sales</span>
+                        <i class='bx bx-cart nav_icon'></i> <span class="nav_name">Sales</span>
                     </a>
                     <a href="{{ route('users.index') }}"
                         class="nav_link {{ request()->routeIs('users.index') || request()->routeIs('users.show') ? 'active' : '' }}">
@@ -128,10 +129,6 @@
     <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap5.min.js"></script>
-
-
-
-
 
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {
@@ -200,6 +197,11 @@
             });
 
         });
+    </script>
+    <script>
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
     </script>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     {{-- @vite(['resources/js/app.js']) --}}

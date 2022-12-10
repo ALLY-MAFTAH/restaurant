@@ -12,7 +12,7 @@
                     <div class=" text-left">
                         <h5 class="my-0">
                             <span class="">
-                                <b>{{ __('PRODUCTS') .' - '}}
+                                <b>{{ __('PRODUCTS') . ' - ' }}
                                 </b>
                                 <div class="btn btn-icon round"
                                     style="height: 32px;width:32px;cursor: auto;padding: 0;font-size: 15px;line-height:2rem; border-radius:50%;background-color:rgb(229, 207, 242);color:var(--first-color)">
@@ -23,8 +23,9 @@
                     </div>
                 </div>
                 <div class="col text-right">
-                    <a href="#" class="btn btn-sm btn-outline-primary collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <a href="#" class="btn btn-sm btn-outline-primary collapsed" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
+                        aria-controls="collapseTwo">
                         <i class="feather icon-plus"></i> Add Product
                     </a>
                 </div>

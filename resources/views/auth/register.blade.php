@@ -7,7 +7,7 @@
         #body-pd {
             background: rgb(72, 11, 176);
             /* For browsers that do not support gradients */
-            background-image: linear-gradient(to bottom right, rgb(72, 11, 176), rgb(72, 11, 176), rgb(107, 36, 231),white, white);
+            background-image: linear-gradient(to bottom right, rgb(72, 11, 176), rgb(72, 11, 176), rgb(107, 36, 231), white, white);
         }
     </style>
 @endsection
@@ -15,7 +15,8 @@
     <div class="row justify-content-md-center">
         <div class="col-sm-3 pr-5">
             <div class="shadow card" style="min-width: 250px">
-                <div class="card-header text-center" style="color: var(--first-color); font-weight:bold">{{ __('Register') }}
+                <div class="card-header text-center" style="background:rgb(185, 185, 247); color: var(--first-color); font-weight:bold">
+                    {{ __('Register') }}
                 </div>
 
                 <div class="card-body">
@@ -104,5 +105,5 @@
 @endsection
 <div class="text-center text-bold pt-4" style="color:white">
     <h1 style="text-shadow: 3px 3px rgb(50, 49, 49);font-family:Verdana, Geneva, Tahoma, sans-serif;"><b>
-        TANGA RAHA RESTAURANT</b></h1>
+            TANGA RAHA RESTAURANT</b></h1>
 </div>

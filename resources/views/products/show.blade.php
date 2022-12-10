@@ -10,9 +10,10 @@
             <div class="row">
                 <div class="col">
                     <div class=" text-left">
-                        <h5><b>{{ $product->name }}
-                            </b>
-                        </h5>
+                        <a href="{{ route('products.index') }}" style="text-decoration: none;font-size:15px">
+                            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                            Back
+                        </a>
                     </div>
                 </div>
                 <div class="col text-right">

@@ -38,7 +38,6 @@ class ProductController extends Controller
         $products = Product::all();
         $items = Item::where('status', 1)->get();
         $ingredients = $product->ingredients;
-        // dd($ingredients);
 
         return view('products.show', compact('products', 'product', 'ingredients', 'items'));
     }
@@ -107,7 +106,6 @@ class ProductController extends Controller
         notify()->success('You have successful edited an product');
         return redirect()->back();
     }
-
 
     // TOGGLE PRODUCT STATUS
     public function toggleStatus(Request $request, Product $product)
