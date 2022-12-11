@@ -6,6 +6,7 @@ use App\Models\Item;
 use App\Models\Product;
 use App\Models\Sale;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
@@ -25,13 +26,44 @@ class SaleController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $sales = Sale::latest()->get();
-        $items = Item::where('status', 1)->get();
-        $products = Product::where('status', 1)->get();
 
-        return view('sales.index', compact('sales', 'products', 'items'));
+        $filteredItemName = "";
+        $filteredDate = Carbon::now('GMT+3')->toDateString();
+        $selectedItemName = "";
+        $selectedDate = "";
+
+        $filteredItemName = $request->get('filteredItemName', "All Products");
+        $filteredDate = $request->get('filteredDate', "All Days");
+
+        if ($filteredDate == null) {
+            $filteredDate = "All Days";
+        }
+        $filteredItem = Item::where('name', $filteredItemName)->first();
+
+        if ($filteredDate != "All Days" && $filteredItemName != "All Products") {
+            $sales = Sale::whereHas('product', function ($q) use ($filteredItem) {
+                $q->where('item_id', $filteredItem->id);
+            })->where('date', $filteredDate)->latest()->get();
+        } elseif ($filteredDate == "All Days" && $filteredItemName != "All Products") {
+            $sales = Sale::whereHas('product', function ($q) use ($filteredItem) {
+                $q->where('item_id', $filteredItem->id);
+            })->latest()->get();
+        } elseif ($filteredItemName == "All Products" && $filteredDate != "All Days") {
+            $sales = Sale::where('date', $filteredDate)->latest()->get();
+        } else {
+            $sales = Sale::latest()->get();
+        }
+        $selectedItemName = $filteredItemName;
+        $selectedDate = $filteredDate;
+
+        $items = Item::where('quantity', '>', 0)->get();
+        $allItems = Item::all();
+        $products = Product::where('status', 1)->get();
+        // dd($filteredItemName);
+
+        return view('sales.index', compact('sales', 'products', 'items','allItems', 'filteredDate', 'filteredItemName', 'selectedItemName', 'selectedDate'));
     }
 
     // SELL PRODUCT
@@ -61,6 +93,7 @@ class SaleController extends Controller
                 // Record sell
                 $attributes['product_id'] = $product->id;
                 $attributes['user_id'] = Auth::user()->id;
+                $attributes['date'] = Carbon::now('GMT+3')->toDateString();
                 $attributes['status'] = true;
                 $sell = Sale::create($attributes);
             }

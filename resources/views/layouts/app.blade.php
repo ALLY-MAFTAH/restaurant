@@ -12,11 +12,9 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/logo.png') }}">
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <script src="https://use.fontawesome.com/3076bdb328.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 
 
     @notifyCss
@@ -124,6 +122,8 @@
     <x:notify-messages />
     @yield('scripts')
     @notifyJs
+    <script src="https://use.fontawesome.com/3076bdb328.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
@@ -132,13 +132,11 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {
-
             const showNavbar = (toggleId, navId, bodyId, headerId) => {
                 const toggle = document.getElementById(toggleId),
                     nav = document.getElementById(navId),
                     bodypd = document.getElementById(bodyId),
                     headerpd = document.getElementById(headerId)
-
                 // Validate that all variables exist
                 if (toggle && nav && bodypd && headerpd) {
                     toggle.addEventListener('click', () => {
@@ -153,12 +151,9 @@
                     })
                 }
             }
-
             showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
-
             /*===== LINK ACTIVE =====*/
             const linkColor = document.querySelectorAll('.nav_link')
-
             function colorLink() {
                 if (linkColor) {
                     linkColor.forEach(l => l.classList.remove('active'))
@@ -204,7 +199,6 @@
         })
     </script>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    {{-- @vite(['resources/js/app.js']) --}}
 
 </body>
 

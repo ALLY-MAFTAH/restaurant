@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
+            $table->date('date');
             $table->string('product_id');
             $table->boolean('status');
             $table->timestamps();

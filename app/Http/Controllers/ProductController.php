@@ -61,12 +61,6 @@ class ProductController extends Controller
             $product = Product::create($attributes);
 
             $item->products()->save($product);
-            $newQuantity = $item->quantity - $product->quantity;
-
-            $item->update([
-                'quantity' => $newQuantity,
-            ]);
-            $item->save();
         } catch (QueryException $th) {
             notify()->error('Product "' . $request->name . '" with quantity of "' . $request->quantity . '" already exists.');
             return back();
@@ -93,12 +87,6 @@ class ProductController extends Controller
 
             $product->update($attributes);
 
-            $newQuantity = $item->quantity - $product->quantity;
-
-            $item->update([
-                'quantity' => $newQuantity,
-            ]);
-            $item->save();
         } catch (QueryException $th) {
             notify()->error('Product "' . $request->name . '" with quantity of "' . $request->quantity . '" already exists.');
             return back();
