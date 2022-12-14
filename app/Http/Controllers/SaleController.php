@@ -43,13 +43,9 @@ class SaleController extends Controller
         $filteredItem = Item::where('name', $filteredItemName)->first();
 
         if ($filteredDate != "All Days" && $filteredItemName != "All Products") {
-            $sales = Sale::whereHas('product', function ($q) use ($filteredItem) {
-                $q->where('item_id', $filteredItem->id);
-            })->where('date', $filteredDate)->latest()->get();
+            $sales = Sale::where(['item_id' => $filteredItem->id, 'date' => $filteredDate])->latest()->get();
         } elseif ($filteredDate == "All Days" && $filteredItemName != "All Products") {
-            $sales = Sale::whereHas('product', function ($q) use ($filteredItem) {
-                $q->where('item_id', $filteredItem->id);
-            })->latest()->get();
+            $sales = Sale::where('item_id', $filteredItem->id)->latest()->get();
         } elseif ($filteredItemName == "All Products" && $filteredDate != "All Days") {
             $sales = Sale::where('date', $filteredDate)->latest()->get();
         } else {
@@ -63,7 +59,7 @@ class SaleController extends Controller
         $products = Product::where('status', 1)->get();
         // dd($filteredItemName);
 
-        return view('sales.index', compact('sales', 'products', 'items','allItems', 'filteredDate', 'filteredItemName', 'selectedItemName', 'selectedDate'));
+        return view('sales.index', compact('sales', 'products', 'items', 'allItems', 'filteredDate', 'filteredItemName', 'selectedItemName', 'selectedDate'));
     }
 
     // SELL PRODUCT
@@ -74,7 +70,6 @@ class SaleController extends Controller
         for ($j = 0; $j < $length; $j++) {
             $totalAmount += $product->quantity;
         }
-
         try {
             for ($i = 0; $i < $length; $i++) {
 
@@ -91,17 +86,26 @@ class SaleController extends Controller
                 }
 
                 // Record sell
-                $attributes['product_id'] = $product->id;
-                $attributes['user_id'] = Auth::user()->id;
-                $attributes['date'] = Carbon::now('GMT+3')->toDateString();
-                $attributes['status'] = true;
+                $attributes =  [
+                    'name' => $product->item->name,
+                    'unit' => $product->unit,
+                    'price' => $product->price,
+                    'item_id' => $product->item_id,
+                    'quantity' => $product->quantity,
+                    'container' => $product->container,
+                    'user_name' => Auth::user()->name,
+                    'product_id' => $product->id,
+                    'user_id' => Auth::user()->id,
+                    'date' => Carbon::now('GMT+3')->toDateString(),
+                    'status' => true,
+                ];
                 $sell = Sale::create($attributes);
             }
         } catch (\Throwable $th) {
             notify()->error('Oops! Something went wrong');
             return back();
         }
-        notify()->success('You have successful sell ' . $product->item->name);
+        notify()->success('You have successful sell ' . $sell->name);
         return Redirect::back();
     }
 }

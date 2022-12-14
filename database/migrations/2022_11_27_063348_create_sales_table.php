@@ -17,7 +17,13 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
             $table->date('date');
-            $table->string('product_id');
+            $table->bigInteger('product_id');
+            $table->bigInteger('item_id');
+            $table->string('name');
+            $table->string('container');
+            $table->double('quantity');
+            $table->enum('unit', ['Kilograms', 'Litres', 'Counts']);
+            $table->double('price');
             $table->boolean('status');
             $table->timestamps();
             $table->softDeletes();

@@ -159,12 +159,12 @@
                     @foreach ($sales as $index => $sale)
                         <tr>
                             <td>{{ ++$index }}</td>
-                            <td>{{ $sale->product->item->name }}</td>
-                            <td>{{ $sale->product->container . ' of ' . $sale->product->quantity . ' ' . $sale->product->unit }}
+                            <td>{{ $sale->name }}</td>
+                            <td>{{ $sale->container . ' of ' . $sale->quantity . ' ' . $sale->unit }}
                             </td>
-                            <td class="text-right">{{ number_format($sale->product->price, 0, '.', ',') }} </td>
+                            <td class="text-right">{{ number_format($sale->price, 0, '.', ',') }} </td>
                             <td class="">{{ $sale->created_at->format('D, d M Y \a\t H:i:s') }} </td>
-                            <td>{{ $sale->user->name . ' (' . $sale->user->role->name . ')' }}</td>
+                            <td>{{ $sale->user_name . ' (' . $sale->user->role->name . ')' }}</td>
                         </tr>
                     @endforeach
                 </tbody>
