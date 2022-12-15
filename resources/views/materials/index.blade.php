@@ -101,7 +101,7 @@
                     </div>
                 </div>
             </div>
-            <table id="data-tebo"
+            <table id="data-tebo1"
                 class="dt-responsive nowrap table table-bordered table-responsive-sm  table-striped table-hover"
                 style="width: 100%">
                 <thead>

@@ -100,6 +100,7 @@ class SaleController extends Controller
                     'status' => true,
                 ];
                 $sell = Sale::create($attributes);
+                $item->sales()->save($sell);
             }
         } catch (\Throwable $th) {
             notify()->error('Oops! Something went wrong');

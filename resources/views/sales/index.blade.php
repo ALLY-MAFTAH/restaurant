@@ -144,7 +144,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table id="data-tebo"
+            <table id="data-tebo1"
                 class="dt-responsive nowrap table table-bordered table-responsive-sm  table-striped table-hover"
                 style="width: 100%">
                 <thead>
@@ -160,8 +160,7 @@
                         <tr>
                             <td>{{ ++$index }}</td>
                             <td>{{ $sale->name }}</td>
-                            <td>{{ $sale->container . ' of ' . $sale->quantity . ' ' . $sale->unit }}
-                            </td>
+                            <td>{{ $sale->container . ' of ' . $sale->quantity . ' ' . $sale->unit }}</td>
                             <td class="text-right">{{ number_format($sale->price, 0, '.', ',') }} </td>
                             <td class="">{{ $sale->created_at->format('D, d M Y \a\t H:i:s') }} </td>
                             <td>{{ $sale->user_name . ' (' . $sale->user->role->name . ')' }}</td>

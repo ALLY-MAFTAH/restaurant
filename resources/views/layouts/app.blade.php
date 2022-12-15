@@ -154,6 +154,7 @@
             showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
             /*===== LINK ACTIVE =====*/
             const linkColor = document.querySelectorAll('.nav_link')
+
             function colorLink() {
                 if (linkColor) {
                     linkColor.forEach(l => l.classList.remove('active'))
@@ -176,7 +177,12 @@
     </script>
     <script>
         $(document).ready(function() {
-            $('#data-tebo').DataTable();
+            $('#data-tebo1').DataTable();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#data-tebo2').DataTable();
         });
     </script>
     <script type="text/javascript">

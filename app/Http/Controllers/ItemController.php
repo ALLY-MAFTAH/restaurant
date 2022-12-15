@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ingredient;
 use App\Models\Item;
 use App\Models\Material;
+use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -36,11 +37,29 @@ class ItemController extends Controller
     // SHOW ITEM
     public function showItem(Request $request, Item $item)
     {
+        $filteredDate =null;
+        $selectedDate = null;
+        $filteredSales=[];
+        $filteredDate = $request->get('filteredDate', "All Days");
+
+        if ($filteredDate == null) {
+            $filteredDate = "All Days";
+        }
+
+        if ($filteredDate == "All Days") {
+            $filteredSales = $item->sales;
+        } else {
+            $filteredSales = $item->sales->where('date', $filteredDate);
+        }
+        $selectedDate = $filteredDate;
+
         $items = Item::all();
         $materials = Material::where('status', 1)->get();
         $ingredients = $item->ingredients;
+        // dd($sales);
+        $products = $item->products;
 
-        return view('items.show', compact('items', 'item', 'ingredients', 'materials'));
+        return view('items.show', compact('items','filteredDate', 'item','products', 'filteredSales', 'ingredients', 'materials'));
     }
 
     // POST ITEM
@@ -78,19 +97,19 @@ class ItemController extends Controller
     // EDIT ITEM
     public function putItem(Request $request, Item $item)
     {
-        try{
-        $attributes = $this->validate($request, [
-            'name' => 'required',
-            'quantity' => 'required',
-            'unit' => 'required',
-            'cost' => 'required',
-        ]);
+        try {
+            $attributes = $this->validate($request, [
+                'name' => 'required',
+                'quantity' => 'required',
+                'unit' => 'required',
+                'cost' => 'required',
+            ]);
 
-        $item->update($attributes);
-    } catch (QueryException $th) {
-        notify()->error('Failed to edit item. "' . $request->name . '" already exists.');
-        return back();
-    }
+            $item->update($attributes);
+        } catch (QueryException $th) {
+            notify()->error('Failed to edit item. "' . $request->name . '" already exists.');
+            return back();
+        }
         notify()->success('You have successful edited an item');
         return redirect()->back();
     }

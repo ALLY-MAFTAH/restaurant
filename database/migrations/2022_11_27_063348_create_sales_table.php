@@ -20,6 +20,7 @@ return new class extends Migration
             $table->bigInteger('product_id');
             $table->bigInteger('item_id');
             $table->string('name');
+            $table->string('user_name');
             $table->string('container');
             $table->double('quantity');
             $table->enum('unit', ['Kilograms', 'Litres', 'Counts']);
