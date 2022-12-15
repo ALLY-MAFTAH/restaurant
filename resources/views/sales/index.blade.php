@@ -145,9 +145,9 @@
         </div>
         <div class="card-body">
             <table id="data-tebo1"
-                class="dt-responsive nowrap table table-bordered table-responsive-sm  table-striped table-hover"
+                class="dt-responsive nowrap table shadow rounded-3 table-responsive-sm  table-striped table-hover"
                 style="width: 100%">
-                <thead>
+                <thead class="rounded shadow-3">
                     <th style="max-width: 20px">#</th>
                     <th>Name</th>
                     <th>Quantity</th>

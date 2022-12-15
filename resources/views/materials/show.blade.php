@@ -120,8 +120,8 @@
             <div class="card">
                 <div class="card-header">Utilization Records</div>
                 <div class="card-body">
-                    <table id="data-tebo1" class=" dt-responsive nowrap table table-bordered table-responsive table-striped">
-                        <thead>
+                    <table id="data-tebo1" class=" dt-responsive nowrap table shadow rounded-3 table-responsive table-striped">
+                        <thead class="shadow rounded-3">
                             <th>#</th>
                             <th>Date</th>
                             <th>Action</th>
