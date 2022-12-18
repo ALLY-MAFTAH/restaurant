@@ -37,7 +37,7 @@
             <div class="header_toggle ">
                 <h3
                     style="text-shadow: 0.5px 0.5px white;font-family:Verdana, Geneva, Tahoma, sans-serif;color:var(--first-color)">
-                    <b> Tanga Raha Restaurant</b>
+                    <b>{{setting('App Name')}}</b>
                 </h3>
             </div>
             <div class="dropdown prof">
@@ -53,7 +53,7 @@
                     </li>
                     <li><a class="dropdown-item" href="#">Profile</a></li>
                     <li><a class="dropdown-item" href="#">Dark Theme</a></li>
-                    <li><a class="dropdown-item" href="#">Change Language</a></li>
+                    <li><a class="dropdown-item" href="{{route('settings.index')}}">Setting</a></li>
                     <hr>
                     <li>
                         <a href="{{ route('logout') }}"
@@ -102,8 +102,8 @@
                         class="nav_link {{ request()->routeIs('roles.index') || request()->routeIs('roles.show') ? 'active' : '' }}">
                         <i class='bx bx-registered nav_icon'></i> <span class="nav_name">Roles</span>
                     </a>
-                    <a href="{{ route('settings') }}"
-                        class="nav_link {{ request()->routeIs('settings') ? 'active' : '' }}"> <i
+                    <a href="{{ route('settings.index') }}"
+                        class="nav_link {{ request()->routeIs('settings.index') ? 'active' : '' }}"> <i
                             class='bx bx-cog nav_icon'></i> <span class="nav_name">Settings</span>
                     </a>
 

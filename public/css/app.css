@@ -255,6 +255,7 @@ div.dataTables_wrapper div.dataTables_length select {
 div.form-switch:focus,
 textarea:focus,
 a.btn.btn-sm:focus,
+button.btn:focus,
 button.btn.btn-sm:focus,
 textarea.form-control:focus,
 input.form-control:focus,

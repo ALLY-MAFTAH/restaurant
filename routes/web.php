@@ -70,6 +70,8 @@ Route::delete('/delete-role/{role}', [App\Http\Controllers\RoleController::class
 Route::get('/sales', [App\Http\Controllers\SaleController::class, 'index'])->name('sales.index');
 Route::post('/sell-product/{product}', [App\Http\Controllers\SaleController::class, 'sellProduct'])->name('products.sell');
 
-
-Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products.index');
-Route::get('/settings', [App\Http\Controllers\SettingController::class, 'index'])->name('settings');
+// SETTINGS ROUTES
+Route::get('/settings', [App\Http\Controllers\SettingsController::class, 'index'])->name('settings.index');
+Route::put('/edit-setting', [App\Http\Controllers\SettingsController::class, 'putSetting'])->name('settings.edit');
+Route::post('/add-setting', [App\Http\Controllers\SettingsController::class, 'postSetting'])->name('settings.add');
+Route::delete('/delete-setting/{key}', [App\Http\Controllers\SettingsController::class, 'deleteSetting'])->name('settings.delete');
