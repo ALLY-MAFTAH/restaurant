@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ActivityLogHelper;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -53,9 +54,10 @@ class UserController extends Controller
         $attributes['status'] = true;
 
         $user = User::create($attributes);
-        // dd($user->name);
+
         $role = Role::find($role_id);
         $role->users()->save($user);
+        ActivityLogHelper::addToLog('Added new user: '.$user->name);
 
         notify()->success('You have successful added new user');
         return redirect()->back();
@@ -72,7 +74,7 @@ class UserController extends Controller
         ]);
 
         $user->update($attributes);
-
+        ActivityLogHelper::addToLog('Updated user: '.$user->name);
 
         notify()->success('You have successful edited user');
         return back();
@@ -86,6 +88,7 @@ class UserController extends Controller
         ]);
 
         $user->update($attributes);
+        ActivityLogHelper::addToLog('Switched user '.$user->name.' status ');
 
         notify()->success('You have successfully updated user status');
         return back();
@@ -95,6 +98,7 @@ class UserController extends Controller
 
         $itsName = $user->name;
         $user->delete();
+        ActivityLogHelper::addToLog('Deleted user: '.$itsName);
 
         notify()->success('You have successful deleted ' . $itsName . '.');
         return back();

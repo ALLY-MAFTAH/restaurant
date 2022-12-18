@@ -52,7 +52,6 @@
                         </div><a class="dropdown-item" href="#">{{ Auth::user()->name }}</a>
                     </li>
                     <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><a class="dropdown-item" href="#">Dark Theme</a></li>
                     <li><a class="dropdown-item" href="{{route('settings.index')}}">Settings</a></li>
                     <li><a class="dropdown-item" href="{{route('logs.index')}}">Activity Logs</a></li>
                     <hr>
@@ -103,10 +102,14 @@
                         class="nav_link {{ request()->routeIs('roles.index') || request()->routeIs('roles.show') ? 'active' : '' }}">
                         <i class='bx bx-registered nav_icon'></i> <span class="nav_name">Roles</span>
                     </a>
-                    <a href="{{ route('settings.index') }}"
+                    <a href="{{ route('reports.index') }}"
+                        class="nav_link {{ request()->routeIs('reports.index') ? 'active' : '' }}"> <i
+                            class='bx bx-book nav_icon'></i> <span class="nav_name">Reports</span>
+                    </a>
+                    {{-- <a href="{{ route('settings.index') }}"
                         class="nav_link {{ request()->routeIs('settings.index') ? 'active' : '' }}"> <i
                             class='bx bx-cog nav_icon'></i> <span class="nav_name">Settings</span>
-                    </a>
+                    </a> --}}
 
                 </div>
             </nav>

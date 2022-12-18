@@ -745,7 +745,7 @@
             } else {
                 x.style.display = 'block'
 
-                y.innerHTML = 'Deny'
+                y.innerHTML = 'Close'
                 y.style.color = 'red'
             }
         }
@@ -760,7 +760,7 @@
                 y.style.color = 'blue'
             } else {
                 x.style.display = 'block'
-                y.innerHTML = 'Deny'
+                y.innerHTML = 'Close'
                 y.style.color = 'red'
             }
         }

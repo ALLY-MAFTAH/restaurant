@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ActivityLogHelper;
 use App\Models\Item;
 use App\Models\Product;
 use App\Models\Sale;
@@ -101,6 +102,8 @@ class SaleController extends Controller
                 ];
                 $sell = Sale::create($attributes);
                 $item->sales()->save($sell);
+                ActivityLogHelper::addToLog('Sold product '.$item->name);
+
             }
         } catch (\Throwable $th) {
             notify()->error('Oops! Something went wrong');

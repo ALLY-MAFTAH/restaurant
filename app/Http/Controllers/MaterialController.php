@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ActivityLogHelper;
 use App\Models\Material;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -47,6 +48,7 @@ class MaterialController extends Controller
 
             $attributes['status'] = true;
             $material = Material::create($attributes);
+            ActivityLogHelper::addToLog('Added material ' . $material->name);
         } catch (QueryException $th) {
             notify()->error('Failed to add material "' . $request->name . '". It already exists.');
             return back();
@@ -57,19 +59,20 @@ class MaterialController extends Controller
     }
     public function putMaterial(Request $request, Material $material)
     {
-        try{
-        $attributes = $this->validate($request, [
-            'name' => 'required',
-            'quantity' => 'required',
-            'unit' => 'required',
-            'cost' => 'required',
-        ]);
+        try {
+            $attributes = $this->validate($request, [
+                'name' => 'required',
+                'quantity' => 'required',
+                'unit' => 'required',
+                'cost' => 'required',
+            ]);
 
-        $material->update($attributes);
-    } catch (QueryException $th) {
-        notify()->error('Failed to edit material. "' . $request->name . '" already exists.');
-        return back();
-    }
+            $material->update($attributes);
+            ActivityLogHelper::addToLog('Updated material ' . $material->name);
+        } catch (QueryException $th) {
+            notify()->error('Failed to edit material. "' . $request->name . '" already exists.');
+            return back();
+        }
         notify()->success('You have successful edited material');
         return redirect()->back();
     }
@@ -81,15 +84,17 @@ class MaterialController extends Controller
         ]);
 
         $material->update($attributes);
+        ActivityLogHelper::addToLog('Switched material '.$material->name.' status ');
 
         notify()->success('You have successfully updated material status');
         return back();
     }
-    public function deleteMaterial(Request $request, Material $material)
+    public function deleteMaterial( Material $material)
     {
 
         $itsName = $material->name;
         $material->delete();
+        ActivityLogHelper::addToLog('Deleted material '.$itsName);
 
         notify()->success('You have successful deleted ' . $itsName . '.');
         return back();

@@ -109,7 +109,7 @@ class ItemController extends Controller
             ]);
 
             $item->update($attributes);
-            ActivityLogHelper::addToLog('Edited item '.$item->name);
+            ActivityLogHelper::addToLog('Updated item '.$item->name);
         } catch (QueryException $th) {
             notify()->error('Failed to edit item. "' . $request->name . '" already exists.');
             return back();
@@ -174,7 +174,7 @@ class ItemController extends Controller
                 'unit' => $ingredientsUnits[$i],
             ]);
             $ingredient->save();
-            ActivityLogHelper::addToLog('Edited ingredient '.$ingredient->name);
+            ActivityLogHelper::addToLog('Updated ingredient '.$ingredient->name);
 
             $material = Material::findOrFail($ingredient->material_id);
 
@@ -206,7 +206,7 @@ class ItemController extends Controller
     }
 
     // DELETE ITEM
-    public function deleteItem(Request $request, Item $item)
+    public function deleteItem( Item $item)
     {
 
         $itsName = $item->name;
@@ -217,12 +217,12 @@ class ItemController extends Controller
         return back();
     }
     // DELETE INGREDIENT
-    public function deleteIngredient(Request $request, Ingredient $ingredient)
+    public function deleteIngredient( Ingredient $ingredient)
     {
 
         $itsName = $ingredient->name;
         $ingredient->delete();
-        ActivityLogHelper::addToLog('Deleted item '.$ingredient->name);
+        ActivityLogHelper::addToLog('Deleted ingredient '.$ingredient->name);
 
         notify()->success('You have successful deleted ' . $itsName . '.');
         return back();

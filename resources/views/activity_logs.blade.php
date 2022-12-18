@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Log Activities
+    Activity Logs
 @endsection
 @section('style')
 @endsection
@@ -12,7 +12,7 @@
                     <div class=" text-left">
                         <h5 class="my-0">
                             <span class="">
-                                <b>{{ __('LOG ACTIVITIES') }}
+                                <b>{{ __(' ACTIVITY LOGS') }}
                                 </b>
                             </span>
                         </h5>
@@ -29,7 +29,7 @@
                 style="width: 100%">
                 <thead class="shadow rounded-3">
                     <th style="max-width: 20px">#</th>
-
+                    <th>Time</th>
                     <th>Subject</th>
                     <th>User Id</th>
                     <th>Method</th>
@@ -43,6 +43,7 @@
                         @foreach ($logs as $key => $log)
                             <tr>
                                 <td>{{ ++$key }}</td>
+                                <td>{{ $log->updated_at->format('D, d M Y \a\t H:i:s') }} </td>
                                 <td>{{ $log->subject }}</td>
                                 <td>{{ $log->user_id }}</td>
                                 <td><label class="label label-info">{{ $log->method }}</label></td>

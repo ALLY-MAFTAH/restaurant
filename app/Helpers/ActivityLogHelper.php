@@ -4,6 +4,8 @@
 namespace App\Helpers;
 
 use App\Models\ActivityLog;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 
 class ActivityLogHelper
@@ -12,7 +14,8 @@ class ActivityLogHelper
     public static function addToLog($subject)
     {
         $log = [];
-        $log['subject'] = $subject;
+        $log['subject'] = Auth::user()->name.' '. $subject;
+        $log['time'] = Carbon::now();
         $log['url'] = Request::fullUrl();
         $log['method'] = Request::method();
         $log['ip'] = Request::ip();

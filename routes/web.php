@@ -82,5 +82,5 @@ Route::post('/add-log', [App\Http\Controllers\ActivityLogController::class, 'pos
 Route::put('/edit-log', [App\Http\Controllers\ActivityLogController::class, 'putActivityLog'])->name('logs.edit');
 Route::delete('/delete-log/{key}', [App\Http\Controllers\ActivityLogController::class, 'deleteActivityLog'])->name('logs.delete');
 
-Route::get('add-to-log', 'HomeController@myTestAddToLog');
-Route::get('logActivity', 'HomeController@logActivity');
+// REPORTS ROUTES
+Route::get('/reports', [App\Http\Controllers\ReportController::class, 'index'])->name('reports.index');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ActivityLogHelper;
 use App\Models\Item;
 use App\Models\Product;
 use Illuminate\Database\QueryException;
@@ -59,6 +60,7 @@ class ProductController extends Controller
             $attributes['status'] = true;
 
             $product = Product::create($attributes);
+            ActivityLogHelper::addToLog('Added product ' . $product->name);
 
             $item->products()->save($product);
         } catch (QueryException $th) {
@@ -86,6 +88,7 @@ class ProductController extends Controller
             $attributes['item_id'] = $item->id;
 
             $product->update($attributes);
+            ActivityLogHelper::addToLog('Updated product ' . $product->name);
 
         } catch (QueryException $th) {
             notify()->error('Product "' . $request->name . '" with quantity of "' . $request->quantity . '" already exists.');
@@ -104,17 +107,19 @@ class ProductController extends Controller
         ]);
 
         $product->update($attributes);
+        ActivityLogHelper::addToLog('Switched product '.$product->name.' status ');
 
         notify()->success('You have successfully updated product status');
         return back();
     }
 
     // DELETE PRODUCT
-    public function deleteProduct(Request $request, Product $product)
+    public function deleteProduct(Product $product)
     {
 
         $itsName = $product->name;
         $product->delete();
+        ActivityLogHelper::addToLog('Deleted product '.$itsName);
 
         notify()->success('You have successful deleted ' . $itsName . '.');
         return back();

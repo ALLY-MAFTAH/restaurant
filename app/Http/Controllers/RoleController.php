@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ActivityLogHelper;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -38,6 +39,7 @@ class RoleController extends Controller
 
         $attributes['status'] = true;
         $role = Role::create($attributes);
+        ActivityLogHelper::addToLog('Added role ' . $role->name);
 
         notify()->success('You have successful added role');
 
@@ -52,6 +54,7 @@ class RoleController extends Controller
         ]);
 
         $role->update($attributes);
+        ActivityLogHelper::addToLog('Updated role ' . $role->name);
 
         notify()->success('You have successful edited role');
         return redirect()->back();
@@ -64,6 +67,7 @@ class RoleController extends Controller
         ]);
 
         $role->update($attributes);
+        ActivityLogHelper::addToLog('Switched role '.$role->name.' status ');
 
         notify()->success('You have successfully updated role status');
         return back();
@@ -73,6 +77,7 @@ class RoleController extends Controller
 
         $itsName = $role->name;
         $role->delete();
+        ActivityLogHelper::addToLog('Deleted role '.$itsName);
 
         notify()->success('You have successful deleted ' . $itsName . '.');
         return back();
