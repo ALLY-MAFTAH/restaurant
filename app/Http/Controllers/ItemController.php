@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ActivityLogHelper;
 use App\Models\Ingredient;
 use App\Models\Item;
 use App\Models\Material;
@@ -75,6 +76,8 @@ class ItemController extends Controller
 
             $attributes['status'] = true;
             $item = Item::create($attributes);
+            ActivityLogHelper::addToLog('Added item '.$item->name);
+
         } catch (QueryException $th) {
             notify()->error('Failed to add item "' . $request->name . '". It already exists.');
             return back();
@@ -106,6 +109,7 @@ class ItemController extends Controller
             ]);
 
             $item->update($attributes);
+            ActivityLogHelper::addToLog('Edited item '.$item->name);
         } catch (QueryException $th) {
             notify()->error('Failed to edit item. "' . $request->name . '" already exists.');
             return back();
@@ -142,6 +146,8 @@ class ItemController extends Controller
                 ]);
                 $material->save();
             }
+            ActivityLogHelper::addToLog('Added ingredient to item '.$item->name);
+
             notify()->success('You have successful added ingredients in ' . $item->name);
             return redirect()->back();
         } catch (QueryException $th) {
@@ -168,6 +174,7 @@ class ItemController extends Controller
                 'unit' => $ingredientsUnits[$i],
             ]);
             $ingredient->save();
+            ActivityLogHelper::addToLog('Edited ingredient '.$ingredient->name);
 
             $material = Material::findOrFail($ingredient->material_id);
 
@@ -192,6 +199,7 @@ class ItemController extends Controller
         ]);
 
         $item->update($attributes);
+        ActivityLogHelper::addToLog('Switched item '.$item->name.' status ');
 
         notify()->success('You have successfully updated item status');
         return back();
@@ -203,6 +211,7 @@ class ItemController extends Controller
 
         $itsName = $item->name;
         $item->delete();
+        ActivityLogHelper::addToLog('Deleted item '.$item->name);
 
         notify()->success('You have successful deleted ' . $itsName . '.');
         return back();
@@ -213,6 +222,7 @@ class ItemController extends Controller
 
         $itsName = $ingredient->name;
         $ingredient->delete();
+        ActivityLogHelper::addToLog('Deleted item '.$ingredient->name);
 
         notify()->success('You have successful deleted ' . $itsName . '.');
         return back();

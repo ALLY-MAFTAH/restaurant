@@ -53,7 +53,8 @@
                     </li>
                     <li><a class="dropdown-item" href="#">Profile</a></li>
                     <li><a class="dropdown-item" href="#">Dark Theme</a></li>
-                    <li><a class="dropdown-item" href="{{route('settings.index')}}">Setting</a></li>
+                    <li><a class="dropdown-item" href="{{route('settings.index')}}">Settings</a></li>
+                    <li><a class="dropdown-item" href="{{route('logs.index')}}">Activity Logs</a></li>
                     <hr>
                     <li>
                         <a href="{{ route('logout') }}"
@@ -111,12 +112,12 @@
             </nav>
 
         </div>
-    @endguest
-    <br><br>
+        <br><br>
+        @endguest
 
-    <main class="pt-5">
-        @yield('content')
-    </main>
+        <main class="pt-5">
+            @yield('content')
+        </main>
 
     </div>
     <x:notify-messages />

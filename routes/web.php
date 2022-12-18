@@ -71,7 +71,16 @@ Route::get('/sales', [App\Http\Controllers\SaleController::class, 'index'])->nam
 Route::post('/sell-product/{product}', [App\Http\Controllers\SaleController::class, 'sellProduct'])->name('products.sell');
 
 // SETTINGS ROUTES
-Route::get('/settings', [App\Http\Controllers\SettingsController::class, 'index'])->name('settings.index');
-Route::put('/edit-setting', [App\Http\Controllers\SettingsController::class, 'putSetting'])->name('settings.edit');
-Route::post('/add-setting', [App\Http\Controllers\SettingsController::class, 'postSetting'])->name('settings.add');
-Route::delete('/delete-setting/{key}', [App\Http\Controllers\SettingsController::class, 'deleteSetting'])->name('settings.delete');
+Route::get('/settings', [App\Http\Controllers\SettingController::class, 'index'])->name('settings.index');
+Route::put('/edit-setting', [App\Http\Controllers\SettingController::class, 'putSetting'])->name('settings.edit');
+Route::post('/add-setting', [App\Http\Controllers\SettingController::class, 'postSetting'])->name('settings.add');
+Route::delete('/delete-setting/{key}', [App\Http\Controllers\SettingController::class, 'deleteSetting'])->name('settings.delete');
+
+// ACTIVITY LOGS ROUTES
+Route::get('/logs', [App\Http\Controllers\ActivityLogController::class, 'index'])->name('logs.index');
+Route::post('/add-log', [App\Http\Controllers\ActivityLogController::class, 'postActivityLog'])->name('logs.add');
+Route::put('/edit-log', [App\Http\Controllers\ActivityLogController::class, 'putActivityLog'])->name('logs.edit');
+Route::delete('/delete-log/{key}', [App\Http\Controllers\ActivityLogController::class, 'deleteActivityLog'])->name('logs.delete');
+
+Route::get('add-to-log', 'HomeController@myTestAddToLog');
+Route::get('logActivity', 'HomeController@logActivity');

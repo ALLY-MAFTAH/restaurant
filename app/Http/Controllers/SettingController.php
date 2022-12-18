@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use anlutro\LaravelSettings\Facades\Setting;
 use Illuminate\Http\Request;
 
-class SettingsController extends Controller
+class SettingController extends Controller
 {
     /**
      * Create a new controller instance.
