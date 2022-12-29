@@ -95,8 +95,8 @@
                                         <select id="ingredient_name" class="form-control form-select"
                                             name="ids[]" required style="float: left; width: inaitial; ">
                                             <option value="">{{ 'Name' }}</option>
-                                            @foreach ($materials as $material)
-                                                <option value="{{ $material->id }}">{{ $material->name }}</option>
+                                            @foreach ($stocks as $stock)
+                                                <option value="{{ $stock->id }}">{{ $stock->name }}</option>
                                             @endforeach
                                             @error('ingredient_name')
                                                 <span class="invalid-feedback" role="alert">
@@ -140,8 +140,8 @@
                                         <select id="ingredient_name" class="form-control form-select"
                                             name="ids[]" required style="float: left; width: inaitial; ">
                                             <option value="">{{ 'Name' }}</option>
-                                            @foreach ($materials as $material)
-                                                <option value="{{ $material->id }}">{{ $material->name }}</option>
+                                            @foreach ($stocks as $stock)
+                                                <option value="{{ $stock->id }}">{{ $stock->name }}</option>
                                             @endforeach
                                             @error('ingredient_name')
                                                 <span class="invalid-feedback" role="alert">

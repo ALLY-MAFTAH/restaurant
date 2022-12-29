@@ -115,7 +115,7 @@
                         <div class="col-8" style="background: rgb(234, 232, 244); border-radius:5px">
                             @forelse ($ingredients as $ingredient)
                                 <span style="">
-                                    {{ $ingredient->quantity . ' ' . $ingredient->unit . ' of ' . $ingredient->material->name }}
+                                    {{ $ingredient->quantity . ' ' . $ingredient->unit . ' of ' . $ingredient->stock->name }}
                                 </span><br>
                             @empty
                                 No Ingredient
@@ -153,8 +153,8 @@
                                                 <select id="ingredient_name" class="form-control form-select"
                                                     name="ids[]" required style="float: left; width: inaitial; ">
                                                     <option value="">{{ 'Name' }}</option>
-                                                    @foreach ($materials as $material)
-                                                        <option value="{{ $material->id }}">{{ $material->name }}
+                                                    @foreach ($stocks as $stock)
+                                                        <option value="{{ $stock->id }}">{{ $stock->name }}
                                                         </option>
                                                     @endforeach
                                                     @error('ingredient_name')
@@ -200,8 +200,8 @@
                                                 <select id="ingredient_name" class="form-control form-select"
                                                     name="ids[]" required style="float: left; width: inaitial; ">
                                                     <option value="">{{ 'Name' }}</option>
-                                                    @foreach ($materials as $material)
-                                                        <option value="{{ $material->id }}">{{ $material->name }}
+                                                    @foreach ($stocks as $stock)
+                                                        <option value="{{ $stock->id }}">{{ $stock->name }}
                                                         </option>
                                                     @endforeach
                                                     @error('ingredient_name')
@@ -261,10 +261,10 @@
                                                     type="text">
                                                 <select disabled id="ingredient_name" class="form-control forsm-select"
                                                     name="ids[]" required style="float: left; width: inaitial; ">
-                                                    @foreach ($materials as $material)
+                                                    @foreach ($stocks as $stock)
                                                         <option
-                                                            value="{{ $material->id }}"{{ $ingredient->material_id == $material->id ? 'selected' : '' }}>
-                                                            {{ $material->name }}</option>
+                                                            value="{{ $stock->id }}"{{ $ingredient->stock_id == $stock->id ? 'selected' : '' }}>
+                                                            {{ $stock->name }}</option>
                                                     @endforeach
                                                     @error('ingredient_name')
                                                         <span class="invalid-feedback" role="alert">
@@ -307,7 +307,7 @@
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-outline-danger"
                                                         type="button"style="border-top-left-radius: 0%;border-bottom-left-radius: 0%"
-                                                        onclick="if(confirm('{{ $ingredient->material->name }} will be deleted from this item\'s ingredients.')) document.getElementById('delete-ingredient-{{ $ingredient->id }}').submit()">
+                                                        onclick="if(confirm('{{ $ingredient->stock->name }} will be deleted from this item\'s ingredients.')) document.getElementById('delete-ingredient-{{ $ingredient->id }}').submit()">
                                                         <i class="bx bx-trash"></i></button>
 
                                                 </span>
@@ -340,8 +340,8 @@
                                             <select id="ingredient_name" class="form-control form-select" name="ids[]"
                                                 required style="float: left; width: inaitial; ">
                                                 <option value="">{{ 'Name' }}</option>
-                                                @foreach ($materials as $material)
-                                                    <option value="{{ $material->id }}">{{ $material->name }}</option>
+                                                @foreach ($stocks as $stock)
+                                                    <option value="{{ $stock->id }}">{{ $stock->name }}</option>
                                                 @endforeach
                                                 @error('ingredient_name')
                                                     <span class="invalid-feedback" role="alert">

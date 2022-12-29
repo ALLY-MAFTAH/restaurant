@@ -68,7 +68,7 @@ return [
     |
     */
     'defaults' => [
-        'App Name' => 'Tanga Raha Restaurant',
+        'App Name' => 'Tanga Icecream Center',
         'App Active' => true,
     ]
 ];

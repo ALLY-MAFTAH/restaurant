@@ -23,13 +23,13 @@ Auth::routes();
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
-// MATERIAL ROUTES
-Route::get('/materials', [App\Http\Controllers\MaterialController::class, 'index'])->name('materials.index');
-Route::post('/add-material', [App\Http\Controllers\MaterialController::class, 'postMaterial'])->name('materials.add');
-Route::get('/show-material/{material}', [App\Http\Controllers\MaterialController::class, 'showMaterial'])->name('materials.show');
-Route::put('/edit-material/{material}', [App\Http\Controllers\MaterialController::class, 'putMaterial'])->name('materials.edit');
-Route::delete('/delete-material/{material}', [App\Http\Controllers\MaterialController::class, 'deleteMaterial'])->name('materials.delete');
-Route::put('materials/{material}/status', [App\Http\Controllers\MaterialController::class, 'toggleStatus'])->name('materials.toggle-status');
+// STOCK ROUTES
+Route::get('/stocks', [App\Http\Controllers\StockController::class, 'index'])->name('stocks.index');
+Route::post('/add-stock', [App\Http\Controllers\StockController::class, 'postStock'])->name('stocks.add');
+Route::get('/show-stock/{stock}', [App\Http\Controllers\StockController::class, 'showStock'])->name('stocks.show');
+Route::put('/edit-stock/{stock}', [App\Http\Controllers\StockController::class, 'putStock'])->name('stocks.edit');
+Route::delete('/delete-stock/{stock}', [App\Http\Controllers\StockController::class, 'deleteStock'])->name('stocks.delete');
+Route::put('stocks/{stock}/status', [App\Http\Controllers\StockController::class, 'toggleStatus'])->name('stocks.toggle-status');
 
 // ITEM ROUTES
 Route::get('/items', [App\Http\Controllers\ItemController::class, 'index'])->name('items.index');

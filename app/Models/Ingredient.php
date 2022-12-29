@@ -13,7 +13,7 @@ class Ingredient extends Model
 
     protected $fillable = [
         'item_id',
-        'material_id',
+        'stock_id',
         'quantity',
         'unit',
         'status',
@@ -24,9 +24,9 @@ class Ingredient extends Model
         'deleted_at'
     ];
 
-    public function material()
+    public function stock()
     {
-        return  $this->belongsTo(Material::class);
+        return  $this->belongsTo(Stock::class);
     }
     public function item()
     {

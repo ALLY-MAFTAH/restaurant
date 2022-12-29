@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\ActivityLogHelper;
 use App\Models\Ingredient;
 use App\Models\Item;
-use App\Models\Material;
+use App\Models\Stock;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -30,9 +30,9 @@ class ItemController extends Controller
     public function index()
     {
         $items = Item::all();
-        $materials = Material::where('status', 1)->get();
+        $stocks = Stock::where('status', 1)->get();
 
-        return view('items.index', compact('items', 'materials'));
+        return view('items.index', compact('items', 'stocks'));
     }
 
     // SHOW ITEM
@@ -55,12 +55,12 @@ class ItemController extends Controller
         $selectedDate = $filteredDate;
 
         $items = Item::all();
-        $materials = Material::where('status', 1)->get();
+        $stocks = Stock::where('status', 1)->get();
         $ingredients = $item->ingredients;
         // dd($sales);
         $products = $item->products;
 
-        return view('items.show', compact('items','filteredDate', 'item','products', 'filteredSales', 'ingredients', 'materials'));
+        return view('items.show', compact('items','filteredDate', 'item','products', 'filteredSales', 'ingredients', 'stocks'));
     }
 
     // POST ITEM
@@ -91,9 +91,9 @@ class ItemController extends Controller
         } catch (QueryException $th) {
             $failedId = $th->getBindings()[3];
 
-            $material = Material::findOrFail($failedId);
-            notify()->error($material->name . ' already exist in ' . $item->name);
-            return back()->with('error', 'Failed to add ingredient "' . $material->name . '". It already exists in ' . $item->name);
+            $stock = Stock::findOrFail($failedId);
+            notify()->error($stock->name . ' already exist in ' . $item->name);
+            return back()->with('error', 'Failed to add ingredient "' . $stock->name . '". It already exists in ' . $item->name);
         }
     }
 
@@ -134,17 +134,17 @@ class ItemController extends Controller
                 $ingredient->quantity = $ingredientsQuantities[$i];
                 $ingredient->unit = $ingredientsUnits[$i];
                 $ingredient->item_id = $item->id;
-                $ingredient->material_id = $ingredientsIds[$i];
+                $ingredient->stock_id = $ingredientsIds[$i];
                 $ingredient->status = true;
 
                 $item->ingredients()->save($ingredient);
-                $material = Material::findOrFail($ingredientsIds[$i]);
-                $newQuantity = $material->quantity - $ingredient->quantity;
+                $stock = Stock::findOrFail($ingredientsIds[$i]);
+                $newQuantity = $stock->quantity - $ingredient->quantity;
 
-                $material->update([
+                $stock->update([
                     'quantity' => $newQuantity,
                 ]);
-                $material->save();
+                $stock->save();
             }
             ActivityLogHelper::addToLog('Added ingredient to item '.$item->name);
 
@@ -154,9 +154,9 @@ class ItemController extends Controller
             // dd($th->getBindings());
             $failedId = $th->getBindings()[3];
 
-            $material = Material::findOrFail($failedId);
-            notify()->error($material->name . ' already exist in ' . $item->name);
-            return back()->with('error', 'Failed to add ingredient "' . $material->name . '". It already exists in ' . $item->name);
+            $stock = Stock::findOrFail($failedId);
+            notify()->error($stock->name . ' already exist in ' . $item->name);
+            return back()->with('error', 'Failed to add ingredient "' . $stock->name . '". It already exists in ' . $item->name);
         }
     }
     // EDIT INGREDIENTS
@@ -176,14 +176,14 @@ class ItemController extends Controller
             $ingredient->save();
             ActivityLogHelper::addToLog('Updated ingredient '.$ingredient->name);
 
-            $material = Material::findOrFail($ingredient->material_id);
+            $stock = Stock::findOrFail($ingredient->stock_id);
 
-            $newQuantity = $material->quantity - $ingredient->quantity;
+            $newQuantity = $stock->quantity - $ingredient->quantity;
 
-            $material->update([
+            $stock->update([
                 'quantity' => $newQuantity,
             ]);
-            $material->save();
+            $stock->save();
         }
 
         notify()->success('You have successful updated ' . $item->name . ' ingredients');

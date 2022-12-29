@@ -410,7 +410,7 @@
         @endif
         <div class="text-center">
             <h1 style="color: white">
-                TANGA RAHA RESTAURANT
+                MORNING SKY GENERAL
             </h1>
             <div class="flex justify-center pt-8 text-center">
                 <a href="{{ route('login') }}" class="mr-4" style="color: white">Log in</a>

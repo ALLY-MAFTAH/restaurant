@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => Role::CASHIER,
                 'status' => true,
-                'description' => 'A restaurant cashier',
+                'description' => 'A system cashier',
             ],
         ])->each(function ($role) {
             Role::create($role);

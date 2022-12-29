@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title> @yield('title') | {{ 'Tanga Raha Restaurant' }}</title>
+    <title> @yield('title') | {{ 'Morning Sky General' }}</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/logo.png') }}">
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -27,7 +27,6 @@
 </head>
 
 <body id="body-pd">
-
     @guest
         <div></div>
     @else
@@ -80,9 +79,9 @@
                         class="nav_link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
-                    <a href="{{ route('materials.index') }}"
-                        class="nav_link {{ request()->routeIs('materials.index') || request()->routeIs('materials.show') ? 'active' : '' }}">
-                        <i class='bx bx-layout nav_icon'></i> <span class="nav_name">Materials</span> </a>
+                    <a href="{{ route('stocks.index') }}"
+                        class="nav_link {{ request()->routeIs('stocks.index') || request()->routeIs('stocks.show') ? 'active' : '' }}">
+                        <i class='bx bx-layout nav_icon'></i> <span class="nav_name">Stocks</span> </a>
                     <a href="{{ route('items.index') }}"
                         class="nav_link {{ request()->routeIs('items.index') || request()->routeIs('items.show') ? 'active' : '' }}">
                         <i class='bx bx-purchase-tag-alt nav_icon'></i> <span class="nav_name">Items</span> </a>

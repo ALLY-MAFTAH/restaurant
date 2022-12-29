@@ -1,0 +1,11 @@
+{
+    "name": "Gas",
+    "alias": "gas",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Gas\\Providers\\GasServiceProvider"
+    ],
+    "files": []
+}
