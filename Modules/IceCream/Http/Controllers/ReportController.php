@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Modules\IceCream\Http\Controllers;
+use Illuminate\Routing\Controller;
 
 use Illuminate\Http\Request;
 

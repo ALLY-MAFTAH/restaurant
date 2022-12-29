@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Modules\IceCream\Http\Controllers;
+use Illuminate\Routing\Controller;
 
 use anlutro\LaravelSettings\Facades\Setting;
 use App\Helpers\ActivityLogHelper;

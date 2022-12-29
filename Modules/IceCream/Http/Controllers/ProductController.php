@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Modules\IceCream\Http\Controllers;
+use Illuminate\Routing\Controller;
 
 use App\Helpers\ActivityLogHelper;
 use App\Models\Item;

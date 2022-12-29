@@ -1,6 +1,6 @@
 <?php
 
-namespace Module\Icecream\Http\Controllers;
+namespace Modules\IceCream\Http\Controllers;
 
 use App\Helpers\ActivityLogHelper;
 use App\Models\Stock;

@@ -14,14 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('login');
-// });
-// Route::redirect('/', '/dashboard');
+Route::get('/', function () {
+    return view('login');
+});
+Route::redirect('/', '/dashboard');
 
-// Auth::routes();
+Auth::routes();
 
-// Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
 // // STOCK ROUTES
 // Route::get('/stocks', [App\Http\Controllers\StockController::class, 'index'])->name('stocks.index');
