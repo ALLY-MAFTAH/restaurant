@@ -21,14 +21,14 @@ class RoleController extends Controller
 
         $roles = Role::all();
 
-        return view('roles.index', compact('roles'));
+        return view('icecream::roles.index', compact('roles'));
     }
     public function showRole(Request $request, Role $role)
     {
 
         $users = User::where('status', 1)->get();
 
-        return view('roles.show', compact('role', 'users'));
+        return view('icecream::roles.show', compact('role', 'users'));
     }
     public function postRole(Request $request)
     {

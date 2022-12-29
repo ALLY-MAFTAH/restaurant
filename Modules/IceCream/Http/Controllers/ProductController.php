@@ -31,7 +31,7 @@ class ProductController extends Controller
         $products = Product::all();
         $items = Item::where('status', 1)->get();
 
-        return view('products.index', compact('products', 'items'));
+        return view('icecream::products.index', compact('products', 'items'));
     }
 
     // SHOW PRODUCT
@@ -41,7 +41,7 @@ class ProductController extends Controller
         $items = Item::where('status', 1)->get();
         $ingredients = $product->ingredients;
 
-        return view('products.show', compact('products', 'product', 'ingredients', 'items'));
+        return view('icecream::products.show', compact('products', 'product', 'ingredients', 'items'));
     }
 
     // POST PRODUCT

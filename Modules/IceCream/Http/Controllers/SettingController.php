@@ -23,7 +23,7 @@ class SettingController extends Controller
     {
         $settings = Setting::all();
 
-        return view('settings', compact('settings'));
+        return view('icecream::settings', compact('settings'));
     }
 
     public function postSetting(Request $request)

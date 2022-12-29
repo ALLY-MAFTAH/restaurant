@@ -12,7 +12,7 @@ class ActivityLogController extends Controller
     {
         $logs = ActivityLogHelper::logActivityLists();
 
-        return view('activity_logs', compact('logs'));
+        return view('icecream::activity_logs', compact('logs'));
     }
 
     public function postLog()

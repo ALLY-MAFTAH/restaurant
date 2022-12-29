@@ -61,7 +61,7 @@ class SaleController extends Controller
         $products = Product::where('status', 1)->get();
         // dd($filteredItemName);
 
-        return view('sales.index', compact('sales', 'products', 'items', 'allItems', 'filteredDate', 'filteredItemName', 'selectedItemName', 'selectedDate'));
+        return view('icecream::sales.index', compact('sales', 'products', 'items', 'allItems', 'filteredDate', 'filteredItemName', 'selectedItemName', 'selectedDate'));
     }
 
     // SELL PRODUCT

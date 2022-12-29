@@ -32,14 +32,14 @@ class UserController extends Controller
 
         $users = User::all();
 
-        return view('users.index', compact('users', 'roles'));
+        return view('icecream::users.index', compact('users', 'roles'));
     }
     public function showUser(Request $request, User $user)
     {
 
         $roles = Role::where('status', 1)->get();
 
-        return view('users.show', compact('user', 'roles'));
+        return view('icecream::users.show', compact('user', 'roles'));
     }
     public function postUser(Request $request)
     {

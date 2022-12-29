@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('icecream::layouts.master')
 @section('title')
 Dashboard
 @endsection

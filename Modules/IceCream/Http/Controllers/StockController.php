@@ -30,13 +30,13 @@ class StockController extends Controller
     {
         $stocks = Stock::all();
 
-        return view('stocks.index', compact('stocks'));
+        return view('icecream::stocks.index', compact('stocks'));
     }
     public function showStock(Request $request, Stock $stock)
     {
         $stocks = Stock::where('status', 1)->get();
 
-        return view('stocks.show', compact('stock', 'stocks'));
+        return view('icecream::stocks.show', compact('stock', 'stocks'));
     }
     public function postStock(Request $request)
     {

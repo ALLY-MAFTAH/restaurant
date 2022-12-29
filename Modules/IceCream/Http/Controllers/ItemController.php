@@ -33,7 +33,7 @@ class ItemController extends Controller
         $items = Item::all();
         $stocks = Stock::where('status', 1)->get();
 
-        return view('items.index', compact('items', 'stocks'));
+        return view('icecream::items.index', compact('items', 'stocks'));
     }
 
     // SHOW ITEM
@@ -61,7 +61,7 @@ class ItemController extends Controller
         // dd($sales);
         $products = $item->products;
 
-        return view('items.show', compact('items','filteredDate', 'item','products', 'filteredSales', 'ingredients', 'stocks'));
+        return view('icecream::items.show', compact('items','filteredDate', 'item','products', 'filteredSales', 'ingredients', 'stocks'));
     }
 
     // POST ITEM
