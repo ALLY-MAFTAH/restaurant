@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Module\Icecream\Http\Controllers;
 
 use App\Helpers\ActivityLogHelper;
 use App\Models\Stock;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Routing\Controller;
+
 
 class StockController extends Controller
 {

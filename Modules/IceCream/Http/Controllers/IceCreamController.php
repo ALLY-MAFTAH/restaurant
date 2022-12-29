@@ -9,11 +9,24 @@ use Illuminate\Routing\Controller;
 class IceCreamController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * @return Renderable
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
+        return view('dashboard');
+
         return view('icecream::index');
     }
 
