@@ -6,12 +6,23 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class WaterComController extends Controller
+class GasController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * @return Renderable
+     * Create a new controller instance.
+     *
+     * @return void
      */
+     public function __construct()
+     {
+         $this->middleware('auth:watercom_user');
+     }
+     /**
+      * Show the application dashboard.
+      *
+      * @return \Illuminate\Http\Response
+      */
+
     public function index()
     {
         return view('watercom::index');

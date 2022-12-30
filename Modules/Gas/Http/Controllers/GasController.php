@@ -9,9 +9,20 @@ use Illuminate\Routing\Controller;
 class GasController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * @return Renderable
+     * Create a new controller instance.
+     *
+     * @return void
      */
+     public function __construct()
+     {
+         $this->middleware('auth:gas_user');
+     }
+     /**
+      * Show the application dashboard.
+      *
+      * @return \Illuminate\Http\Response
+      */
+
     public function index()
     {
         return view('gas::index');

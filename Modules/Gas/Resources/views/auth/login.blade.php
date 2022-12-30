@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('gas::layouts.master')
 @section('title')
-    Login
+    Login - Ice Cream Center
 @endsection
 @section('style')
     <style>
@@ -17,11 +17,11 @@
             <div class=" shadow-lg card"style="min-width: 250px; ">
                 <div class="card-header text-center"
                     style="background:rgb(185, 185, 247); color: var(--first-color); font-weight:bold">
-                    {{ __('Login') }}
+                    {{ __('Oryx Gas Login') }}
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('gas_user.login') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -92,12 +92,13 @@
             </div>
         </div>
         <div class="col-sm-9 text-end p-4 align-self-end">
-            <img class="" height="300px" src="{{ asset('images/icecream.png') }}" alt="">
+            <img class="" height="300px" src="{{ asset('images/gas.png') }}" alt="">
         </div>
 
     </div>
 @endsection
 <div class="text-center text-bold pt-4" style="color:white">
     <h1 style="text-shadow: 3px 3px rgb(50, 49, 49);font-family:Verdana, Geneva, Tahoma, sans-serif;"><b>
-            {{ setting('App Name') }} </b></h1>
+            ORYX GAS
+        </b></h1>
 </div>

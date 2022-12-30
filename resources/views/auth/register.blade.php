@@ -99,7 +99,7 @@
         </div>
 
         <div class="col-sm-9 text-end p-4 align-self-end">
-            <img class="" height="300px" src="{{ asset('images/back.png') }}" alt="">
+            <img class="" height="300px" src="{{ asset('images/icecream.png') }}" alt="">
         </div>
     </div>
 @endsection

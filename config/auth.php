@@ -40,6 +40,21 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'icecream_user' => [
+            'driver' => 'session',
+            'provider' => 'icecream_users'
+
+        ],
+        'watercom_user' => [
+            'driver' => 'session',
+            'provider' => 'watercom_users'
+
+        ],
+        'gas_user' => [
+            'driver' => 'session',
+            'provider' => 'gas_users'
+
+        ]
     ],
 
     /*
@@ -63,6 +78,18 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'icecream_users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\IceCreamUser::class,
+        ],
+        'watercom_users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\WaterComUser::class,
+        ],
+        'gas_users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\GasUser::class,
         ],
 
         // 'users' => [
@@ -89,6 +116,24 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'icecream_users' => [
+            'provider' => 'icecream_users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'watercom_users' => [
+            'provider' => 'watercom_users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'gas_users' => [
+            'provider' => 'gas_users',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

@@ -10,7 +10,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+namespace Modules\WaterCom\Http\Controllers;
 
-Route::prefix('watercom')->group(function() {
-    Route::get('/', 'WaterComController@index');
-});
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
+Route::prefix('watercom_user')->group(function(){
+    Route::get('/', 'WaterComController@index')->name('watercom_user.index');
+    Route::namespace('Auth')->group(function(){
+    Route::get('/login', 'LoginController@showLoginForm')->name('watercom_user.login');
+    Route::post('/login', 'LoginController@login');
+    Route::post('logout', 'LoginController@logout')->name('watercom_user.logout');
+    });
+   });

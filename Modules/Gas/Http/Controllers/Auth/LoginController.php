@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\IceCream\Http\Controllers\Auth;
+namespace Modules\Gas\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -14,7 +14,7 @@ class LoginController extends Controller
     | Login Controller
     |--------------------------------------------------------------------------
     |
-    | This controller handles authenticating icecream_users for the application and
+    | This controller handles authenticating gas_users for the application and
     | redirecting them to your home screen. The controller uses a trait
     | to conveniently provide its functionality to your applications.
     |
@@ -23,11 +23,11 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect icecream_users after login.
+     * Where to redirect gas_users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/icecream';
+    protected $redirectTo = '/gas';
 
     /**
      * Create a new controller instance.
@@ -36,11 +36,11 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:icecream_user')->except('logout');
+        $this->middleware('guest:gas_user')->except('logout');
     }
 
     public function showLoginForm(){
-        return view('icecream::auth.login');
+        return view('gas::auth.login');
     }
 
     /**
@@ -55,7 +55,7 @@ class LoginController extends Controller
 
         $request->session()->invalidate();
 
-        return redirect()->route('icecream.login');
+        return redirect()->route('gas.login');
     }
 
      /**
@@ -65,7 +65,7 @@ class LoginController extends Controller
      */
     protected function guard()
     {
-        return Auth::guard('icecream_user');
+        return Auth::guard('gas_user');
     }
 
 }

@@ -23,6 +23,21 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+
+                if ($guard == "gas_user") {
+                    //user was authenticated with gas_user guard.
+                    return redirect()->route('gas.index');
+                } elseif ($guard == "icecream_user") {
+                    //user was authenticated with icecream_user guard.
+                    return redirect()->route('icecream.index');
+                } elseif ($guard == "watercom_user") {
+                    //user was authenticated with watercom_user guard.
+                    return redirect()->route('watercom.index');
+                } else {
+                    //default guard.
+                    return redirect()->route('home');
+                }
+
                 return redirect(RouteServiceProvider::HOME);
             }
         }

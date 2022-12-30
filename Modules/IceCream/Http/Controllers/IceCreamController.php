@@ -15,18 +15,16 @@ class IceCreamController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:icecream_user');
     }
-
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        return view('dashboard');
-
         return view('icecream::index');
     }
 

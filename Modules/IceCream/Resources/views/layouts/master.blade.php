@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title> @yield('title') | {{ 'Morning Sky General' }}</title>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/logo.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/icecream.png') }}">
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
@@ -70,7 +70,7 @@
         </div>
         <div class="l-navbar" id="nav-bar">
             <a href="#" class="app_logo">
-                <div class="header_img"><img style="background: white" src="{{ asset('images/logo.png') }}" alt="">
+                <div class="header_img"><img style="background: white" src="{{ asset('images/icecream.png') }}" alt="">
                 </div>
             </a>
             <nav class="nav">
