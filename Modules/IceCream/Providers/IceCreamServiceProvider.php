@@ -1,16 +1,16 @@
 <?php
 
-namespace Modules\IceCream\Providers;
+namespace Modules\Icecream\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 
-class IceCreamServiceProvider extends ServiceProvider
+class IcecreamServiceProvider extends ServiceProvider
 {
     /**
      * @var string $moduleName
      */
-    protected $moduleName = 'IceCream';
+    protected $moduleName = 'Icecream';
 
     /**
      * @var string $moduleNameLower

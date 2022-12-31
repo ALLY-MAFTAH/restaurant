@@ -10,94 +10,84 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-namespace Modules\IceCream\Http\Controllers;
+
+namespace Modules\Icecream\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('icecream_user')->group(function(){
-    Route::get('/', 'IceCreamController@index')->name('icecream_user.index');
-    Route::namespace('Auth')->group(function(){
-    Route::get('/login', 'LoginController@showLoginForm')->name('icecream_user.login');
-    Route::post('/login', 'LoginController@login');
-    Route::post('logout', 'LoginController@logout')->name('icecream_user.logout');
+Route::prefix('icecream_user')->group(function () {
+
+    Route::get('/', 'IcecreamController@index')->name('icecream.index');
+
+    Route::namespace('Auth')->group(function () {
+
+        Route::get('/login', 'LoginController@showLoginForm')->name('icecream.login');
+        Route::post('/login', 'LoginController@login');
+        Route::post('logout', 'LoginController@logout')->name('logout');
     });
-   });
-
-// Route::prefix('icecream')->group(function() {
-//     Route::get('/', 'IceCreamController@index');
 
 
-// Route::get('/', function () {
-//     return view('login');
-// });
-// Route::redirect('/', '/dashboard');
+    // STOCK ROUTES
+    Route::get('/stocks', [StockController::class, 'index'])->name('stocks.index');
+    Route::post('/add-stock', [StockController::class, 'postStock'])->name('stocks.add');
+    Route::get('/show-stock/{stock}', [StockController::class, 'showStock'])->name('stocks.show');
+    Route::put('/edit-stock/{stock}', [StockController::class, 'putStock'])->name('stocks.edit');
+    Route::delete('/delete-stock/{stock}', [StockController::class, 'deleteStock'])->name('stocks.delete');
+    Route::put('stocks/{stock}/status', [StockController::class, 'toggleStatus'])->name('stocks.toggle-status');
 
-// Auth::routes();
+    // ITEM ROUTES
+    Route::get('/items', [ItemController::class, 'index'])->name('items.index');
+    Route::post('/add-item', [ItemController::class, 'postItem'])->name('items.add');
+    Route::get('/show-item/{item}', [ItemController::class, 'showItem'])->name('items.show');
+    Route::put('/edit-item/{item}', [ItemController::class, 'putItem'])->name('items.edit');
+    Route::delete('/delete-item/{item}', [ItemController::class, 'deleteItem'])->name('items.delete');
+    Route::put('items/{item}/status', [ItemController::class, 'toggleStatus'])->name('items.toggle-status');
+    Route::post('/add-ingredients/{item}', [ItemController::class, 'postIngredients'])->name('items.add-ingredients');
+    Route::put('/edit-ingredients/{item}', [ItemController::class, 'putIngredients'])->name('items.edit-ingredients');
+    Route::delete('/delete-ingredient/{ingredient}', [ItemController::class, 'deleteIngredient'])->name('items.delete-ingredient');
 
-// Route::get('/dashboard', [IceCreamController::class, 'index'])->name('dashboard');
+    // PRODUCTS ROUTES
+    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+    Route::post('/add-product', [ProductController::class, 'postProduct'])->name('products.add');
+    Route::get('/show-product/{product}', [ProductController::class, 'showProduct'])->name('products.show');
+    Route::put('/edit-product/{product}', [ProductController::class, 'putProduct'])->name('products.edit');
+    Route::delete('/delete-product/{product}', [ProductController::class, 'deleteProduct'])->name('products.delete');
+    Route::put('products/{product}/status', [ProductController::class, 'toggleStatus'])->name('products.toggle-status');
 
-// // STOCK ROUTES
-// // Route::get('/stocks','AgentController@index')->name('stocks.index');
-// Route::get('/stocks', [StockController::class, 'index'])->name('stocks.index');
-// Route::post('/add-stock', [StockController::class, 'postStock'])->name('stocks.add');
-// Route::get('/show-stock/{stock}', [StockController::class, 'showStock'])->name('stocks.show');
-// Route::put('/edit-stock/{stock}', [StockController::class, 'putStock'])->name('stocks.edit');
-// Route::delete('/delete-stock/{stock}', [StockController::class, 'deleteStock'])->name('stocks.delete');
-// Route::put('stocks/{stock}/status', [StockController::class, 'toggleStatus'])->name('stocks.toggle-status');
+    // USERS ROUTES
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/show-user/{user}', [UserController::class, 'showUser'])->name('users.show');
+    Route::post('/add-user', [UserController::class, 'postUser'])->name('users.add');
+    Route::put('users/{user}/status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
+    Route::put('edit-user/{user}', [UserController::class, 'putUser'])->name('users.edit');
+    Route::delete('/delete-user/{user}', [UserController::class, 'deleteUser'])->name('users.delete');
 
-// // ITEM ROUTES
-// Route::get('/items', [ItemController::class, 'index'])->name('items.index');
-// Route::post('/add-item', [ItemController::class, 'postItem'])->name('items.add');
-// Route::get('/show-item/{item}', [ItemController::class, 'showItem'])->name('items.show');
-// Route::put('/edit-item/{item}', [ItemController::class, 'putItem'])->name('items.edit');
-// Route::delete('/delete-item/{item}', [ItemController::class, 'deleteItem'])->name('items.delete');
-// Route::put('items/{item}/status', [ItemController::class, 'toggleStatus'])->name('items.toggle-status');
-// Route::post('/add-ingredients/{item}', [ItemController::class, 'postIngredients'])->name('items.add-ingredients');
-// Route::put('/edit-ingredients/{item}', [ItemController::class, 'putIngredients'])->name('items.edit-ingredients');
-// Route::delete('/delete-ingredient/{ingredient}', [ItemController::class, 'deleteIngredient'])->name('items.delete-ingredient');
+    // ROLES ROUTES
+    Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+    Route::get('/show-role/{role}', [RoleController::class, 'showRole'])->name('roles.show');
+    Route::post('/add-role', [RoleController::class, 'postRole'])->name('roles.add');
+    Route::put('roles/{role}/status', [RoleController::class, 'toggleStatus'])->name('roles.toggle-status');
+    Route::put('edit-role/{role}', [RoleController::class, 'putRole'])->name('roles.edit');
+    Route::delete('/delete-role/{role}', [RoleController::class, 'deleteRole'])->name('roles.delete');
 
-// // PRODUCTS ROUTES
-// Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-// Route::post('/add-product', [ProductController::class, 'postProduct'])->name('products.add');
-// Route::get('/show-product/{product}', [ProductController::class, 'showProduct'])->name('products.show');
-// Route::put('/edit-product/{product}', [ProductController::class, 'putProduct'])->name('products.edit');
-// Route::delete('/delete-product/{product}', [ProductController::class, 'deleteProduct'])->name('products.delete');
-// Route::put('products/{product}/status', [ProductController::class, 'toggleStatus'])->name('products.toggle-status');
+    // SALES ROUTES
+    Route::get('/sales', [SaleController::class, 'index'])->name('sales.index');
+    Route::post('/sell-product/{product}', [SaleController::class, 'sellProduct'])->name('products.sell');
 
-// // USERS ROUTES
-// Route::get('/users', [UserController::class, 'index'])->name('users.index');
-// Route::get('/show-user/{user}', [UserController::class, 'showUser'])->name('users.show');
-// Route::post('/add-user', [UserController::class, 'postUser'])->name('users.add');
-// Route::put('users/{user}/status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
-// Route::put('edit-user/{user}', [UserController::class, 'putUser'])->name('users.edit');
-// Route::delete('/delete-user/{user}', [UserController::class, 'deleteUser'])->name('users.delete');
+    // SETTINGS ROUTES
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::put('/edit-setting', [SettingController::class, 'putSetting'])->name('settings.edit');
+    Route::post('/add-setting', [SettingController::class, 'postSetting'])->name('settings.add');
+    Route::delete('/delete-setting/{key}', [SettingController::class, 'deleteSetting'])->name('settings.delete');
 
-// // ROLES ROUTES
-// Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
-// Route::get('/show-role/{role}', [RoleController::class, 'showRole'])->name('roles.show');
-// Route::post('/add-role', [RoleController::class, 'postRole'])->name('roles.add');
-// Route::put('roles/{role}/status', [RoleController::class, 'toggleStatus'])->name('roles.toggle-status');
-// Route::put('edit-role/{role}', [RoleController::class, 'putRole'])->name('roles.edit');
-// Route::delete('/delete-role/{role}', [RoleController::class, 'deleteRole'])->name('roles.delete');
+    // ACTIVITY LOGS ROUTES
+    Route::get('/logs', [ActivityLogController::class, 'index'])->name('logs.index');
+    Route::post('/add-log', [ActivityLogController::class, 'postActivityLog'])->name('logs.add');
+    Route::put('/edit-log', [ActivityLogController::class, 'putActivityLog'])->name('logs.edit');
+    Route::delete('/delete-log/{key}', [ActivityLogController::class, 'deleteActivityLog'])->name('logs.delete');
 
-// // SALES ROUTES
-// Route::get('/sales', [SaleController::class, 'index'])->name('sales.index');
-// Route::post('/sell-product/{product}', [SaleController::class, 'sellProduct'])->name('products.sell');
+    // REPORTS ROUTES
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+});
 
-// // SETTINGS ROUTES
-// Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
-// Route::put('/edit-setting', [SettingController::class, 'putSetting'])->name('settings.edit');
-// Route::post('/add-setting', [SettingController::class, 'postSetting'])->name('settings.add');
-// Route::delete('/delete-setting/{key}', [SettingController::class, 'deleteSetting'])->name('settings.delete');
-
-// // ACTIVITY LOGS ROUTES
-// Route::get('/logs', [ActivityLogController::class, 'index'])->name('logs.index');
-// Route::post('/add-log', [ActivityLogController::class, 'postActivityLog'])->name('logs.add');
-// Route::put('/edit-log', [ActivityLogController::class, 'putActivityLog'])->name('logs.edit');
-// Route::delete('/delete-log/{key}', [ActivityLogController::class, 'deleteActivityLog'])->name('logs.delete');
-
-// // REPORTS ROUTES
-// Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
-
-// });

@@ -11,7 +11,7 @@ class Role extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable=[
+    protected $fillable = [
         'name',
         'status',
         'description',
@@ -22,6 +22,18 @@ class Role extends Model
 
     public function users()
     {
-        return  $this->hasMany (User::class);
+        return  $this->hasMany(User::class);
+    }
+    public function icecreamUsers()
+    {
+        return  $this->hasMany(IcecreamUser::class);
+    }
+    public function watercomUsers()
+    {
+        return  $this->hasMany(WatercomUser::class);
+    }
+    public function gasUsers()
+    {
+        return  $this->hasMany(GasUser::class);
     }
 }

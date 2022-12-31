@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\IceCream\Http\Controllers\Auth;
+namespace Modules\Icecream\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;

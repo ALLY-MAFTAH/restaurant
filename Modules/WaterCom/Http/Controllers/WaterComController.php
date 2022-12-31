@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\WaterCom\Http\Controllers;
+namespace Modules\Watercom\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class GasController extends Controller
+class WatercomController extends Controller
 {
     /**
      * Create a new controller instance.

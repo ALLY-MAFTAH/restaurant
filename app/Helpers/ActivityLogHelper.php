@@ -14,7 +14,7 @@ class ActivityLogHelper
     public static function addToLog($subject)
     {
         $log = [];
-        $log['subject'] = Auth::user()->name.' '. $subject;
+        $log['subject'] = Auth::watercom_user()->name.' '. $subject;
         $log['time'] = Carbon::now();
         $log['url'] = Request::fullUrl();
         $log['method'] = Request::method();

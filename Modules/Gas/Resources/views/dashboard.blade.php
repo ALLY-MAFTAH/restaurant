@@ -1,7 +1,6 @@
 @extends('icecream::layouts.master')
-
 @section('title')
-Dashboard | {!! config('icecream.name') !!}
+Dashboard
 @endsection
 @section('content')
 

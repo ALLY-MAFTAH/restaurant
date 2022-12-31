@@ -1,12 +1,12 @@
 <?php
 
-namespace Modules\IceCream\Http\Controllers;
+namespace Modules\Icecream\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class IceCreamController extends Controller
+class IcecreamController extends Controller
 {
     /**
      * Create a new controller instance.

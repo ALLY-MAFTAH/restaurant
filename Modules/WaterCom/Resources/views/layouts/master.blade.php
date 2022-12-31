@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title> @yield('title') | {{ 'Morning Sky General' }}</title>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/water.png') }}">
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
@@ -36,7 +36,8 @@
             <div class="header_toggle ">
                 <h3
                     style="text-shadow: 0.5px 0.5px white;font-family:Verdana, Geneva, Tahoma, sans-serif;color:var(--first-color)">
-                    <b>{{setting('App Name')}}</b>
+                    <b> TANGA WATER COM</b>
+                    {{-- <b>{{setting('App Name')}}</b> --}}
                 </h3>
             </div>
             <div class="dropdown prof">
@@ -70,13 +71,13 @@
         </div>
         <div class="l-navbar" id="nav-bar">
             <a href="#" class="app_logo">
-                <div class="header_img"><img style="background: white" src="{{ asset('images/icecream.png') }}" alt="">
+                <div class="header_img"><img style="background: white" src="{{ asset('images/water.png') }}" alt="">
                 </div>
             </a>
             <nav class="nav">
                 <div class="nav_list overflow-auto vh-100">
-                    <a href="{{ route('dashboard') }}"
-                        class="nav_link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('watercom.index') }}"
+                        class="nav_link {{ request()->routeIs('watercom.index') ? 'active' : '' }}">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
                     <a href="{{ route('stocks.index') }}"
@@ -105,10 +106,6 @@
                         class="nav_link {{ request()->routeIs('reports.index') ? 'active' : '' }}"> <i
                             class='bx bx-book nav_icon'></i> <span class="nav_name">Reports</span>
                     </a>
-                    {{-- <a href="{{ route('settings.index') }}"
-                        class="nav_link {{ request()->routeIs('settings.index') ? 'active' : '' }}"> <i
-                            class='bx bx-cog nav_icon'></i> <span class="nav_name">Settings</span>
-                    </a> --}}
 
                 </div>
             </nav>

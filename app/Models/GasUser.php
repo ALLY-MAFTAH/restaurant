@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class GasUser extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes,HasFactory;
     protected $guard = "gas_user";
 
     /**
@@ -21,9 +23,11 @@ class GasUser extends Authenticatable
         'role_id',
         'email',
         'password',
-    
-    ];
 
+    ];
+    protected $dates=[
+        'deleted_at'
+    ];
     /**
      * The attributes that should be hidden for arrays.
      *

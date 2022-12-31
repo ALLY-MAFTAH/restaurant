@@ -4,8 +4,10 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\GasUser;
+use App\Models\IcecreamUser;
 use App\Models\Role;
-use App\Models\User;
+use App\Models\WatercomUser;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -35,29 +37,64 @@ class DatabaseSeeder extends Seeder
 
         Role::where('name', Role::ADMIN)->first()->save(
             [
-                User::factory()->create(
+                GasUser::create(
                     [
-                        'name' => 'Test Admin',
+                        'name' => 'Gas Admin',
                         'status' => true,
                         'role_id' => 1,
-                        'email' => 'admin@test.com',
+                        'email' => 'admin@gas.com',
                         'password' => bcrypt('12312345'),
                     ],
-                )
-
+                ),
+                IcecreamUser::create(
+                    [
+                        'name' => 'Icecream Admin',
+                        'status' => true,
+                        'role_id' => 1,
+                        'email' => 'admin@icecream.com',
+                        'password' => bcrypt('12312345'),
+                    ],
+                ),
+                WatercomUser::create(
+                    [
+                        'name' => 'Watercom Admin',
+                        'status' => true,
+                        'role_id' => 1,
+                        'email' => 'admin@watercom.com',
+                        'password' => bcrypt('12312345'),
+                    ],
+                ),
             ]
         );
         Role::where('name', Role::CASHIER)->first()->save(
             [
-                User::factory()->create(
+                GasUser::create(
                     [
-                        'name' => 'Test Cashier',
+                        'name' => 'Gas Cashier',
                         'status' => true,
                         'role_id' => 2,
-                        'email' => 'cashier@test.com',
+                        'email' => 'cashier@gas.com',
                         'password' => bcrypt('12312345'),
                     ],
-                )
+                ),
+                IcecreamUser::create(
+                    [
+                        'name' => 'Icecream Cashier',
+                        'status' => true,
+                        'role_id' => 2,
+                        'email' => 'cashier@icecream.com',
+                        'password' => bcrypt('12312345'),
+                    ],
+                ),
+                WatercomUser::create(
+                    [
+                        'name' => 'Watercom Cashier',
+                        'status' => true,
+                        'role_id' => 2,
+                        'email' => 'cashier@watercom.com',
+                        'password' => bcrypt('12312345'),
+                    ],
+                ),
             ]
         );
     }

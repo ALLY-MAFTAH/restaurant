@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\IceCream\Database\Seeders;
+namespace Modules\Icecream\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class IceCreamDatabaseSeeder extends Seeder
+class IcecreamDatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.

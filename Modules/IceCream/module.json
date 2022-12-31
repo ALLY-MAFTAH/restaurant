@@ -1,11 +1,11 @@
 {
-    "name": "IceCream",
+    "name": "Icecream",
     "alias": "icecream",
     "description": "",
     "keywords": [],
     "priority": 0,
     "providers": [
-        "Modules\\IceCream\\Providers\\IceCreamServiceProvider"
+        "Modules\\Icecream\\Providers\\IcecreamServiceProvider"
     ],
     "files": []
 }

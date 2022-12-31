@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class IceCreamUser extends Authenticatable
+class IcecreamUser extends Authenticatable
 {
-    use Notifiable;
+
+    use Notifiable, SoftDeletes,HasFactory;
     protected $guard = "icecream_user";
 
     /**
@@ -25,6 +27,9 @@ class IceCreamUser extends Authenticatable
     ];
 
 
+    protected $dates=[
+        'deleted_at'
+    ];
     /**
      * The attributes that should be hidden for arrays.
      *

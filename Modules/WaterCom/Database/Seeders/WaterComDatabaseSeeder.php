@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\WaterCom\Database\Seeders;
+namespace Modules\Watercom\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class WaterComDatabaseSeeder extends Seeder
+class WatercomDatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.

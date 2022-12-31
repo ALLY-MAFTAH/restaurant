@@ -29,10 +29,22 @@ class Sale extends Model
     protected $dates = [
         'deleted_at'
     ];
-    
+
     public function user()
     {
         return  $this->belongsTo(User::class);
+    }
+    public function watercomUser()
+    {
+        return  $this->belongsTo(WatercomUser::class);
+    }
+    public function icecreamUser()
+    {
+        return  $this->belongsTo(IcecreamUser::class);
+    }
+    public function gasUser()
+    {
+        return  $this->belongsTo(GasUser::class);
     }
     public function item()
     {

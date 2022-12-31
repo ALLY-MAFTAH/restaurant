@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\WaterCom\Http\Controllers\Auth;
+namespace Modules\Watercom\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;

@@ -81,11 +81,11 @@ return [
         ],
         'icecream_users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\IceCreamUser::class,
+            'model' => App\Models\IcecreamUser::class,
         ],
         'watercom_users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\WaterComUser::class,
+            'model' => App\Models\WatercomUser::class,
         ],
         'gas_users' => [
             'driver' => 'eloquent',

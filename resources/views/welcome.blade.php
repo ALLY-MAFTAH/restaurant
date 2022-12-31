@@ -29,42 +29,45 @@
 <body class="container">
     <div class="text-center pt-5">
         <h1 style="color: var(--first-color)">
-           <b> MORNING SKY GENERAL</b>
+            <b> MORNING SKY GENERAL</b>
         </h1><br><br>
         {{-- <p class="text-white">Dealers in</p> --}}
         <div class="row">
             <div class="col-sm-4 pb-3">
-                <a href="{{ route('watercom_user.login') }}" style="color: white; text-decoration:none">
-                <div class="card shadow"style="background: var(--first-color)">
-                    <div class="card-body">
-                           <h5>
-                               Water Com
+                <a href="{{ route('watercom.login') }}" style="color: white; text-decoration:none">
+                    <div class="card shadow"style="background: var(--first-color)">
+                        <div class="card-body">
+                            <h5>
+                                Water Com
                             </h5>
-                            <img class="" height="130px" width="130px" src="{{ asset('images/water.png') }}" alt="">
+                            <img class="" height="130px" width="130px" src="{{ asset('images/water.png') }}"
+                                alt="">
                         </div>
                     </div>
                 </a>
             </div>
             <div class="col-sm-4 pb-3">
-                <a href="{{ route('icecream_user.login') }}" style="color: white; text-decoration:none">
-                <div class="card shadow"style="background: var(--first-color)">
-                    <div class="card-body">
-                           <h5>
-                               Ice Cream  Center
+                <a href="{{ route('icecream.login') }}" style="color: white; text-decoration:none">
+                    <div class="card shadow"style="background: var(--first-color)">
+                        <div class="card-body">
+                            <h5>
+                                Ice Cream Center
                             </h5>
-                            <img class="" height="130px" width="130px" src="{{ asset('images/icecream.png') }}" alt="">
+                            <img class="" height="130px" width="130px" src="{{ asset('images/icecream.png') }}"
+                                alt="">
                         </div>
                     </div>
                 </a>
             </div>
             <div class="col-sm-4 pb-3">
-                <a href="{{ route('gas_user.login') }}" style="color: white; text-decoration:none">
-                <div class="card shadow"style="background: var(--first-color)">
-                    <div class="card-body">
-                           <h5>
-                               Oryx Gas
+                <a href="{{ route('gas.login') }}" style="color: white; text-decoration:none">
+                    <div class="card shadow"style="background: var(--first-color)">
+                        <div class="card-body">
+                            <h5>
+                                Oryx Gas
                             </h5>
-                            <img class="" height="130px" width="130px" src="{{ asset('images/gas.png') }}" alt="">
+                            <img class="" height="130px" width="130px" src="{{ asset('images/gas.png') }}"
+                                alt="">
                         </div>
                     </div>
                 </a>

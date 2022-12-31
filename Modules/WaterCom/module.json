@@ -1,11 +1,11 @@
 {
-    "name": "WaterCom",
+    "name": "Watercom",
     "alias": "watercom",
     "description": "",
     "keywords": [],
     "priority": 0,
     "providers": [
-        "Modules\\WaterCom\\Providers\\WaterComServiceProvider"
+        "Modules\\Watercom\\Providers\\WatercomServiceProvider"
     ],
     "files": []
 }

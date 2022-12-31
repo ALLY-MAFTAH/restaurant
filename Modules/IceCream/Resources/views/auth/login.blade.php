@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('icecream_user.login') }}">
+                    <form method="POST" action="{{ route('icecream.login') }}">
                         @csrf
 
                         <div class="row mb-3">
@@ -98,7 +98,16 @@
     </div>
 @endsection
 <div class="text-center text-bold pt-4" style="color:white">
-    <h1 style="text-shadow: 3px 3px rgb(50, 49, 49);font-family:Verdana, Geneva, Tahoma, sans-serif;"><b>
-            TANGA ICE CREAM CENTER
-        </b></h1>
+    <div class="row">
+        <div class="col-1">
+            <a class="btn btsn-sm btn-outline-light"
+                href="{{ route('welcome') }}"style="color:white; text-decoration:none"><i class="fa fa-arrow-left"></i>
+            </a>
+        </div>
+        <div class="col-10">
+            <h1 style="text-shadow: 3px 3px rgb(50, 49, 49);font-family:Verdana, Geneva, Tahoma, sans-serif;"><b>
+                    TANGA ICE CREAM CENTER
+                </b></h1>
+        </div>
+    </div>
 </div>

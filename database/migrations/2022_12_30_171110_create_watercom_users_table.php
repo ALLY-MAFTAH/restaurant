@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('icecream_users', function (Blueprint $table) {
+        Schema::create('watercom_users', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->boolean('status')->default(1);
-            $table->integer('role_id')->default(1);
+            $table->integer('role_id');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('icecream_users');
+        Schema::dropIfExists('watercom_users');
     }
 };

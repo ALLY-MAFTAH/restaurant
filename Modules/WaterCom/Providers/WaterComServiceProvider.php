@@ -1,16 +1,16 @@
 <?php
 
-namespace Modules\WaterCom\Providers;
+namespace Modules\Watercom\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
 
-class WaterComServiceProvider extends ServiceProvider
+class WatercomServiceProvider extends ServiceProvider
 {
     /**
      * @var string $moduleName
      */
-    protected $moduleName = 'WaterCom';
+    protected $moduleName = 'Watercom';
 
     /**
      * @var string $moduleNameLower

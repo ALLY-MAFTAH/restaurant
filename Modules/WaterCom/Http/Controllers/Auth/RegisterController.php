@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Modules\Watercom\Http\Controllers\Auth;
 
 use App\Helpers\ActivityLogHelper;
 use App\Http\Controllers\Controller;
