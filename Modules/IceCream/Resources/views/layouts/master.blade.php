@@ -36,7 +36,8 @@
             <div class="header_toggle ">
                 <h3
                     style="text-shadow: 0.5px 0.5px white;font-family:Verdana, Geneva, Tahoma, sans-serif;color:var(--first-color)">
-                    <b>{{setting('App Name')}}</b>
+                    <b>TANGA ICE CREAM CENTER</b>
+                    {{-- <b>{{setting('App Name')}}</b> --}}
                 </h3>
             </div>
             <div class="dropdown prof">
@@ -55,13 +56,13 @@
                     <li><a class="dropdown-item" href="{{route('logs.index')}}">Activity Logs</a></li>
                     <hr>
                     <li>
-                        <a href="{{ route('logout') }}"
+                        <a href="{{ route('icecream.logout') }}"
                             onclick="event.preventDefault();if(confirm('Are you sure want to logout ?'))
                 document.getElementById('logout-form').submit();"
                             class="text-danger dropdown-item">
                             Logout
                         </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        <form id="logout-form" action="{{ route('icecream.logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
                     </li>
@@ -75,8 +76,8 @@
             </a>
             <nav class="nav">
                 <div class="nav_list overflow-auto vh-100">
-                    <a href="{{ route('dashboard') }}"
-                        class="nav_link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('icecream.index') }}"
+                        class="nav_link {{ request()->routeIs('icecream.index') ? 'active' : '' }}">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
                     <a href="{{ route('stocks.index') }}"
@@ -105,11 +106,6 @@
                         class="nav_link {{ request()->routeIs('reports.index') ? 'active' : '' }}"> <i
                             class='bx bx-book nav_icon'></i> <span class="nav_name">Reports</span>
                     </a>
-                    {{-- <a href="{{ route('settings.index') }}"
-                        class="nav_link {{ request()->routeIs('settings.index') ? 'active' : '' }}"> <i
-                            class='bx bx-cog nav_icon'></i> <span class="nav_name">Settings</span>
-                    </a> --}}
-
                 </div>
             </nav>
 

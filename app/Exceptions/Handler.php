@@ -52,21 +52,21 @@ class Handler extends ExceptionHandler
 
     protected function unauthenticated($request, AuthenticationException $exception)
     {
-        if (in_array('gas_user', $exception->guards())) {
+        if (in_array('gas', $exception->guards())) {
             return $request->expectsJson()
                 ? response()->json([
                     'message' => $exception->getMessage()
                 ], 401)
                 : redirect()->guest(route('gas.login'));
         }
-        if (in_array('watercom_user', $exception->guards())) {
+        if (in_array('watercom', $exception->guards())) {
             return $request->expectsJson()
                 ? response()->json([
                     'message' => $exception->getMessage()
                 ], 401)
                 : redirect()->guest(route('watercom.login'));
         }
-        if (in_array('icecream_user', $exception->guards())) {
+        if (in_array('icecream', $exception->guards())) {
             return $request->expectsJson()
                 ? response()->json([
                     'message' => $exception->getMessage()

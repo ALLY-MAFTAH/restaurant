@@ -40,19 +40,19 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'icecream_user' => [
+        'icecream' => [
             'driver' => 'session',
-            'provider' => 'icecream_users'
+            'provider' => 'icecreams'
 
         ],
-        'watercom_user' => [
+        'watercom' => [
             'driver' => 'session',
-            'provider' => 'watercom_users'
+            'provider' => 'watercoms'
 
         ],
-        'gas_user' => [
+        'gas' => [
             'driver' => 'session',
-            'provider' => 'gas_users'
+            'provider' => 'gas'
 
         ]
     ],
@@ -79,17 +79,17 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'icecream_users' => [
+        'icecreams' => [
             'driver' => 'eloquent',
-            'model' => App\Models\IcecreamUser::class,
+            'model' => App\Models\Icecream::class,
         ],
-        'watercom_users' => [
+        'watercoms' => [
             'driver' => 'eloquent',
-            'model' => App\Models\WatercomUser::class,
+            'model' => App\Models\Watercom::class,
         ],
-        'gas_users' => [
+        'gas' => [
             'driver' => 'eloquent',
-            'model' => App\Models\GasUser::class,
+            'model' => App\Models\Gas::class,
         ],
 
         // 'users' => [
@@ -120,20 +120,20 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
-        'icecream_users' => [
-            'provider' => 'icecream_users',
+        'icecreams' => [
+            'provider' => 'icecreams',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],
-        'watercom_users' => [
-            'provider' => 'watercom_users',
+        'watercoms' => [
+            'provider' => 'watercoms',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],
-        'gas_users' => [
-            'provider' => 'gas_users',
+        'gas' => [
+            'provider' => 'gas',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

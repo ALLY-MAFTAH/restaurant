@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('icecream_users', function (Blueprint $table) {
+        Schema::create('watercoms', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->boolean('status')->default(1);
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('icecream_users');
+        Schema::dropIfExists('watercoms');
     }
 };

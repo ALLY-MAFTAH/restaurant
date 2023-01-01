@@ -24,14 +24,14 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
 
-                if ($guard == "gas_user") {
-                    //user was authenticated with gas_user guard.
+                if ($guard == "gas") {
+                    //user was authenticated with gas guard.
                     return redirect()->route('gas.index');
-                } elseif ($guard == "icecream_user") {
-                    //user was authenticated with icecream_user guard.
+                } elseif ($guard == "icecream") {
+                    //user was authenticated with icecream guard.
                     return redirect()->route('icecream.index');
-                } elseif ($guard == "watercom_user") {
-                    //user was authenticated with watercom_user guard.
+                } elseif ($guard == "watercom") {
+                    //user was authenticated with watercom guard.
                     return redirect()->route('watercom.index');
                 } else {
                     //default guard.

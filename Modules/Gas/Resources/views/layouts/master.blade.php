@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title> @yield('title') | {{ 'Morning Sky General' }}</title>
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/water.png') }}">
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
@@ -36,7 +36,8 @@
             <div class="header_toggle ">
                 <h3
                     style="text-shadow: 0.5px 0.5px white;font-family:Verdana, Geneva, Tahoma, sans-serif;color:var(--first-color)">
-                    <b>{{setting('App Name')}}</b>
+                    <b>ORYX GAS</b>
+                    {{-- <b>{{setting('App Name')}}</b> --}}
                 </h3>
             </div>
             <div class="dropdown prof">
@@ -51,17 +52,17 @@
                         </div><a class="dropdown-item" href="#">{{ Auth::user()->name }}</a>
                     </li>
                     <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><a class="dropdown-item" href="{{route('settings.index')}}">Settings</a></li>
-                    <li><a class="dropdown-item" href="{{route('logs.index')}}">Activity Logs</a></li>
+                    <li><a class="dropdown-item" href="{{ route('settings.index') }}">Settings</a></li>
+                    <li><a class="dropdown-item" href="{{ route('logs.index') }}">Activity Logs</a></li>
                     <hr>
                     <li>
-                        <a href="{{ route('logout') }}"
+                        <a href="{{ route('gas.logout') }}"
                             onclick="event.preventDefault();if(confirm('Are you sure want to logout ?'))
                 document.getElementById('logout-form').submit();"
                             class="text-danger dropdown-item">
                             Logout
                         </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        <form id="logout-form" action="{{ route('gas.logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
                     </li>
@@ -70,13 +71,14 @@
         </div>
         <div class="l-navbar" id="nav-bar">
             <a href="#" class="app_logo">
-                <div class="header_img"><img style="background: white" src="{{ asset('images/icecream.png') }}" alt="">
+                <div class="header_img"><img style="background: white" src="{{ asset('images/water.png') }}"
+                        alt="">
                 </div>
             </a>
             <nav class="nav">
                 <div class="nav_list overflow-auto vh-100">
-                    <a href="{{ route('dashboard') }}"
-                        class="nav_link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('gas.index') }}"
+                        class="nav_link {{ request()->routeIs('gas.index') ? 'active' : '' }}">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
                     <a href="{{ route('stocks.index') }}"
@@ -105,21 +107,16 @@
                         class="nav_link {{ request()->routeIs('reports.index') ? 'active' : '' }}"> <i
                             class='bx bx-book nav_icon'></i> <span class="nav_name">Reports</span>
                     </a>
-                    {{-- <a href="{{ route('settings.index') }}"
-                        class="nav_link {{ request()->routeIs('settings.index') ? 'active' : '' }}"> <i
-                            class='bx bx-cog nav_icon'></i> <span class="nav_name">Settings</span>
-                    </a> --}}
-
                 </div>
             </nav>
 
         </div>
         <br><br>
-        @endguest
+    @endguest
 
-        <main class="pt-5">
-            @yield('content')
-        </main>
+    <main class="pt-5">
+        @yield('content')
+    </main>
 
     </div>
     <x:notify-messages />

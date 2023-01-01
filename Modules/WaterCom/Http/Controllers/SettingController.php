@@ -16,7 +16,7 @@ class SettingController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:watercom_user');
+        $this->middleware('auth:watercom');
     }
 
     public function index(Request $request)

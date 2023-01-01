@@ -56,13 +56,13 @@
                     <li><a class="dropdown-item" href="{{route('logs.index')}}">Activity Logs</a></li>
                     <hr>
                     <li>
-                        <a href="{{ route('logout') }}"
+                        <a href="#"
                             onclick="event.preventDefault();if(confirm('Are you sure want to logout ?'))
                 document.getElementById('logout-form').submit();"
                             class="text-danger dropdown-item">
                             Logout
                         </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        <form id="logout-form" action="{{ route('watercom.logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
                     </li>

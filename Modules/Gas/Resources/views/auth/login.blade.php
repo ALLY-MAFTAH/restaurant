@@ -1,6 +1,6 @@
 @extends('gas::layouts.master')
 @section('title')
-    Login - Ice Cream Center
+    Login - Oryx Gas
 @endsection
 @section('style')
     <style>

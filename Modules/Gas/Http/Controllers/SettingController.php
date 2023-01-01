@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Icecream\Http\Controllers;
+namespace Modules\Gas\Http\Controllers;
 use Illuminate\Routing\Controller;
 
 use anlutro\LaravelSettings\Facades\Setting;
@@ -16,14 +16,14 @@ class SettingController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:gas');
     }
 
     public function index(Request $request)
     {
         $settings = Setting::all();
 
-        return view('icecream::settings', compact('settings'));
+        return view('gas::settings', compact('settings'));
     }
 
     public function postSetting(Request $request)

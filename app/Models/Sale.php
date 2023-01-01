@@ -34,17 +34,17 @@ class Sale extends Model
     {
         return  $this->belongsTo(User::class);
     }
-    public function watercomUser()
+    public function watercom()
     {
-        return  $this->belongsTo(WatercomUser::class);
+        return  $this->belongsTo(Watercom::class);
     }
-    public function icecreamUser()
+    public function icecream()
     {
-        return  $this->belongsTo(IcecreamUser::class);
+        return  $this->belongsTo(Icecream::class);
     }
-    public function gasUser()
+    public function gas()
     {
-        return  $this->belongsTo(GasUser::class);
+        return  $this->belongsTo(Gas::class);
     }
     public function item()
     {

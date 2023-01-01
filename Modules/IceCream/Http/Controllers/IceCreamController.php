@@ -15,7 +15,7 @@ class IcecreamController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:icecream_user');
+        $this->middleware('auth:icecream');
     }
     /**
      * Show the application dashboard.

@@ -2,6 +2,7 @@
 
 namespace Modules\Watercom\Http\Controllers\Auth;
 
+use App\Helpers\ActivityLogHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class LoginController extends Controller
     | Login Controller
     |--------------------------------------------------------------------------
     |
-    | This controller handles authenticating watercom_users for the application and
+    | This controller handles authenticating watercoms for the application and
     | redirecting them to your home screen. The controller uses a trait
     | to conveniently provide its functionality to your applications.
     |
@@ -23,7 +24,7 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect watercom_users after login.
+     * Where to redirect watercoms after login.
      *
      * @var string
      */
@@ -36,7 +37,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:watercom_user')->except('logout');
+        $this->middleware('guest:watercom')->except('logout');
     }
 
     public function showLoginForm(){
@@ -54,6 +55,7 @@ class LoginController extends Controller
         $this->guard()->logout();
 
         $request->session()->invalidate();
+        ActivityLogHelper::addToLog('Logged out the system');
 
         return redirect()->route('watercom.login');
     }
@@ -65,7 +67,7 @@ class LoginController extends Controller
      */
     protected function guard()
     {
-        return Auth::guard('watercom_user');
+        return Auth::guard('watercom');
     }
 
 }

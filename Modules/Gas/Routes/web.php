@@ -12,19 +12,20 @@
 */
 
 namespace Modules\Gas\Http\Controllers;
+namespace Modules\Gas\Http\Controllers\Auth;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('gas_user')->group(function () {
+Route::prefix('gas')->group(function () {
 
     Route::get('/', 'GasController@index')->name('gas.index');
 
     Route::namespace('Auth')->group(function () {
 
-        Route::get('/login', 'LoginController@showLoginForm')->name('gas.login');
-        Route::post('/login', 'LoginController@login');
-        Route::post('logout', 'LoginController@logout')->name('logout');
+        Route::get('/login', [LoginController::class, 'showLoginForm'])->name('gas.login');
+        Route::post('/login', [LoginController::class, 'login']);
+        Route::post('logout', [LoginController::class, 'logout'])->name('gas.logout');
     });
 
     // STOCK ROUTES

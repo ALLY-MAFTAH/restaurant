@@ -15,7 +15,7 @@ class WatercomController extends Controller
      */
      public function __construct()
      {
-         $this->middleware('auth:watercom_user');
+         $this->middleware('auth:watercom');
      }
      /**
       * Show the application dashboard.

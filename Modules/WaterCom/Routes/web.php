@@ -16,14 +16,14 @@ namespace Modules\Watercom\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('watercom_user')->group(function () {
+Route::prefix('watercom')->group(function () {
 
     Route::get('/', 'WatercomController@index')->name('watercom.index');
 
     Route::namespace('Auth')->group(function () {
         Route::get('/login', 'LoginController@showLoginForm')->name('watercom.login');
         Route::post('/login', 'LoginController@login');
-        Route::post('logout', 'LoginController@logout')->name('logout');
+        Route::post('logout', 'LoginController@logout')->name('watercom.logout');
     });
 
     // STOCK ROUTES

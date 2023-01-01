@@ -7,11 +7,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class IcecreamUser extends Authenticatable
+class Watercom extends Authenticatable
 {
-
-    use Notifiable, SoftDeletes,HasFactory;
-    protected $guard = "icecream_user";
+    use Notifiable, SoftDeletes, HasFactory;
+    protected $guard = "watercom";
 
     /**
      * The attributes that are mass assignable.
@@ -25,9 +24,7 @@ class IcecreamUser extends Authenticatable
         'email',
         'password',
     ];
-
-
-    protected $dates=[
+    protected $dates = [
         'deleted_at'
     ];
     /**
@@ -38,4 +35,21 @@ class IcecreamUser extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    public function sales()
+    {
+        return  $this->hasMany(Sale::class);
+    }
+    public function role()
+    {
+        return  $this->belongsTo(Role::class);
+    }
 }

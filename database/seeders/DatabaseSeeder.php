@@ -4,10 +4,10 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\GasUser;
-use App\Models\IcecreamUser;
+use App\Models\Gas;
+use App\Models\Icecream;
 use App\Models\Role;
-use App\Models\WatercomUser;
+use App\Models\Watercom;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
 
         Role::where('name', Role::ADMIN)->first()->save(
             [
-                GasUser::create(
+                Gas::create(
                     [
                         'name' => 'Gas Admin',
                         'status' => true,
@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
                         'password' => bcrypt('12312345'),
                     ],
                 ),
-                IcecreamUser::create(
+                Icecream::create(
                     [
                         'name' => 'Icecream Admin',
                         'status' => true,
@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
                         'password' => bcrypt('12312345'),
                     ],
                 ),
-                WatercomUser::create(
+                Watercom::create(
                     [
                         'name' => 'Watercom Admin',
                         'status' => true,
@@ -68,7 +68,7 @@ class DatabaseSeeder extends Seeder
         );
         Role::where('name', Role::CASHIER)->first()->save(
             [
-                GasUser::create(
+                Gas::create(
                     [
                         'name' => 'Gas Cashier',
                         'status' => true,
@@ -77,7 +77,7 @@ class DatabaseSeeder extends Seeder
                         'password' => bcrypt('12312345'),
                     ],
                 ),
-                IcecreamUser::create(
+                Icecream::create(
                     [
                         'name' => 'Icecream Cashier',
                         'status' => true,
@@ -86,7 +86,7 @@ class DatabaseSeeder extends Seeder
                         'password' => bcrypt('12312345'),
                     ],
                 ),
-                WatercomUser::create(
+                Watercom::create(
                     [
                         'name' => 'Watercom Cashier',
                         'status' => true,

@@ -16,7 +16,7 @@ namespace Modules\Icecream\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('icecream_user')->group(function () {
+Route::prefix('icecream')->group(function () {
 
     Route::get('/', 'IcecreamController@index')->name('icecream.index');
 
@@ -24,7 +24,7 @@ Route::prefix('icecream_user')->group(function () {
 
         Route::get('/login', 'LoginController@showLoginForm')->name('icecream.login');
         Route::post('/login', 'LoginController@login');
-        Route::post('logout', 'LoginController@logout')->name('logout');
+        Route::post('logout', 'LoginController@logout')->name('icecream.logout');
     });
 
 

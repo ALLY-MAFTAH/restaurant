@@ -24,16 +24,16 @@ class Role extends Model
     {
         return  $this->hasMany(User::class);
     }
-    public function icecreamUsers()
+    public function icecreams()
     {
-        return  $this->hasMany(IcecreamUser::class);
+        return  $this->hasMany(Icecream::class);
     }
-    public function watercomUsers()
+    public function watercoms()
     {
-        return  $this->hasMany(WatercomUser::class);
+        return  $this->hasMany(Watercom::class);
     }
-    public function gasUsers()
+    public function gases()
     {
-        return  $this->hasMany(GasUser::class);
+        return  $this->hasMany(Gas::class);
     }
 }

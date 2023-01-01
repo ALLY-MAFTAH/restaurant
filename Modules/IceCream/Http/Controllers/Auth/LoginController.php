@@ -14,7 +14,7 @@ class LoginController extends Controller
     | Login Controller
     |--------------------------------------------------------------------------
     |
-    | This controller handles authenticating icecream_users for the application and
+    | This controller handles authenticating icecreams for the application and
     | redirecting them to your home screen. The controller uses a trait
     | to conveniently provide its functionality to your applications.
     |
@@ -23,7 +23,7 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect icecream_users after login.
+     * Where to redirect icecreams after login.
      *
      * @var string
      */
@@ -36,7 +36,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:icecream_user')->except('logout');
+        $this->middleware('guest:icecream')->except('logout');
     }
 
     public function showLoginForm(){
@@ -65,7 +65,7 @@ class LoginController extends Controller
      */
     protected function guard()
     {
-        return Auth::guard('icecream_user');
+        return Auth::guard('icecream');
     }
 
 }

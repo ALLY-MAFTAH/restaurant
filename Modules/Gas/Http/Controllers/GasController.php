@@ -15,7 +15,7 @@ class GasController extends Controller
      */
      public function __construct()
      {
-         $this->middleware('auth:gas_user');
+         $this->middleware('auth:gas');
      }
      /**
       * Show the application dashboard.
