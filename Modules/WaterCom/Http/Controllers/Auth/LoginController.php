@@ -52,7 +52,7 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
-        ActivityLogHelper::addToLog('Logged out the system');
+        ActivityLogHelper::addToLog('Signed out the system');
         $this->guard()->logout();
 
         $request->session()->invalidate();
