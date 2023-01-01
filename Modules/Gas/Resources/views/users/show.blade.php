@@ -1,4 +1,4 @@
-@extends('icecream::layouts.master')
+@extends('gas::layouts.master')
 @section('title')
     User
 @endsection

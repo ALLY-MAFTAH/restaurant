@@ -32,19 +32,19 @@
                 aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <div class="card mb-1 p-2" style="background: var(--form-bg-color)">
-                        <form method="POST" action="{{ route('users.edit', $user) }}">
+                        <form method="POST" action="{{ route('users.edit', $watercom) }}">
                             @method('PUT')
                             @csrf
                             <div class="row">
-                                <div class="text-start mb-1">
+                                <div class="col-sm-4 text-start mb-1">
                                     <label for="role_id" class=" col-form-label text-sm-start">{{ __('Role') }}</label>
                                     <select id="role_id" type="text"
                                         class="form-control form-select @error('role_id') is-invalid @enderror"
-                                        name="role_id" value="{{ old('role_id', $user->role_id) }}" required
+                                        name="role_id" value="{{ old('role_id', $watercom->role_id) }}" required
                                         autocomplete="role_id" autofocus>
                                         @foreach ($roles as $role)
                                             <option value="{{ $role->id }}"
-                                                {{ $role->id == $user->role_id ? 'selected' : '' }}>
+                                                {{ $role->id == $watercom->role_id ? 'selected' : '' }}>
                                                 {{ $role->name }}
                                             </option>
                                         @endforeach
@@ -60,7 +60,7 @@
                                     <div class="">
                                         <input id="name" type="text" placeholder=""
                                             class="form-control @error('name') is-invalid @enderror" name="name"
-                                            value="{{ old('name', $user->name) }}" required autocomplete="name" autofocus>
+                                            value="{{ old('name', $watercom->name) }}" required autocomplete="name" autofocus>
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -74,7 +74,7 @@
                                     <div class="">
                                         <input id="email" type="email" placeholder="Description"
                                             class="form-control @error('email') is-invalid @enderror" name="email"
-                                            value="{{ old('email', $user->email) }}" required autocomplete="email"
+                                            value="{{ old('email', $watercom->email) }}" required autocomplete="email"
                                             autofocus>
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
@@ -100,19 +100,19 @@
                 <div class="col-md-5">
                     <div class="row">
                         <div class="col-4"><b> Name:</b> </div>
-                        <div class="col-8">{{ $user->name }}</div>
+                        <div class="col-8">{{ $watercom->name }}</div>
                     </div>
                     <div class="row">
                         <div class="col-4"><b> Email:</b> </div>
-                        <div class="col-8">{{ $user->email }}</div>
+                        <div class="col-8">{{ $watercom->email }}</div>
                     </div>
                     <div class="row">
                         <div class="col-4"><b> Role:</b> </div>
-                        <div class="col-8">{{ $user->role->name }}</div>
+                        <div class="col-8">{{ $watercom->role->name }}</div>
                     </div>
                     <div class="row">
                         <div class="col-4"><b> Created:</b> </div>
-                        <div class="col-8">{{ $user->created_at->format('D, d M Y \a\t H:i') }}</div>
+                        <div class="col-8">{{ $watercom->created_at->format('D, d M Y \a\t H:i') }}</div>
                     </div>
                 </div>
                 <div class="col-7">
