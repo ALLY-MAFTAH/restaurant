@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('ingredients', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('item_id');
-            $table->bigInteger('material_id');
-            $table->unique(['item_id', 'material_id']);
+            $table->bigInteger('stock_id');
+            $table->unique(['item_id', 'stock_id']);
             $table->double('quantity');
             $table->enum('unit', ['Kilograms', 'Litres', 'Counts']);
             $table->boolean('status');

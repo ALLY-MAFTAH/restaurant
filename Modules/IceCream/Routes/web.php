@@ -16,6 +16,8 @@ namespace Modules\Icecream\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+Auth::routes();
+
 Route::prefix('icecream')->group(function () {
 
     Route::get('/', 'IcecreamController@index')->name('icecream.index');
@@ -90,4 +92,3 @@ Route::prefix('icecream')->group(function () {
     // REPORTS ROUTES
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
 });
-

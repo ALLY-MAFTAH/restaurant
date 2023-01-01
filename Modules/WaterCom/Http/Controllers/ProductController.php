@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Icecream\Http\Controllers;
+namespace Modules\Watercom\Http\Controllers;
 use Illuminate\Routing\Controller;
 
 use App\Helpers\ActivityLogHelper;
@@ -13,16 +13,6 @@ use Illuminate\Support\Facades\Redirect;
 class ProductController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -31,7 +21,7 @@ class ProductController extends Controller
         $products = Product::all();
         $items = Item::where('status', 1)->get();
 
-        return view('icecream::products.index', compact('products', 'items'));
+        return view('watercom::products.index', compact('products', 'items'));
     }
 
     // SHOW PRODUCT
@@ -41,7 +31,7 @@ class ProductController extends Controller
         $items = Item::where('status', 1)->get();
         $ingredients = $product->ingredients;
 
-        return view('icecream::products.show', compact('products', 'product', 'ingredients', 'items'));
+        return view('watercom::products.show', compact('products', 'product', 'ingredients', 'items'));
     }
 
     // POST PRODUCT
@@ -50,7 +40,7 @@ class ProductController extends Controller
 
         $item = Item::findOrFail($request->input('item_id'));
         try {
-            $attributes = $this->validate($request, [
+            $attributes = $request->validate( [
                 'container' => 'required',
                 'quantity' => 'required',
                 'unit' => 'required',
@@ -79,7 +69,7 @@ class ProductController extends Controller
         $item = Item::findOrFail($request->item_id);
 
         try {
-            $attributes = $this->validate($request, [
+            $attributes = $request->validate( [
                 'container' => 'required',
                 'quantity' => 'required',
                 'unit' => 'required',
@@ -103,7 +93,7 @@ class ProductController extends Controller
     public function toggleStatus(Request $request, Product $product)
     {
 
-        $attributes = $this->validate($request, [
+        $attributes = $request->validate( [
             'status' => ['required', 'boolean'],
         ]);
 

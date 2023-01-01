@@ -1,4 +1,4 @@
-@extends('icecream::layouts.master')
+@extends('watercom::layouts.master')
 @section('title')
     Users
 @endsection
@@ -16,7 +16,7 @@
                                 </b>
                                 <div class="btn btn-icon round"
                                     style="height: 32px;width:32px;cursor: auto;padding: 0;font-size: 15px;line-height:2rem; border-radius:50%;background-color:rgb(229, 207, 242);color:var(--first-color)">
-                                    {{ $users->count() }}
+                                    {{ $watercoms->count() }}
                                 </div>
                             </span>
                         </h5>
@@ -38,7 +38,7 @@
                 aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <div class="card mb-1 p-2" style="background: var(--form-bg-color)">
-                        <form method="POST" action="{{ route('users.add') }}">
+                        <form method="POST" action="{{ route('watercoms.add') }}">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-4 mb-1">
@@ -114,7 +114,7 @@
 
                 </thead>
                 <tbody>
-                    @foreach ($users as $index => $user)
+                    @foreach ($watercoms as $index => $user)
                         <tr>
                             <td>{{ ++$index }}</td>
                             <td>{{ $user->name }}</td>
@@ -123,7 +123,7 @@
                             <td class="">{{ $user->updated_at->format('D, d M Y \a\t H:i:s') }} </td>
                             <td class="text-center">
                                 <form id="toggle-status-form-{{ $user->id }}" method="POST"
-                                    action="{{ route('users.toggle-status', $user) }}">
+                                    action="{{ route('watercoms.toggle-status', $user) }}">
                                     <div class="form-check form-switch ">
                                         <input type="hidden" name="status" value="0">
                                         <input type="checkbox" name="status" id="status-switch-{{ $user->id }}"
@@ -136,7 +136,7 @@
                                 </form>
                             </td>
                             <td>
-                                <a href="{{ route('users.show', $user) }}" class="btn btn-sm btn-outline-info collapsed"
+                                <a href="{{ route('watercoms.show', $user) }}" class="btn btn-sm btn-outline-info collapsed"
                                     type="button">
                                     <i class="feather icon-edit"></i> View
                                 </a>
@@ -157,7 +157,7 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form method="POST" action="{{ route('users.edit', $user) }}">
+                                                <form method="POST" action="{{ route('watercoms.edit', $user) }}">
                                                     @method('PUT')
                                                     @csrf
                                                     <div class="text-start mb-1">
@@ -226,7 +226,7 @@
                                     <i class="f"></i>Delete
                                 </a>
                                 <form id="delete-user-{{ $user->id }}" method="post"
-                                    action="{{ route('users.delete', $user) }}">@csrf @method('delete')
+                                    action="{{ route('watercoms.delete', $user) }}">@csrf @method('delete')
                                 </form>
                             </td>
                         </tr>

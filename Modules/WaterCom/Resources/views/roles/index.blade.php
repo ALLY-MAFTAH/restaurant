@@ -1,4 +1,4 @@
-@extends('icecream::layouts.master')
+@extends('watercom::layouts.master')
 @section('title')
     Roles
 @endsection
@@ -101,7 +101,7 @@
                             <td>{{ ++$index }}</td>
                             <td>{{ $role->name }}</td>
                             <td>{{ $role->description }}</td>
-                            <td>{{ $role->users->count() }}</td>
+                            <td>{{ $role->watercoms->count() }}</td>
                             <td class="">{{ $role->updated_at->format('D, d M Y \a\t H:i:s') }} </td>
                             <td class="text-center">
                                 <form id="toggle-status-form-{{ $role->id }}" method="POST"

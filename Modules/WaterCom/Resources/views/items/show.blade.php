@@ -725,7 +725,7 @@
                             <td>{{ $filteredSale->container . ' of ' . $filteredSale->quantity . ' ' . $filteredSale->unit }}</td>
                             <td class="text-right">{{ number_format($filteredSale->price, 0, '.', ',') }} </td>
                             <td class="">{{ $filteredSale->created_at->format('D, d M Y \a\t H:i:s') }} </td>
-                            <td>{{ $filteredSale->user_name . ' (' . $filteredSale->user->role->name . ')' }}</td>
+                            <td>{{ $filteredSale->user_name }}</td>
                         </tr>
                     @endforeach
                 </tbody>

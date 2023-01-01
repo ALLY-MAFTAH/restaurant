@@ -15,7 +15,6 @@ class ActivityLogHelper
     {
         $log = [];
         $log['subject'] = $subject;
-        // $log['subject'] = Auth::user()->name.' '. $subject;
         $log['time'] = Carbon::now();
         $log['url'] = Request::fullUrl();
         $log['method'] = Request::method();

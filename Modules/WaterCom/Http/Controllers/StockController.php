@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Icecream\Http\Controllers;
+namespace Modules\Watercom\Http\Controllers;
 
 use App\Helpers\ActivityLogHelper;
 use App\Models\Stock;
@@ -8,19 +8,11 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Routing\Controller;
-
+use Illuminate\Support\Facades\Auth;
 
 class StockController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+   
 
     /**
      *
@@ -30,18 +22,18 @@ class StockController extends Controller
     {
         $stocks = Stock::all();
 
-        return view('icecream::stocks.index', compact('stocks'));
+        return view('watercom::stocks.index', compact('stocks'));
     }
     public function showStock(Request $request, Stock $stock)
     {
         $stocks = Stock::where('status', 1)->get();
 
-        return view('icecream::stocks.show', compact('stock', 'stocks'));
+        return view('watercom::stocks.show', compact('stock', 'stocks'));
     }
     public function postStock(Request $request)
     {
         try {
-            $attributes = $this->validate($request, [
+            $attributes = $request->validate( [
                 'name' => 'required',
                 'quantity' => 'required',
                 'unit' => 'required',
@@ -50,7 +42,7 @@ class StockController extends Controller
 
             $attributes['status'] = true;
             $stock = Stock::create($attributes);
-            ActivityLogHelper::addToLog('Added stock ' . $stock->name);
+            ActivityLogHelper::addToLog(Auth::user()->name.' Added stock ' . $stock->name);
         } catch (QueryException $th) {
             notify()->error('Failed to add stock "' . $request->name . '". It already exists.');
             return back();
@@ -62,7 +54,7 @@ class StockController extends Controller
     public function putStock(Request $request, Stock $stock)
     {
         try {
-            $attributes = $this->validate($request, [
+            $attributes = $request->validate([
                 'name' => 'required',
                 'quantity' => 'required',
                 'unit' => 'required',

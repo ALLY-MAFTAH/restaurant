@@ -1,4 +1,4 @@
-@extends('icecream::layouts.master')
+@extends('watercom::layouts.master')
 @section('title')
     Sales
 @endsection
@@ -163,7 +163,7 @@
                             <td>{{ $sale->container . ' of ' . $sale->quantity . ' ' . $sale->unit }}</td>
                             <td class="text-right">{{ number_format($sale->price, 0, '.', ',') }} </td>
                             <td class="">{{ $sale->created_at->format('D, d M Y \a\t H:i:s') }} </td>
-                            <td>{{ $sale->user_name . ' (' . $sale->user->role->name . ')' }}</td>
+                            <td>{{ $sale->user_name }}</td>
                         </tr>
                     @endforeach
                 </tbody>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Icecream\Http\Controllers;
+namespace Modules\Watercom\Http\Controllers;
 use Illuminate\Routing\Controller;
 
 use App\Helpers\ActivityLogHelper;
@@ -14,15 +14,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class ItemController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+   
 
     /**
      *
@@ -33,7 +25,7 @@ class ItemController extends Controller
         $items = Item::all();
         $stocks = Stock::where('status', 1)->get();
 
-        return view('icecream::items.index', compact('items', 'stocks'));
+        return view('watercom::items.index', compact('items', 'stocks'));
     }
 
     // SHOW ITEM
@@ -61,14 +53,14 @@ class ItemController extends Controller
         // dd($sales);
         $products = $item->products;
 
-        return view('icecream::items.show', compact('items','filteredDate', 'item','products', 'filteredSales', 'ingredients', 'stocks'));
+        return view('watercom::items.show', compact('items','filteredDate', 'item','products', 'filteredSales', 'ingredients', 'stocks'));
     }
 
     // POST ITEM
     public function postItem(Request $request)
     {
         try {
-            $attributes = $this->validate($request, [
+            $attributes = $request->validate( [
                 'name' => 'required',
                 'quantity' => 'required',
                 'unit' => 'required',
@@ -90,6 +82,7 @@ class ItemController extends Controller
             notify()->success('You have successful added an item');
             return back();
         } catch (QueryException $th) {
+
             $failedId = $th->getBindings()[3];
 
             $stock = Stock::findOrFail($failedId);
@@ -102,7 +95,7 @@ class ItemController extends Controller
     public function putItem(Request $request, Item $item)
     {
         try {
-            $attributes = $this->validate($request, [
+            $attributes = $request->validate( [
                 'name' => 'required',
                 'quantity' => 'required',
                 'unit' => 'required',
@@ -152,6 +145,7 @@ class ItemController extends Controller
             notify()->success('You have successful added ingredients in ' . $item->name);
             return redirect()->back();
         } catch (QueryException $th) {
+            dd($th);
             // dd($th->getBindings());
             $failedId = $th->getBindings()[3];
 
@@ -195,7 +189,7 @@ class ItemController extends Controller
     public function toggleStatus(Request $request, Item $item)
     {
 
-        $attributes = $this->validate($request, [
+        $attributes = $request->validate( [
             'status' => ['required', 'boolean'],
         ]);
 

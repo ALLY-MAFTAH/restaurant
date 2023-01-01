@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Icecream\Http\Controllers;
+namespace Modules\Watercom\Http\Controllers;
 use Illuminate\Routing\Controller;
 
 use App\Helpers\ActivityLogHelper;
@@ -18,22 +18,21 @@ class RoleController extends Controller
      */
     public function index()
     {
-
         $roles = Role::all();
 
-        return view('icecream::roles.index', compact('roles'));
+        return view('watercom::roles.index', compact('roles'));
     }
     public function showRole(Request $request, Role $role)
     {
 
         $users = User::where('status', 1)->get();
 
-        return view('icecream::roles.show', compact('role', 'users'));
+        return view('watercom::roles.show', compact('role', 'users'));
     }
     public function postRole(Request $request)
     {
 
-        $attributes = $this->validate($request, [
+        $attributes = $request->validate( [
             'name' => 'required',
             'description' => 'required',
         ]);
@@ -48,7 +47,7 @@ class RoleController extends Controller
     }
     public function putRole(Request $request, Role $role)
     {
-        $attributes = $this->validate($request, [
+        $attributes = $request->validate( [
             'name' => 'required',
             'description' => 'required',
 
@@ -63,7 +62,7 @@ class RoleController extends Controller
     public function toggleStatus(Request $request, Role $role)
     {
 
-        $attributes = $this->validate($request, [
+        $attributes = $request->validate( [
             'status' => ['required', 'boolean'],
         ]);
 

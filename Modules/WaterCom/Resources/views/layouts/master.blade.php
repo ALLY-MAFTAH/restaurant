@@ -52,8 +52,8 @@
                         </div><a class="dropdown-item" href="#">{{ Auth::user()->name }}</a>
                     </li>
                     <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><a class="dropdown-item" href="{{route('settings.index')}}">Settings</a></li>
-                    <li><a class="dropdown-item" href="{{route('logs.index')}}">Activity Logs</a></li>
+                    <li><a class="dropdown-item" href="{{ route('settings.index') }}">Settings</a></li>
+                    <li><a class="dropdown-item" href="{{ route('logs.index') }}">Activity Logs</a></li>
                     <hr>
                     <li>
                         <a href="#"
@@ -94,8 +94,8 @@
                         class="nav_link {{ request()->routeIs('sales.index') ? 'active' : '' }}">
                         <i class='bx bx-cart nav_icon'></i> <span class="nav_name">Sales</span>
                     </a>
-                    <a href="{{ route('users.index') }}"
-                        class="nav_link {{ request()->routeIs('users.index') || request()->routeIs('users.show') ? 'active' : '' }}">
+                    <a href="{{ route('watercoms.index') }}"
+                        class="nav_link {{ request()->routeIs('watercoms.index') || request()->routeIs('watercoms.show') ? 'active' : '' }}">
                         <i class='bx bx-group nav_icon'></i> <span class="nav_name">Users</span>
                     </a>
                     <a href="{{ route('roles.index') }}"
@@ -112,11 +112,11 @@
 
         </div>
         <br><br>
-        @endguest
+    @endguest
 
-        <main class="pt-5">
-            @yield('content')
-        </main>
+    <main class="pt-5">
+        @yield('content')
+    </main>
 
     </div>
     <x:notify-messages />

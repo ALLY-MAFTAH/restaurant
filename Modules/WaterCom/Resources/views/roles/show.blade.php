@@ -1,4 +1,4 @@
-@extends('icecream::layouts.master')
+@extends('watercom::layouts.master')
 @section('title')
     Role
 @endsection
@@ -92,7 +92,7 @@
                     <div class="row pb-2">
                         <div class="col-4"><b> Users:</b> </div>
                         <div class="col-8" style="background: rgb(234, 232, 244); border-radius:5px">
-                            @forelse ($role->users as $user)
+                            @forelse ($role->watercoms as $user)
                                 <span style="">
                                     {{ $user->name . ' | ' . $user->email }}
                                 </span><br>

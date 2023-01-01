@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Icecream\Http\Controllers;
+namespace Modules\Watercom\Http\Controllers;
 use Illuminate\Routing\Controller;
 
 use Illuminate\Http\Request;
@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 class ReportController extends Controller
 {
     public function index(){
-        return view('icecream::reports');
+        return view('watercom::reports');
     }
 }

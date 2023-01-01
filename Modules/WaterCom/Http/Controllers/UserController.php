@@ -1,26 +1,19 @@
 <?php
 
-namespace Modules\Icecream\Http\Controllers;
+namespace Modules\Watercom\Http\Controllers;
+
 use Illuminate\Routing\Controller;
 
 use App\Helpers\ActivityLogHelper;
 use App\Models\Role;
-use App\Models\User;
+use App\Models\Watercom;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      *
@@ -30,76 +23,79 @@ class UserController extends Controller
     {
         $roles = Role::where('status', 1)->get();
 
-        $users = User::all();
+        $watercoms = Watercom::all();
 
-        return view('icecream::users.index', compact('users', 'roles'));
+        return view('watercom::users.index', compact('watercoms', 'roles'));
     }
-    public function showUser(Request $request, User $user)
+    public function showUser(Request $request, Watercom $watercom)
     {
 
         $roles = Role::where('status', 1)->get();
 
-        return view('icecream::users.show', compact('user', 'roles'));
+        return view('watercom::users.show', compact('watercom', 'roles'));
     }
     public function postUser(Request $request)
     {
-        $attributes = $this->validate($request, [
-            'name' => 'required',
-            'email' => ['required', 'unique:users,email,NULL,id,deleted_at,NULL'],
-            'role_id' => ['required', 'exists:roles,id'],
-        ]);
+        try {
+            $attributes = $request->validate([
+                'name' => 'required',
+                'email' => ['required', 'unique:watercoms,email,NULL,id,deleted_at,NULL'],
+                'role_id' => ['required', 'exists:roles,id'],
+            ]);
 
-        $role_id = $request->role_id;
+            $attributes['password'] = bcrypt('12312345');
+            $attributes['status'] = true;
 
-        $attributes['password'] = bcrypt('TangaRaha');
-        $attributes['status'] = true;
+            $watercom = Watercom::create($attributes);
 
-        $user = User::create($attributes);
+            $role = Role::find($$request->role_id);
+            $role->watercoms()->save($watercom);
+            ActivityLogHelper::addToLog('Added new watercom user: ' . $watercom->name);
+        } catch (QueryException $th) {
+            notify()->error('Failed to add watercom user. "' . $request->name . '" already exists.');
+            return back();
+        }
 
-        $role = Role::find($role_id);
-        $role->users()->save($user);
-        ActivityLogHelper::addToLog('Added new user: '.$user->name);
-
-        notify()->success('You have successful added new user');
+        notify()->success('You have successful added new watercom user');
         return redirect()->back();
     }
 
-    public function putUser(Request $request, User $user)
+    public function putUser(Request $request, Watercom $watercom)
     {
 
-        session()->flash('user_id', $user->id);
-        $attributes = $this->validateWithBag('update', $request, [
+        session()->flash('user_id', $watercom->id);
+        $attributes = $request->validateWithBag('update', [
             'name' => 'required',
-            'email' => ['sometimes', Rule::unique('users')->ignore($user->id)->whereNull('deleted_at')],
+            'email' => ['sometimes', Rule::unique('watercoms')->ignore($watercom->id)->whereNull('deleted_at')],
             'role_id' => ['sometimes', 'exists:roles,id'],
         ]);
 
-        $user->update($attributes);
-        ActivityLogHelper::addToLog('Updated user: '.$user->name);
+        $watercom->update($attributes);
+        ActivityLogHelper::addToLog('Updated watercom user: ' . $watercom->name);
 
-        notify()->success('You have successful edited user');
+        notify()->success('You have successful edited watercom user');
         return back();
     }
 
-    public function toggleStatus(Request $request, User $user)
+    public function toggleStatus(Request $request, Watercom $watercom)
     {
 
         $attributes = $this->validate($request, [
             'status' => ['required', 'boolean'],
         ]);
 
-        $user->update($attributes);
-        ActivityLogHelper::addToLog('Switched user '.$user->name.' status ');
+        $watercom->update($attributes);
+        ActivityLogHelper::addToLog('Switched watercom user ' . $watercom->name . ' status ');
 
-        notify()->success('You have successfully updated user status');
+        notify()->success('You have successfully updated watercom user status');
         return back();
     }
-    public function deleteUser(Request $request, User $user)
+    public function deleteUser(Request $request, Watercom $watercom)
     {
 
-        $itsName = $user->name;
-        $user->delete();
-        ActivityLogHelper::addToLog('Deleted user: '.$itsName);
+        $itsName = $watercom->name;
+        $watercom->delete();
+        ActivityLogHelper::addToLog('Deleted watercom user: ' . $itsName);
 
         notify()->success('You have successful deleted ' . $itsName . '.');
         return back();

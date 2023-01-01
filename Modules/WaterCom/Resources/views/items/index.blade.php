@@ -1,4 +1,4 @@
-@extends('icecream::layouts.master')
+@extends('watercom::layouts.master')
 @section('title')
     Items
 @endsection

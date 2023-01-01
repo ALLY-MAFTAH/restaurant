@@ -52,10 +52,10 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
+        ActivityLogHelper::addToLog('Logged out the system');
         $this->guard()->logout();
 
         $request->session()->invalidate();
-        ActivityLogHelper::addToLog('Logged out the system');
 
         return redirect()->route('watercom.login');
     }
