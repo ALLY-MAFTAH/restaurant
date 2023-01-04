@@ -38,7 +38,7 @@
                     <div class="card shadow"style="background: var(--first-color)">
                         <div class="card-body">
                             <h5>
-                                Water Com
+                                Water Com HHHHHHHHHHHHHHHHHHHHHHHHHHHH
                             </h5>
                             <img class="" height="130px" width="130px" src="{{ asset('images/water.png') }}"
                                 alt="">
