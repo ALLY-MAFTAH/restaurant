@@ -77,11 +77,11 @@
                                 </button>
 
                             </div>
-                            @if (Route::has('password.request'))
+                            @if (Route::has('watercom.password.request'))
                                 <div class="text-center pt-2">
 
                                     <a class="btn-link" style="text-decoration: none; font-size:12px"
-                                        href="{{ route('password.request') }}">
+                                        href="{{ route('watercom.password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 </div>

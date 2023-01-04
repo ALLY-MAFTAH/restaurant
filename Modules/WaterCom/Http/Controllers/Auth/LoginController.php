@@ -3,7 +3,7 @@
 namespace Modules\Watercom\Http\Controllers\Auth;
 
 use App\Helpers\ActivityLogHelper;
-use App\Http\Controllers\Controller;
+use Modules\Watercom\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

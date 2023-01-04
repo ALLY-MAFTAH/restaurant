@@ -48,7 +48,7 @@ class UserController extends Controller
 
             $watercom = Watercom::create($attributes);
 
-            $role = Role::find($$request->role_id);
+            $role = Role::find($request->role_id);
             $role->watercoms()->save($watercom);
             ActivityLogHelper::addToLog('Added new watercom user: ' . $watercom->name);
         } catch (QueryException $th) {

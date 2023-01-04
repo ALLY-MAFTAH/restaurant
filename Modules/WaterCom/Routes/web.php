@@ -25,6 +25,10 @@ Route::prefix('watercom')->group(function () {
         Route::get('/login', 'LoginController@showLoginForm')->name('watercom.login');
         Route::post('/login', 'LoginController@login');
         Route::post('logout', 'LoginController@logout')->name('watercom.logout');
+        Route::get('/reset-password', 'ResetPasswordController@index')->name('watercom.password.request');
+        Route::post('/send-reset-link', 'ResetPasswordController@validatePasswordRequest')->name('watercom.password.email');
+        Route::get('/password/reset/{token}', 'ResetPasswordController@reset')->name('watercom.password.reset');
+        Route::post('/password/reset-confirm', 'ResetPasswordController@resetPassword')->name('watercom.password.update');
     });
 
     Route::middleware(['auth:watercom'])->group(function () {

@@ -2,7 +2,7 @@
 
 namespace Modules\Watercom\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use Modules\Watercom\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ConfirmsPasswords;
 
