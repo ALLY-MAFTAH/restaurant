@@ -13,15 +13,15 @@ class IcecreamController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth:icecream');
-    }
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
+     public function __construct()
+     {
+         $this->middleware('auth:icecream');
+     }
+     /**
+      * Show the application dashboard.
+      *
+      * @return \Illuminate\Http\Response
+      */
 
     public function index()
     {

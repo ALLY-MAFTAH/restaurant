@@ -14,15 +14,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class ItemController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
 
     /**
      *
@@ -30,8 +22,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::all();
-        $stocks = Stock::where('status', 1)->get();
+        $items = Item::where('module','icecream')->get();
+        $stocks = Stock::where(['module'=>'icecream','status'=> 1])->get();
 
         return view('icecream::items.index', compact('items', 'stocks'));
     }
@@ -55,8 +47,8 @@ class ItemController extends Controller
         }
         $selectedDate = $filteredDate;
 
-        $items = Item::all();
-        $stocks = Stock::where('status', 1)->get();
+        $items = Item::where('module','icecream')->get();
+        $stocks = Stock::where(['module'=>'icecream','status'=> 1])->get();
         $ingredients = $item->ingredients;
         // dd($sales);
         $products = $item->products;
@@ -68,13 +60,13 @@ class ItemController extends Controller
     public function postItem(Request $request)
     {
         try {
-            $attributes = $this->validate($request, [
+            $attributes = $request->validate( [
                 'name' => 'required',
                 'quantity' => 'required',
                 'unit' => 'required',
                 'cost' => 'required',
             ]);
-
+            $attributes['module'] = 'icecream';
             $attributes['status'] = true;
             $item = Item::create($attributes);
             ActivityLogHelper::addToLog('Added item '.$item->name);
@@ -90,6 +82,7 @@ class ItemController extends Controller
             notify()->success('You have successful added an item');
             return back();
         } catch (QueryException $th) {
+
             $failedId = $th->getBindings()[3];
 
             $stock = Stock::findOrFail($failedId);
@@ -102,7 +95,7 @@ class ItemController extends Controller
     public function putItem(Request $request, Item $item)
     {
         try {
-            $attributes = $this->validate($request, [
+            $attributes = $request->validate( [
                 'name' => 'required',
                 'quantity' => 'required',
                 'unit' => 'required',
@@ -139,7 +132,7 @@ class ItemController extends Controller
                 $ingredient->status = true;
 
                 $item->ingredients()->save($ingredient);
-                $stock = Stock::findOrFail($ingredientsIds[$i]);
+                $stock = Stock::where('module','icecream')->findOrFail($ingredientsIds[$i]);
                 $newQuantity = $stock->quantity - $ingredient->quantity;
 
                 $stock->update([
@@ -195,7 +188,7 @@ class ItemController extends Controller
     public function toggleStatus(Request $request, Item $item)
     {
 
-        $attributes = $this->validate($request, [
+        $attributes = $request->validate( [
             'status' => ['required', 'boolean'],
         ]);
 

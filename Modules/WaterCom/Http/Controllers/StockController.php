@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class StockController extends Controller
 {
-   
+
 
     /**
      *
@@ -20,30 +20,31 @@ class StockController extends Controller
      */
     public function index()
     {
-        $stocks = Stock::all();
+        $stocks = Stock::where('module', 'watercom')->get();
 
         return view('watercom::stocks.index', compact('stocks'));
     }
     public function showStock(Request $request, Stock $stock)
     {
-        $stocks = Stock::where('status', 1)->get();
 
-        return view('watercom::stocks.show', compact('stock', 'stocks'));
+        return view('watercom::stocks.show', compact('stock'));
     }
     public function postStock(Request $request)
     {
         try {
-            $attributes = $request->validate( [
+            $attributes = $request->validate([
                 'name' => 'required',
                 'quantity' => 'required',
                 'unit' => 'required',
                 'cost' => 'required',
             ]);
 
+            $attributes['module'] = 'watercom';
             $attributes['status'] = true;
             $stock = Stock::create($attributes);
-            ActivityLogHelper::addToLog(Auth::user()->name.' Added stock ' . $stock->name);
+            ActivityLogHelper::addToLog(Auth::user()->name . ' Added stock ' . $stock->name);
         } catch (QueryException $th) {
+            // dd($th);
             notify()->error('Failed to add stock "' . $request->name . '". It already exists.');
             return back();
         }
@@ -78,17 +79,17 @@ class StockController extends Controller
         ]);
 
         $stock->update($attributes);
-        ActivityLogHelper::addToLog('Switched stock '.$stock->name.' status ');
+        ActivityLogHelper::addToLog('Switched stock ' . $stock->name . ' status ');
 
         notify()->success('You have successfully updated stock status');
         return back();
     }
-    public function deleteStock( Stock $stock)
+    public function deleteStock(Stock $stock)
     {
 
         $itsName = $stock->name;
         $stock->delete();
-        ActivityLogHelper::addToLog('Deleted stock '.$itsName);
+        ActivityLogHelper::addToLog('Deleted stock ' . $itsName);
 
         notify()->success('You have successful deleted ' . $itsName . '.');
         return back();

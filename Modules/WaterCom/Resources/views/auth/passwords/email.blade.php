@@ -1,6 +1,6 @@
 @extends('watercom::layouts.master')
 @section('title')
-    Reset Password
+    Reset Password - Water Com
 @endsection
 @section('style')
     <style>

@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col">
                     <div class=" text-left">
-                        <a href="{{ route('roles.index') }}" style="text-decoration: none;font-size:15px">
+                        <a href="{{ route('icecream.roles.index') }}" style="text-decoration: none;font-size:15px">
                             <i class="fa fa-chevron-left" aria-hidden="true"></i>
                             Back
                         </a>
@@ -31,7 +31,7 @@
                 aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <div class="card mb-1 p-2" style="background: var(--form-bg-color)">
-                        <form method="POST" action="{{ route('roles.edit', $role) }}">
+                        <form method="POST" action="{{ route('icecream.roles.edit', $role) }}">
                             @method('PUT')
                             @csrf
                             <div class="row">
@@ -92,7 +92,7 @@
                     <div class="row pb-2">
                         <div class="col-4"><b> Users:</b> </div>
                         <div class="col-8" style="background: rgb(234, 232, 244); border-radius:5px">
-                            @forelse ($role->users as $user)
+                            @forelse ($role->icecreams as $user)
                                 <span style="">
                                     {{ $user->name . ' | ' . $user->email }}
                                 </span><br>

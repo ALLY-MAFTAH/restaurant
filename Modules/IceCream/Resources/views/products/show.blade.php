@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col">
                     <div class=" text-left">
-                        <a href="{{ route('products.index') }}" style="text-decoration: none;font-size:15px">
+                        <a href="{{ route('icecream.products.index') }}" style="text-decoration: none;font-size:15px">
                             <i class="fa fa-chevron-left" aria-hidden="true"></i>
                             Back
                         </a>
@@ -31,7 +31,7 @@
                 aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <div class="card mb-1 p-2" style="background: var(--form-bg-color)">
-                        <form method="POST" action="{{ route('products.edit', $product) }}">
+                        <form method="POST" action="{{ route('icecream.products.edit', $product) }}">
                             @method('PUT')
                             @csrf
                             <div class="row">

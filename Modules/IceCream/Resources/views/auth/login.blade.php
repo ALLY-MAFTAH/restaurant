@@ -19,7 +19,6 @@
                     style="background:rgb(185, 185, 247); color: var(--first-color); font-weight:bold">
                     {{ __('Ice Cream Center Login') }}
                 </div>
-
                 <div class="card-body">
                     <form method="POST" action="{{ route('icecream.login') }}">
                         @csrf
@@ -77,11 +76,11 @@
                                 </button>
 
                             </div>
-                            @if (Route::has('password.request'))
+                            @if (Route::has('icecream.password.request'))
                                 <div class="text-center pt-2">
 
                                     <a class="btn-link" style="text-decoration: none; font-size:12px"
-                                        href="{{ route('password.request') }}">
+                                        href="{{ route('icecream.password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 </div>

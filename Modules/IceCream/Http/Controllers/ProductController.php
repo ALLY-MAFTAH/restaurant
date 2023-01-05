@@ -1,6 +1,7 @@
 <?php
 
 namespace Modules\Icecream\Http\Controllers;
+
 use Illuminate\Routing\Controller;
 
 use App\Helpers\ActivityLogHelper;
@@ -13,23 +14,13 @@ use Illuminate\Support\Facades\Redirect;
 class ProductController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        $products = Product::all();
-        $items = Item::where('status', 1)->get();
+        $products = Product::where('module', 'icecream')->get();
+        $items = Item::where(['module' => 'icecream', 'status' => 1])->get();
 
         return view('icecream::products.index', compact('products', 'items'));
     }
@@ -37,11 +28,11 @@ class ProductController extends Controller
     // SHOW PRODUCT
     public function showProduct(Request $request, Product $product)
     {
-        $products = Product::all();
-        $items = Item::where('status', 1)->get();
+
+        $items = Item::where(['module' => 'icecream', 'status' => 1])->get();
         $ingredients = $product->ingredients;
 
-        return view('icecream::products.show', compact('products', 'product', 'ingredients', 'items'));
+        return view('icecream::products.show', compact('product', 'ingredients', 'items'));
     }
 
     // POST PRODUCT
@@ -50,7 +41,7 @@ class ProductController extends Controller
 
         $item = Item::findOrFail($request->input('item_id'));
         try {
-            $attributes = $this->validate($request, [
+            $attributes = $request->validate([
                 'container' => 'required',
                 'quantity' => 'required',
                 'unit' => 'required',
@@ -59,7 +50,7 @@ class ProductController extends Controller
             ]);
 
             $attributes['status'] = true;
-
+            $attributes['module'] = 'icecream';
             $product = Product::create($attributes);
             ActivityLogHelper::addToLog('Added product ' . $product->name);
 
@@ -79,7 +70,7 @@ class ProductController extends Controller
         $item = Item::findOrFail($request->item_id);
 
         try {
-            $attributes = $this->validate($request, [
+            $attributes = $request->validate([
                 'container' => 'required',
                 'quantity' => 'required',
                 'unit' => 'required',
@@ -90,7 +81,6 @@ class ProductController extends Controller
 
             $product->update($attributes);
             ActivityLogHelper::addToLog('Updated product ' . $product->name);
-
         } catch (QueryException $th) {
             notify()->error('Product "' . $request->name . '" with quantity of "' . $request->quantity . '" already exists.');
             return back();
@@ -103,12 +93,12 @@ class ProductController extends Controller
     public function toggleStatus(Request $request, Product $product)
     {
 
-        $attributes = $this->validate($request, [
+        $attributes = $request->validate([
             'status' => ['required', 'boolean'],
         ]);
 
         $product->update($attributes);
-        ActivityLogHelper::addToLog('Switched product '.$product->name.' status ');
+        ActivityLogHelper::addToLog('Switched product ' . $product->name . ' status ');
 
         notify()->success('You have successfully updated product status');
         return back();
@@ -120,7 +110,7 @@ class ProductController extends Controller
 
         $itsName = $product->name;
         $product->delete();
-        ActivityLogHelper::addToLog('Deleted product '.$itsName);
+        ActivityLogHelper::addToLog('Deleted product ' . $itsName);
 
         notify()->success('You have successful deleted ' . $itsName . '.');
         return back();

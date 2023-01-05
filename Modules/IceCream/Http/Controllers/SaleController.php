@@ -1,6 +1,7 @@
 <?php
 
 namespace Modules\Icecream\Http\Controllers;
+
 use Illuminate\Routing\Controller;
 
 use App\Helpers\ActivityLogHelper;
@@ -14,15 +15,6 @@ use Illuminate\Support\Facades\Redirect;
 
 class SaleController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      *
@@ -42,23 +34,23 @@ class SaleController extends Controller
         if ($filteredDate == null) {
             $filteredDate = "All Days";
         }
-        $filteredItem = Item::where('name', $filteredItemName)->first();
+        $filteredItem = Item::where(['module' => 'icecream', 'name' => $filteredItemName])->first();
 
         if ($filteredDate != "All Days" && $filteredItemName != "All Products") {
-            $sales = Sale::where(['item_id' => $filteredItem->id, 'date' => $filteredDate])->latest()->get();
+            $sales = Sale::where(['module' => 'icecream', 'item_id' => $filteredItem->id, 'date' => $filteredDate])->latest()->get();
         } elseif ($filteredDate == "All Days" && $filteredItemName != "All Products") {
-            $sales = Sale::where('item_id', $filteredItem->id)->latest()->get();
+            $sales = Sale::where(['module' => 'icecream', 'item_id' => $filteredItem->id])->latest()->get();
         } elseif ($filteredItemName == "All Products" && $filteredDate != "All Days") {
-            $sales = Sale::where('date', $filteredDate)->latest()->get();
+            $sales = Sale::where('module', 'icecream')->where('date', $filteredDate)->latest()->get();
         } else {
-            $sales = Sale::latest()->get();
+            $sales = Sale::where('module', 'icecream')->latest()->get();
         }
         $selectedItemName = $filteredItemName;
         $selectedDate = $filteredDate;
 
-        $items = Item::where('quantity', '>', 0)->get();
-        $allItems = Item::all();
-        $products = Product::where('status', 1)->get();
+        $items = Item::where('module', 'icecream')->where('quantity', '>', 0)->get();
+        $allItems = Item::where('module', 'icecream')->get();
+        $products = Product::where(['module' => 'icecream', 'status' => 1])->get();
         // dd($filteredItemName);
 
         return view('icecream::sales.index', compact('sales', 'products', 'items', 'allItems', 'filteredDate', 'filteredItemName', 'selectedItemName', 'selectedDate'));
@@ -75,7 +67,7 @@ class SaleController extends Controller
         try {
             for ($i = 0; $i < $length; $i++) {
 
-                $item = Item::findOrFail($product->item_id);
+                $item = Item::where('module','icecream')->findOrFail($product->item_id);
                 if ($product->quantity <= $item->quantity) {
                     $newQuantity = $item->quantity - $product->quantity;
                     $item->update([
@@ -100,17 +92,17 @@ class SaleController extends Controller
                     'user_id' => Auth::user()->id,
                     'date' => Carbon::now('GMT+3')->toDateString(),
                     'status' => true,
+                    'module' => 'icecream',
                 ];
                 $sell = Sale::create($attributes);
                 $item->sales()->save($sell);
-                ActivityLogHelper::addToLog('Sold product '.$item->name);
-
+                ActivityLogHelper::addToLog('Sold product ' . $item->name);
             }
         } catch (\Throwable $th) {
             notify()->error('Oops! Something went wrong');
             return back();
         }
-        notify()->success('You have successful sell ' . $sell->name);
+        notify()->success('You have successful sold ' . $sell->name);
         return Redirect::back();
     }
 }

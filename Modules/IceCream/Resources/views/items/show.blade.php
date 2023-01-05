@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col">
                     <div class=" text-left">
-                        <a href="{{ route('items.index') }}" style="text-decoration: none;font-size:15px">
+                        <a href="{{ route('icecream.items.index') }}" style="text-decoration: none;font-size:15px">
                             <i class="fa fa-chevron-left" aria-hidden="true"></i>
                             Back
                         </a>
@@ -30,7 +30,7 @@
                 aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <div class="card mb-1 p-2" style="background: var(--form-bg-color)">
-                        <form method="POST" action="{{ route('items.edit', $item) }}">
+                        <form method="POST" action="{{ route('icecream.items.edit', $item) }}">
                             @method('PUT')
                             @csrf
                             <div class="row">
@@ -144,7 +144,7 @@
                     <div class="card"id="edit-form" style="display: none">
                         <div class="card-body">
                             @if ($ingredients->count() == 0)
-                                <form method="POST" action="{{ route('items.add-ingredients', $item) }}">
+                                <form method="POST" action="{{ route('icecream.items.add-ingredients', $item) }}">
                                     @csrf
                                     <div class="row">
                                         <div class="col mb-1">
@@ -251,7 +251,7 @@
                                 </form>
                             @else
                                 <form id="update-ingredients" method="POST"
-                                    action="{{ route('items.edit-ingredients', $item) }}">
+                                    action="{{ route('icecream.items.edit-ingredients', $item) }}">
                                     @csrf
                                     @method('PUT')
                                     <div class="row">
@@ -325,10 +325,10 @@
                                     </div>
                                 </form>
                                 <form id="delete-ingredient-{{ $ingredient->id }}" method="post"
-                                    action="{{ route('items.delete-ingredient', $ingredient) }}">@csrf
+                                    action="{{ route('icecream.items.delete-ingredient', $ingredient) }}">@csrf
                                     @method('delete')
                                 </form>
-                                <form method="POST" action="{{ route('items.add-ingredients', $item) }}">
+                                <form method="POST" action="{{ route('icecream.items.add-ingredients', $item) }}">
                                     @csrf
                                     <div class="text-right after-add-more"style="margin-bottom:10px;">
                                         <a class="add-more" type="button"style="text-decoration:none">Add
@@ -428,7 +428,7 @@
                 aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <div class="card mb-1 p-2" style="background: var(--form-bg-color)">
-                        <form method="POST" action="{{ route('products.add') }}">
+                        <form method="POST" action="{{ route('icecream.products.add') }}">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-3 mb-1">
@@ -532,7 +532,7 @@
                             <td class="">{{ $product->updated_at->format('D, d M Y \a\t H:i:s') }} </td>
                             <td class="text-center">
                                 <form id="toggle-status-form-{{ $product->id }}" method="POST"
-                                    action="{{ route('products.toggle-status', $product) }}">
+                                    action="{{ route('icecream.products.toggle-status', $product) }}">
                                     <div class="form-check form-switch ">
                                         <input type="hidden" name="status" value="0">
                                         <input type="checkbox" name="status" id="status-switch-{{ $product->id }}"
@@ -545,7 +545,7 @@
                                 </form>
                             </td>
                             <td>
-                                <a href="{{ route('products.show', $product) }}"
+                                <a href="{{ route('icecream.products.show', $product) }}"
                                     class="btn btn-sm btn-outline-info collapsed" type="button">
                                     <i class="feather icon-edit"></i> View
                                 </a>
@@ -566,7 +566,7 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form method="POST" action="{{ route('products.edit', $product) }}">
+                                                <form method="POST" action="{{ route('icecream.products.edit', $product) }}">
                                                     @method('PUT')
                                                     @csrf
                                                     <div class="text-start mb-1">
@@ -663,7 +663,7 @@
                                     <i class="f"></i>Delete
                                 </a>
                                 <form id="delete-product-{{ $product->id }}" method="post"
-                                    action="{{ route('products.delete', $product) }}">@csrf @method('delete')
+                                    action="{{ route('icecream.products.delete', $product) }}">@csrf @method('delete')
                                 </form>
                             </td>
                         </tr>
@@ -683,7 +683,7 @@
                     </h5>
                 </div>
                 <div class="col-sm-7">
-                    <form action="{{ route('items.show',$item) }}" method="GET" id="filter-form">
+                    <form action="{{ route('icecream.items.show',$item) }}" method="GET" id="filter-form">
                         @csrf
                         <div class="row"><div class="col-6"></div>
                             <div class="col-md-6 text-center">
@@ -725,7 +725,7 @@
                             <td>{{ $filteredSale->container . ' of ' . $filteredSale->quantity . ' ' . $filteredSale->unit }}</td>
                             <td class="text-right">{{ number_format($filteredSale->price, 0, '.', ',') }} </td>
                             <td class="">{{ $filteredSale->created_at->format('D, d M Y \a\t H:i:s') }} </td>
-                            <td>{{ $filteredSale->user_name . ' (' . $filteredSale->user->role->name . ')' }}</td>
+                            <td>{{ $filteredSale->user_name }}</td>
                         </tr>
                     @endforeach
                 </tbody>

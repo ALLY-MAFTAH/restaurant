@@ -17,6 +17,7 @@ class Sale extends Model
         'user_id',
         'user_name',
         'name',
+        'module',
         'container',
         'quantity',
         'unit',

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('activity_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('subject');
+            $table->string('module');
             $table->string('url');
             $table->string('method');
             $table->string('ip');

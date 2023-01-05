@@ -29,7 +29,7 @@
                 aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <div class="card mb-1 p-2" style="background: var(--form-bg-color)">
-                        <form method="POST" action="{{ route('settings.add') }}">
+                        <form method="POST" action="{{ route('watercom.settings.add') }}">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-6 mb-1">
@@ -78,7 +78,7 @@
                     <div class="row">
                         <div class="col-11">
 
-                            <form method="POST" action="{{ route('settings.edit') }}" id="add-setting-{{ $key }}">
+                            <form method="POST" action="{{ route('watercom.settings.edit') }}" id="add-setting-{{ $key }}">
                                 @method('PUT')
                                 @csrf
                                 <div class="row">
@@ -111,7 +111,7 @@
                                 <i class="fa fa-trash"></i>
                             </a>
                             <form id="delete-setting-{{ $key }}" method="post"
-                                action="{{ route('settings.delete', $key) }}">@csrf @method('delete')
+                                action="{{ route('watercom.settings.delete', $key) }}">@csrf @method('delete')
                             </form>
                         </div>
                     </div>

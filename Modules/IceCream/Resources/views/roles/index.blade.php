@@ -37,7 +37,7 @@
                 aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <div class="card mb-1 p-2" style="background: var(--form-bg-color)">
-                        <form method="POST" action="{{ route('roles.add') }}">
+                        <form method="POST" action="{{ route('icecream.roles.add') }}">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-6 mb-1">
@@ -101,11 +101,11 @@
                             <td>{{ ++$index }}</td>
                             <td>{{ $role->name }}</td>
                             <td>{{ $role->description }}</td>
-                            <td>{{ $role->users->count() }}</td>
+                            <td>{{ $role->icecreams->count() }}</td>
                             <td class="">{{ $role->updated_at->format('D, d M Y \a\t H:i:s') }} </td>
                             <td class="text-center">
                                 <form id="toggle-status-form-{{ $role->id }}" method="POST"
-                                    action="{{ route('roles.toggle-status', $role) }}">
+                                    action="{{ route('icecream.roles.toggle-status', $role) }}">
                                     <div class="form-check form-switch ">
                                         <input type="hidden" name="status" value="0">
                                         <input type="checkbox" name="status" id="status-switch-{{ $role->id }}"
@@ -118,7 +118,7 @@
                                 </form>
                             </td>
                             <td>
-                                <a href="{{ route('roles.show', $role) }}" class="btn btn-sm btn-outline-info collapsed"
+                                <a href="{{ route('icecream.roles.show', $role) }}" class="btn btn-sm btn-outline-info collapsed"
                                     type="button">
                                     <i class="feather icon-edit"></i> View
                                 </a>
@@ -139,7 +139,7 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form method="POST" action="{{ route('roles.edit', $role) }}">
+                                                <form method="POST" action="{{ route('icecream.roles.edit', $role) }}">
                                                     @method('PUT')
                                                     @csrf
                                                     <div class="text-start mb-1">
@@ -188,7 +188,7 @@
                                     <i class="f"></i>Delete
                                 </a>
                                 <form id="delete-role-{{ $role->id }}" method="post"
-                                    action="{{ route('roles.delete', $role) }}">@csrf @method('delete')
+                                    action="{{ route('icecream.roles.delete', $role) }}">@csrf @method('delete')
                                 </form>
                             </td>
                         </tr>

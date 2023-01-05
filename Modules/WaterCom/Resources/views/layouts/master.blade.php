@@ -52,8 +52,8 @@
                         </div><a class="dropdown-item" href="#">{{ Auth::user()->name }}</a>
                     </li>
                     <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><a class="dropdown-item" href="{{ route('settings.index') }}">Settings</a></li>
-                    <li><a class="dropdown-item" href="{{ route('logs.index') }}">Activity Logs</a></li>
+                    <li><a class="dropdown-item" href="{{ route('watercom.settings.index') }}">Settings</a></li>
+                    <li><a class="dropdown-item" href="{{ route('watercom.logs.index') }}">Activity Logs</a></li>
                     <hr>
                     <li>
                         <a href="#"
@@ -80,30 +80,30 @@
                         class="nav_link {{ request()->routeIs('watercom.index') ? 'active' : '' }}">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
-                    <a href="{{ route('stocks.index') }}"
-                        class="nav_link {{ request()->routeIs('stocks.index') || request()->routeIs('stocks.show') ? 'active' : '' }}">
+                    <a href="{{ route('watercom.stocks.index') }}"
+                        class="nav_link {{ request()->routeIs('watercom.stocks.index') || request()->routeIs('watercom.stocks.show') ? 'active' : '' }}">
                         <i class='bx bx-layout nav_icon'></i> <span class="nav_name">Stocks</span> </a>
-                    <a href="{{ route('items.index') }}"
-                        class="nav_link {{ request()->routeIs('items.index') || request()->routeIs('items.show') ? 'active' : '' }}">
+                    <a href="{{ route('watercom.items.index') }}"
+                        class="nav_link {{ request()->routeIs('watercom.items.index') || request()->routeIs('watercom.items.show') ? 'active' : '' }}">
                         <i class='bx bx-purchase-tag-alt nav_icon'></i> <span class="nav_name">Items</span> </a>
-                    <a href="{{ route('products.index') }}"
-                        class="nav_link {{ request()->routeIs('products.index') || request()->routeIs('products.show') ? 'active' : '' }}">
+                    <a href="{{ route('watercom.products.index') }}"
+                        class="nav_link {{ request()->routeIs('watercom.products.index') || request()->routeIs('watercom.products.show') ? 'active' : '' }}">
                         <i class='fa fa-product-hunt fa-lg nav_icon'></i> <span class="nav_name">Products</span>
                     </a>
-                    <a href="{{ route('sales.index') }}"
-                        class="nav_link {{ request()->routeIs('sales.index') ? 'active' : '' }}">
+                    <a href="{{ route('watercom.sales.index') }}"
+                        class="nav_link {{ request()->routeIs('watercom.sales.index') ? 'active' : '' }}">
                         <i class='bx bx-cart nav_icon'></i> <span class="nav_name">Sales</span>
                     </a>
                     <a href="{{ route('watercoms.index') }}"
                         class="nav_link {{ request()->routeIs('watercoms.index') || request()->routeIs('watercoms.show') ? 'active' : '' }}">
                         <i class='bx bx-group nav_icon'></i> <span class="nav_name">Users</span>
                     </a>
-                    <a href="{{ route('roles.index') }}"
-                        class="nav_link {{ request()->routeIs('roles.index') || request()->routeIs('roles.show') ? 'active' : '' }}">
+                    <a href="{{ route('watercom.roles.index') }}"
+                        class="nav_link {{ request()->routeIs('watercom.roles.index') || request()->routeIs('watercom.roles.show') ? 'active' : '' }}">
                         <i class='bx bx-registered nav_icon'></i> <span class="nav_name">Roles</span>
                     </a>
-                    <a href="{{ route('reports.index') }}"
-                        class="nav_link {{ request()->routeIs('reports.index') ? 'active' : '' }}"> <i
+                    <a href="{{ route('watercom.reports.index') }}"
+                        class="nav_link {{ request()->routeIs('watercom.reports.index') ? 'active' : '' }}"> <i
                             class='bx bx-book nav_icon'></i> <span class="nav_name">Reports</span>
                     </a>
 

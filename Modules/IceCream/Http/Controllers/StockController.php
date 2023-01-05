@@ -8,19 +8,11 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Routing\Controller;
-
+use Illuminate\Support\Facades\Auth;
 
 class StockController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
 
     /**
      *
@@ -28,30 +20,31 @@ class StockController extends Controller
      */
     public function index()
     {
-        $stocks = Stock::all();
+        $stocks = Stock::where('module', 'icecream')->get();
 
         return view('icecream::stocks.index', compact('stocks'));
     }
     public function showStock(Request $request, Stock $stock)
     {
-        $stocks = Stock::where('status', 1)->get();
 
-        return view('icecream::stocks.show', compact('stock', 'stocks'));
+        return view('icecream::stocks.show', compact('stock'));
     }
     public function postStock(Request $request)
     {
         try {
-            $attributes = $this->validate($request, [
+            $attributes = $request->validate([
                 'name' => 'required',
                 'quantity' => 'required',
                 'unit' => 'required',
                 'cost' => 'required',
             ]);
 
+            $attributes['module'] = 'icecream';
             $attributes['status'] = true;
             $stock = Stock::create($attributes);
-            ActivityLogHelper::addToLog('Added stock ' . $stock->name);
+            ActivityLogHelper::addToLog(Auth::user()->name . ' Added stock ' . $stock->name);
         } catch (QueryException $th) {
+            // dd($th);
             notify()->error('Failed to add stock "' . $request->name . '". It already exists.');
             return back();
         }
@@ -62,7 +55,7 @@ class StockController extends Controller
     public function putStock(Request $request, Stock $stock)
     {
         try {
-            $attributes = $this->validate($request, [
+            $attributes = $request->validate([
                 'name' => 'required',
                 'quantity' => 'required',
                 'unit' => 'required',
@@ -86,17 +79,17 @@ class StockController extends Controller
         ]);
 
         $stock->update($attributes);
-        ActivityLogHelper::addToLog('Switched stock '.$stock->name.' status ');
+        ActivityLogHelper::addToLog('Switched stock ' . $stock->name . ' status ');
 
         notify()->success('You have successfully updated stock status');
         return back();
     }
-    public function deleteStock( Stock $stock)
+    public function deleteStock(Stock $stock)
     {
 
         $itsName = $stock->name;
         $stock->delete();
-        ActivityLogHelper::addToLog('Deleted stock '.$itsName);
+        ActivityLogHelper::addToLog('Deleted stock ' . $itsName);
 
         notify()->success('You have successful deleted ' . $itsName . '.');
         return back();

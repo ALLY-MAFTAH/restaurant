@@ -1,6 +1,7 @@
 <?php
 
 namespace Modules\Watercom\Http\Controllers;
+
 use Illuminate\Routing\Controller;
 
 use App\Helpers\ActivityLogHelper;
@@ -33,23 +34,23 @@ class SaleController extends Controller
         if ($filteredDate == null) {
             $filteredDate = "All Days";
         }
-        $filteredItem = Item::where('name', $filteredItemName)->first();
+        $filteredItem = Item::where(['module' => 'watercom', 'name' => $filteredItemName])->first();
 
         if ($filteredDate != "All Days" && $filteredItemName != "All Products") {
-            $sales = Sale::where(['item_id' => $filteredItem->id, 'date' => $filteredDate])->latest()->get();
+            $sales = Sale::where(['module' => 'watercom', 'item_id' => $filteredItem->id, 'date' => $filteredDate])->latest()->get();
         } elseif ($filteredDate == "All Days" && $filteredItemName != "All Products") {
-            $sales = Sale::where('item_id', $filteredItem->id)->latest()->get();
+            $sales = Sale::where(['module' => 'watercom', 'item_id' => $filteredItem->id])->latest()->get();
         } elseif ($filteredItemName == "All Products" && $filteredDate != "All Days") {
-            $sales = Sale::where('date', $filteredDate)->latest()->get();
+            $sales = Sale::where('module', 'watercom')->where('date', $filteredDate)->latest()->get();
         } else {
-            $sales = Sale::latest()->get();
+            $sales = Sale::where('module', 'watercom')->latest()->get();
         }
         $selectedItemName = $filteredItemName;
         $selectedDate = $filteredDate;
 
-        $items = Item::where('quantity', '>', 0)->get();
-        $allItems = Item::all();
-        $products = Product::where('status', 1)->get();
+        $items = Item::where('module', 'watercom')->where('quantity', '>', 0)->get();
+        $allItems = Item::where('module', 'watercom')->get();
+        $products = Product::where(['module' => 'watercom', 'status' => 1])->get();
         // dd($filteredItemName);
 
         return view('watercom::sales.index', compact('sales', 'products', 'items', 'allItems', 'filteredDate', 'filteredItemName', 'selectedItemName', 'selectedDate'));
@@ -66,7 +67,7 @@ class SaleController extends Controller
         try {
             for ($i = 0; $i < $length; $i++) {
 
-                $item = Item::findOrFail($product->item_id);
+                $item = Item::where('module','watercom')->findOrFail($product->item_id);
                 if ($product->quantity <= $item->quantity) {
                     $newQuantity = $item->quantity - $product->quantity;
                     $item->update([
@@ -91,17 +92,17 @@ class SaleController extends Controller
                     'user_id' => Auth::user()->id,
                     'date' => Carbon::now('GMT+3')->toDateString(),
                     'status' => true,
+                    'module' => 'watercom',
                 ];
                 $sell = Sale::create($attributes);
                 $item->sales()->save($sell);
-                ActivityLogHelper::addToLog('Sold product '.$item->name);
-
+                ActivityLogHelper::addToLog('Sold product ' . $item->name);
             }
         } catch (\Throwable $th) {
             notify()->error('Oops! Something went wrong');
             return back();
         }
-        notify()->success('You have successful sell ' . $sell->name);
+        notify()->success('You have successful sold ' . $sell->name);
         return Redirect::back();
     }
 }

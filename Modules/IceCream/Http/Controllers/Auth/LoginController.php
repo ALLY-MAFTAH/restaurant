@@ -2,7 +2,8 @@
 
 namespace Modules\Icecream\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Helpers\ActivityLogHelper;
+use Modules\Icecream\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +52,7 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
+        ActivityLogHelper::addToLog('Signed out the system');
         $this->guard()->logout();
 
         $request->session()->invalidate();

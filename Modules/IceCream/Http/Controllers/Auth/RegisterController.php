@@ -3,7 +3,7 @@
 namespace Modules\Icecream\Http\Controllers\Auth;
 
 use App\Helpers\ActivityLogHelper;
-use App\Http\Controllers\Controller;
+use Modules\Icecream\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;

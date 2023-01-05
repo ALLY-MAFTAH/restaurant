@@ -8,6 +8,15 @@ use Illuminate\Http\Request;
 
 class ActivityLogController extends Controller
 {
+     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:icecream');
+    }
     public function index()
     {
         $logs = ActivityLogHelper::logActivityLists();

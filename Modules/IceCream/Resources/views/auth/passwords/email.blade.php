@@ -1,14 +1,13 @@
-
-@extends('layouts.app')
+@extends('icecream::layouts.master')
 @section('title')
-    Reset Password
+    Reset Password - Ice Cream Center
 @endsection
 @section('style')
     <style>
         #body-pd {
             background: rgb(72, 11, 176);
             /* For browsers that do not support gradients */
-            background-image: linear-gradient(to bottom right, rgb(72, 11, 176), rgb(72, 11, 176), rgb(107, 36, 231),white, white);
+            background-image: linear-gradient(to bottom right, rgb(72, 11, 176), rgb(72, 11, 176), rgb(107, 36, 231), white, white);
         }
     </style>
 @endsection
@@ -16,7 +15,8 @@
     <div class="row justify-content-md-center">
         <div class="col-sm-3 pr-5">
             <div class=" shadow-lg card"style="min-width: 250px">
-                <div class="card-header text-center" style="background:rgb(185, 185, 247); color: var(--first-color); font-weight:bold">
+                <div class="card-header text-center"
+                    style="background:rgb(185, 185, 247); color: var(--first-color); font-weight:bold">
                     {{ __('Reset Password') }}
                 </div>
 
@@ -27,14 +27,16 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('password.email') }}">
+                    <form method="POST" action="{{ route('icecream.password.email') }}">
                         @csrf
 
                         <div class="row mb-3">
                             <label for="email" class=" col-form-label text-md-start">{{ __('Email Address') }}</label>
 
                             <div class="">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" type="email"
+                                    class="form-control @error('email') is-invalid @enderror" name="email"
+                                    value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -52,7 +54,7 @@
                             </div>
                         </div>
                         <div class="text-center pt-2">
-                            <a class="btn-link" style="text-decoration: none; font-size:12px" href="{{ route('login') }}">
+                            <a class="btn-link" style="text-decoration: none; font-size:12px" href="{{ route('icecream.login') }}">
                                 {{ __('Login') }}
                             </a>
                         </div>
@@ -67,6 +69,10 @@
     </div>
 @endsection
 <div class="text-center text-bold pt-4" style="color:white">
-    <h1 style="text-shadow: 3px 3px rgb(50, 49, 49);font-family:Verdana, Geneva, Tahoma, sans-serif;"><b>
-        {{setting('App Name')}} </b></h1>
+    <h1 style="text-shadow: 3px 3px rgb(50, 49, 49);font-family:Verdana, Geneva, Tahoma, sans-serif;">
+        <b>
+            {{-- {{setting('App Name')}} --}}
+            TANGA ICE CREAM CENTER
+        </b>
+    </h1>
 </div>

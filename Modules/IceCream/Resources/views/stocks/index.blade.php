@@ -37,7 +37,7 @@
                 aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <div class="card mb-1 p-2" style="background: var(--form-bg-color)">
-                        <form method="POST" action="{{ route('stocks.add') }}">
+                        <form method="POST" action="{{ route('icecream.stocks.add') }}">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-4 mb-1">
@@ -126,7 +126,7 @@
                             <td class="">{{ $stock->updated_at->format('D, d M Y \a\t H:i:s') }} </td>
                             <td class="text-center">
                                 <form id="toggle-status-form-{{ $stock->id }}" method="POST"
-                                    action="{{ route('stocks.toggle-status', $stock) }}">
+                                    action="{{ route('icecream.stocks.toggle-status', $stock) }}">
                                     <div class="form-check form-switch ">
                                         <input type="hidden" name="status" value="0">
                                         <input type="checkbox" name="status" id="status-switch-{{ $stock->id }}"
@@ -139,7 +139,7 @@
                                 </form>
                             </td>
                             <td>
-                                <a href="{{ route('stocks.show', $stock) }}"
+                                <a href="{{ route('icecream.stocks.show', $stock) }}"
                                     class="btn btn-sm btn-outline-info collapsed" type="button">
                                     <i class="feather icon-edit"></i> View
                                 </a>
@@ -160,7 +160,7 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form method="POST" action="{{ route('stocks.edit', $stock) }}">
+                                                <form method="POST" action="{{ route('icecream.stocks.edit', $stock) }}">
                                                     @method('PUT')
                                                     @csrf
                                                     <div class="text-start mb-1">
@@ -240,7 +240,7 @@
                                     <i class="f"></i>Delete
                                 </a>
                                 <form id="delete-stock-{{ $stock->id }}" method="post"
-                                    action="{{ route('stocks.delete', $stock) }}">@csrf @method('delete')
+                                    action="{{ route('icecream.stocks.delete', $stock) }}">@csrf @method('delete')
                                 </form>
                             </td>
                         </tr>

@@ -13,7 +13,15 @@ class ActivityLogHelper
 
     public static function addToLog($subject)
     {
+
         $log = [];
+
+        if (Auth::guard('watercom')->check())
+            $log['module'] = 'watercom';
+        elseif (Auth::guard('icecream')->check())
+            $log['module'] = 'icecream';
+        else
+            $log['module'] = 'gas';
         $log['subject'] = $subject;
         $log['time'] = Carbon::now();
         $log['url'] = Request::fullUrl();

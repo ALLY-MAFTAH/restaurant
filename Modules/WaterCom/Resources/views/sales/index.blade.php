@@ -23,7 +23,7 @@
                                         <div style="color:rgb(118, 7, 7); font-size: 15px;">Remained Amount:
                                             <b>{{ $item->quantity }} </b> {{ $item->unit }}
                                         </div>
-                                        <a href="{{ route('items.show', $item) }}" style="text-decoration: none">View</a>
+                                        <a href="{{ route('watercom.items.show', $item) }}" style="text-decoration: none">View</a>
                                     </div>
                                 </div>
                                 <div class="col-md-9 ">
@@ -67,7 +67,7 @@
                                                                     <form
                                                                         id="sell-{{ $product->id }}-{{ $i }}"
                                                                         method="post"
-                                                                        action="{{ route('products.sell', $product) }}">
+                                                                        action="{{ route('watercom.products.sell', $product) }}">
                                                                         @csrf
                                                                         @method('post')
                                                                         <input hidden type="number" name="iteration"
@@ -100,7 +100,7 @@
                     </h5>
                 </div>
                 <div class="col-sm-7">
-                    <form action="{{ route('sales.index') }}" method="GET" id="filter-form">
+                    <form action="{{ route('watercom.sales.index') }}" method="GET" id="filter-form">
                         @csrf
                         <div class="row">
                             <div class="col-md-6 text-center py-1">

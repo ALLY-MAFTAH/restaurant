@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('stocks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
+            $table->string('module');
             $table->double('quantity');
             $table->double('cost');
             $table->enum('unit', ['Kilograms', 'Litres', 'Counts']);

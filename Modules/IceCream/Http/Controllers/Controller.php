@@ -1,6 +1,6 @@
 <?php
 
-namespace Module\Icecream\Http\Controllers;
+namespace Modules\Icecream\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;

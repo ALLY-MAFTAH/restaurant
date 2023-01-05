@@ -36,7 +36,7 @@
             <div class="header_toggle ">
                 <h3
                     style="text-shadow: 0.5px 0.5px white;font-family:Verdana, Geneva, Tahoma, sans-serif;color:var(--first-color)">
-                    <b>TANGA ICE CREAM CENTER</b>
+                    <b> TANGA ICE CREAM CENTER</b>
                     {{-- <b>{{setting('App Name')}}</b> --}}
                 </h3>
             </div>
@@ -52,11 +52,11 @@
                         </div><a class="dropdown-item" href="#">{{ Auth::user()->name }}</a>
                     </li>
                     <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><a class="dropdown-item" href="{{route('settings.index')}}">Settings</a></li>
-                    <li><a class="dropdown-item" href="{{route('logs.index')}}">Activity Logs</a></li>
+                    <li><a class="dropdown-item" href="{{ route('icecream.settings.index') }}">Settings</a></li>
+                    <li><a class="dropdown-item" href="{{ route('icecream.logs.index') }}">Activity Logs</a></li>
                     <hr>
                     <li>
-                        <a href="{{ route('icecream.logout') }}"
+                        <a href="#"
                             onclick="event.preventDefault();if(confirm('Are you sure want to logout ?'))
                 document.getElementById('logout-form').submit();"
                             class="text-danger dropdown-item">
@@ -71,7 +71,7 @@
         </div>
         <div class="l-navbar" id="nav-bar">
             <a href="#" class="app_logo">
-                <div class="header_img"><img style="background: white" src="{{ asset('images/icecream.png') }}" alt="">
+                <div class="header_img"><img style="background: white" src="{{ asset('images/water.png') }}" alt="">
                 </div>
             </a>
             <nav class="nav">
@@ -80,42 +80,43 @@
                         class="nav_link {{ request()->routeIs('icecream.index') ? 'active' : '' }}">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
-                    <a href="{{ route('stocks.index') }}"
-                        class="nav_link {{ request()->routeIs('stocks.index') || request()->routeIs('stocks.show') ? 'active' : '' }}">
+                    <a href="{{ route('icecream.stocks.index') }}"
+                        class="nav_link {{ request()->routeIs('icecream.stocks.index') || request()->routeIs('icecream.stocks.show') ? 'active' : '' }}">
                         <i class='bx bx-layout nav_icon'></i> <span class="nav_name">Stocks</span> </a>
-                    <a href="{{ route('items.index') }}"
-                        class="nav_link {{ request()->routeIs('items.index') || request()->routeIs('items.show') ? 'active' : '' }}">
+                    <a href="{{ route('icecream.items.index') }}"
+                        class="nav_link {{ request()->routeIs('icecream.items.index') || request()->routeIs('icecream.items.show') ? 'active' : '' }}">
                         <i class='bx bx-purchase-tag-alt nav_icon'></i> <span class="nav_name">Items</span> </a>
-                    <a href="{{ route('products.index') }}"
-                        class="nav_link {{ request()->routeIs('products.index') || request()->routeIs('products.show') ? 'active' : '' }}">
+                    <a href="{{ route('icecream.products.index') }}"
+                        class="nav_link {{ request()->routeIs('icecream.products.index') || request()->routeIs('icecream.products.show') ? 'active' : '' }}">
                         <i class='fa fa-product-hunt fa-lg nav_icon'></i> <span class="nav_name">Products</span>
                     </a>
-                    <a href="{{ route('sales.index') }}"
-                        class="nav_link {{ request()->routeIs('sales.index') ? 'active' : '' }}">
+                    <a href="{{ route('icecream.sales.index') }}"
+                        class="nav_link {{ request()->routeIs('icecream.sales.index') ? 'active' : '' }}">
                         <i class='bx bx-cart nav_icon'></i> <span class="nav_name">Sales</span>
                     </a>
-                    <a href="{{ route('users.index') }}"
-                        class="nav_link {{ request()->routeIs('users.index') || request()->routeIs('users.show') ? 'active' : '' }}">
+                    <a href="{{ route('icecreams.index') }}"
+                        class="nav_link {{ request()->routeIs('icecreams.index') || request()->routeIs('icecreams.show') ? 'active' : '' }}">
                         <i class='bx bx-group nav_icon'></i> <span class="nav_name">Users</span>
                     </a>
-                    <a href="{{ route('roles.index') }}"
-                        class="nav_link {{ request()->routeIs('roles.index') || request()->routeIs('roles.show') ? 'active' : '' }}">
+                    <a href="{{ route('icecream.roles.index') }}"
+                        class="nav_link {{ request()->routeIs('icecream.roles.index') || request()->routeIs('icecream.roles.show') ? 'active' : '' }}">
                         <i class='bx bx-registered nav_icon'></i> <span class="nav_name">Roles</span>
                     </a>
-                    <a href="{{ route('reports.index') }}"
-                        class="nav_link {{ request()->routeIs('reports.index') ? 'active' : '' }}"> <i
+                    <a href="{{ route('icecream.reports.index') }}"
+                        class="nav_link {{ request()->routeIs('icecream.reports.index') ? 'active' : '' }}"> <i
                             class='bx bx-book nav_icon'></i> <span class="nav_name">Reports</span>
                     </a>
+
                 </div>
             </nav>
 
         </div>
         <br><br>
-        @endguest
+    @endguest
 
-        <main class="pt-5">
-            @yield('content')
-        </main>
+    <main class="pt-5">
+        @yield('content')
+    </main>
 
     </div>
     <x:notify-messages />

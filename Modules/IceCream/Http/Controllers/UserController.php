@@ -1,26 +1,19 @@
 <?php
 
 namespace Modules\Icecream\Http\Controllers;
+
 use Illuminate\Routing\Controller;
 
 use App\Helpers\ActivityLogHelper;
 use App\Models\Role;
-use App\Models\User;
+use App\Models\Icecream;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      *
@@ -30,76 +23,79 @@ class UserController extends Controller
     {
         $roles = Role::where('status', 1)->get();
 
-        $users = User::all();
+        $icecreams = Icecream::all();
 
-        return view('icecream::users.index', compact('users', 'roles'));
+        return view('icecream::users.index', compact('icecreams', 'roles'));
     }
-    public function showUser(Request $request, User $user)
+    public function showUser(Request $request, Icecream $icecream)
     {
 
         $roles = Role::where('status', 1)->get();
 
-        return view('icecream::users.show', compact('user', 'roles'));
+        return view('icecream::users.show', compact('icecream', 'roles'));
     }
     public function postUser(Request $request)
     {
-        $attributes = $this->validate($request, [
-            'name' => 'required',
-            'email' => ['required', 'unique:users,email,NULL,id,deleted_at,NULL'],
-            'role_id' => ['required', 'exists:roles,id'],
-        ]);
+        try {
+            $attributes = $request->validate([
+                'name' => 'required',
+                'email' => ['required', 'unique:icecreams,email,NULL,id,deleted_at,NULL'],
+                'role_id' => ['required', 'exists:roles,id'],
+            ]);
 
-        $role_id = $request->role_id;
+            $attributes['password'] = bcrypt('12312345');
+            $attributes['status'] = true;
 
-        $attributes['password'] = bcrypt('TangaRaha');
-        $attributes['status'] = true;
+            $icecream = Icecream::create($attributes);
 
-        $user = User::create($attributes);
+            $role = Role::find($request->role_id);
+            $role->icecreams()->save($icecream);
+            ActivityLogHelper::addToLog('Added new icecream user: ' . $icecream->name);
+        } catch (QueryException $th) {
+            notify()->error('Failed to add icecream user. "' . $request->name . '" already exists.');
+            return back();
+        }
 
-        $role = Role::find($role_id);
-        $role->users()->save($user);
-        ActivityLogHelper::addToLog('Added new user: '.$user->name);
-
-        notify()->success('You have successful added new user');
+        notify()->success('You have successful added new icecream user');
         return redirect()->back();
     }
 
-    public function putUser(Request $request, User $user)
+    public function putUser(Request $request, Icecream $icecream)
     {
 
-        session()->flash('user_id', $user->id);
-        $attributes = $this->validateWithBag('update', $request, [
+        session()->flash('user_id', $icecream->id);
+        $attributes = $request->validateWithBag('update', [
             'name' => 'required',
-            'email' => ['sometimes', Rule::unique('users')->ignore($user->id)->whereNull('deleted_at')],
+            'email' => ['sometimes', Rule::unique('icecreams')->ignore($icecream->id)->whereNull('deleted_at')],
             'role_id' => ['sometimes', 'exists:roles,id'],
         ]);
 
-        $user->update($attributes);
-        ActivityLogHelper::addToLog('Updated user: '.$user->name);
+        $icecream->update($attributes);
+        ActivityLogHelper::addToLog('Updated icecream user: ' . $icecream->name);
 
-        notify()->success('You have successful edited user');
+        notify()->success('You have successful edited icecream user');
         return back();
     }
 
-    public function toggleStatus(Request $request, User $user)
+    public function toggleStatus(Request $request, Icecream $icecream)
     {
 
         $attributes = $this->validate($request, [
             'status' => ['required', 'boolean'],
         ]);
 
-        $user->update($attributes);
-        ActivityLogHelper::addToLog('Switched user '.$user->name.' status ');
+        $icecream->update($attributes);
+        ActivityLogHelper::addToLog('Switched icecream user ' . $icecream->name . ' status ');
 
-        notify()->success('You have successfully updated user status');
+        notify()->success('You have successfully updated icecream user status');
         return back();
     }
-    public function deleteUser(Request $request, User $user)
+    public function deleteUser(Request $request, Icecream $icecream)
     {
 
-        $itsName = $user->name;
-        $user->delete();
-        ActivityLogHelper::addToLog('Deleted user: '.$itsName);
+        $itsName = $icecream->name;
+        $icecream->delete();
+        ActivityLogHelper::addToLog('Deleted icecream user: ' . $itsName);
 
         notify()->success('You have successful deleted ' . $itsName . '.');
         return back();

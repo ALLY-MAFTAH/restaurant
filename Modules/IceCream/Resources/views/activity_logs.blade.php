@@ -41,10 +41,18 @@
                 <tbody>
                     @if ($logs->count())
                         @foreach ($logs as $key => $log)
+                            @php
+                                $perfomer = '';
+                                $perfomer = App\Models\Icecream::find($log->user_id);
+                            @endphp
                             <tr>
                                 <td>{{ ++$key }}</td>
                                 <td>{{ $log->updated_at->format('D, d M Y \a\t H:i:s') }} </td>
-                                <td>{{ $log->subject }}</td>
+                                @if ($perfomer)
+                                <td>{{ $perfomer->name . ' ' . $log->subject }}</td>
+                                @else
+                                <td> <span class="text-white bg-danger">Deleted User</span> {{$log->subject }}</td>
+                                @endif
                                 <td>{{ $log->user_id }}</td>
                                 <td><label class="label label-info">{{ $log->method }}</label></td>
                                 <td class="text-warning">{{ $log->ip }}</td>

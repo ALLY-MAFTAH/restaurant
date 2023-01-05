@@ -35,7 +35,7 @@
                 aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <div class="card mb-1 p-2" style="background: var(--form-bg-color)">
-                        <form method="POST" action="{{ route('items.add') }}">
+                        <form method="POST" action="{{ route('watercom.items.add') }}">
                             @csrf
                             <div class="row">
                                 <div class="col-sm-4 mb-1">
@@ -221,7 +221,7 @@
                             <td class="">{{ $item->updated_at->format('D, d M Y \a\t H:i:s') }} </td>
                             <td class="text-center">
                                 <form id="toggle-status-form-{{ $item->id }}" method="POST"
-                                    action="{{ route('items.toggle-status', $item) }}">
+                                    action="{{ route('watercom.items.toggle-status', $item) }}">
                                     <div class="form-check form-switch ">
                                         <input type="hidden" name="status" value="0">
                                         <input type="checkbox" name="status" id="status-switch-{{ $item->id }}"
@@ -234,7 +234,7 @@
                                 </form>
                             </td>
                             <td>
-                                <a href="{{ route('items.show', $item) }}" class="btn btn-sm btn-outline-info collapsed"
+                                <a href="{{ route('watercom.items.show', $item) }}" class="btn btn-sm btn-outline-info collapsed"
                                     type="button">
                                     <i class="feather icon-edit"></i> View
                                 </a>
@@ -255,7 +255,7 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form method="POST" action="{{ route('items.edit', $item) }}">
+                                                <form method="POST" action="{{ route('watercom.items.edit', $item) }}">
                                                     @method('PUT')
                                                     @csrf
                                                     <div class="text-start mb-1">
@@ -334,7 +334,7 @@
                                     <i class="f"></i>Delete
                                 </a>
                                 <form id="delete-item-{{ $item->id }}" method="post"
-                                    action="{{ route('items.delete', $item) }}">@csrf @method('delete')
+                                    action="{{ route('watercom.items.delete', $item) }}">@csrf @method('delete')
                                 </form>
                             </td>
                         </tr>

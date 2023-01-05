@@ -18,7 +18,6 @@ class RoleController extends Controller
      */
     public function index()
     {
-
         $roles = Role::all();
 
         return view('icecream::roles.index', compact('roles'));
@@ -33,7 +32,7 @@ class RoleController extends Controller
     public function postRole(Request $request)
     {
 
-        $attributes = $this->validate($request, [
+        $attributes = $request->validate( [
             'name' => 'required',
             'description' => 'required',
         ]);
@@ -48,7 +47,7 @@ class RoleController extends Controller
     }
     public function putRole(Request $request, Role $role)
     {
-        $attributes = $this->validate($request, [
+        $attributes = $request->validate( [
             'name' => 'required',
             'description' => 'required',
 
@@ -63,7 +62,7 @@ class RoleController extends Controller
     public function toggleStatus(Request $request, Role $role)
     {
 
-        $attributes = $this->validate($request, [
+        $attributes = $request->validate( [
             'status' => ['required', 'boolean'],
         ]);
 

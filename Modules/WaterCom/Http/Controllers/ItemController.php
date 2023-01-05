@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class ItemController extends Controller
 {
-   
+
 
     /**
      *
@@ -22,8 +22,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::all();
-        $stocks = Stock::where('status', 1)->get();
+        $items = Item::where('module','watercom')->get();
+        $stocks = Stock::where(['module'=>'watercom','status'=> 1])->get();
 
         return view('watercom::items.index', compact('items', 'stocks'));
     }
@@ -47,8 +47,8 @@ class ItemController extends Controller
         }
         $selectedDate = $filteredDate;
 
-        $items = Item::all();
-        $stocks = Stock::where('status', 1)->get();
+        $items = Item::where('module','watercom')->get();
+        $stocks = Stock::where(['module'=>'watercom','status'=> 1])->get();
         $ingredients = $item->ingredients;
         // dd($sales);
         $products = $item->products;
@@ -66,7 +66,7 @@ class ItemController extends Controller
                 'unit' => 'required',
                 'cost' => 'required',
             ]);
-
+            $attributes['module'] = 'watercom';
             $attributes['status'] = true;
             $item = Item::create($attributes);
             ActivityLogHelper::addToLog('Added item '.$item->name);
@@ -132,7 +132,7 @@ class ItemController extends Controller
                 $ingredient->status = true;
 
                 $item->ingredients()->save($ingredient);
-                $stock = Stock::findOrFail($ingredientsIds[$i]);
+                $stock = Stock::where('module','watercom')->findOrFail($ingredientsIds[$i]);
                 $newQuantity = $stock->quantity - $ingredient->quantity;
 
                 $stock->update([
@@ -145,7 +145,6 @@ class ItemController extends Controller
             notify()->success('You have successful added ingredients in ' . $item->name);
             return redirect()->back();
         } catch (QueryException $th) {
-            dd($th);
             // dd($th->getBindings());
             $failedId = $th->getBindings()[3];
 
