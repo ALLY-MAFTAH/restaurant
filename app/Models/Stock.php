@@ -29,4 +29,12 @@ class Stock extends Model
     {
         return  $this->hasOne(Ingredient::class);
     }
+    public function products()
+    {
+        return  $this->hasMany(Product::class);
+    }
+    public function sales()
+    {
+        return  $this->hasMany(Sale::class);
+    }
 }

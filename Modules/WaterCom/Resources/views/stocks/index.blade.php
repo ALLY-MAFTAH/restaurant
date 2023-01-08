@@ -12,7 +12,7 @@
                     <div class=" text-left">
                         <h5 class="my-0">
                             <span class="">
-                                <b>{{ __('STOCKS') .' - '}}
+                                <b>{{ __('STOCKS') . ' - ' }}
                                 </b>
                                 <div class="btn btn-icon round"
                                     style="height: 32px;width:32px;cursor: auto;padding: 0;font-size: 15px;line-height:2rem; border-radius:50%;background-color:rgb(229, 207, 242);color:var(--first-color)">
@@ -23,10 +23,11 @@
                     </div>
                 </div>
                 <div class="col text-right">
-                    <a href="#" class="btn btn-sm btn-outline-primary collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <a href="#" class="btn btn-sm btn-outline-primary collapsed" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
+                        aria-controls="collapseTwo">
 
-                        <i class="feather icon-plus"></i> Add Stock
+                        <i class="feather icon-plus"></i> Add to Stock
 
                     </a>
                 </div>
@@ -40,12 +41,19 @@
                         <form method="POST" action="{{ route('watercom.stocks.add') }}">
                             @csrf
                             <div class="row">
-                                <div class="col-sm-4 mb-1">
+                                <div class="col-lg-3 mb-1">
                                     <label for="name" class=" col-form-label text-sm-start">{{ __('Name') }}</label>
-                                    <div class="">
+                                    <div class="input-group">
                                         <input id="name" type="text" placeholder=""
                                             class="form-control @error('name') is-invalid @enderror" name="name"
-                                            value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                            value="{{ old('name') }}" required autocomplete="name" autofocus
+                                            style="float: left;">
+                                        <select class="form-control form-select" name="type" required
+                                            style="float: left;max-width:115px; width: inaitial; background-color:rgb(238, 238, 242)">
+                                            <option value="">Type</option>
+                                            <option value="Water">Water</option>
+                                            <option value="Juice">Juice</option>
+                                        </select>
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -53,7 +61,27 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-sm-4 mb-1">
+                                <div class="col-lg-3 mb-1">
+                                    <label for="volume" class=" col-form-label text-sm-start">{{ __('Volume') }}</label>
+                                    <div class="input-group">
+                                        <input id="volume" type="number" step="any" placeholder="00"
+                                            class="form-control @error('volume') is-invalid @enderror" name="volume"
+                                            value="{{ old('volume') }}" required autocomplete="volume" autofocus
+                                            style="float: left;">
+                                        <select class="form-control form-select" name="measure" required
+                                            style="float: left;max-width:115px; width: inaitial; background-color:rgb(238, 238, 242)">
+                                            <option value="">Measure</option>
+                                            <option value="Litres">Litres</option>
+                                            <option value="Milli Litres">Milli Litres</option>
+                                        </select>
+                                        @error('volume')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 mb-1">
                                     <label for="quantity" class=" col-form-label text-sm-start">{{ __('Quantity') }}</label>
                                     <div class="input-group">
                                         <input id="quantity" type="number" step="any" placeholder="00"
@@ -63,9 +91,8 @@
                                         <select class="form-control form-select" name="unit" required
                                             style="float: left;max-width:115px; width: inaitial; background-color:rgb(238, 238, 242)">
                                             <option value="">Unit</option>
-                                            <option value="Kilograms">Kilograms</option>
-                                            <option value="Litres">Litres</option>
-                                            <option value="Counts">Counts</option>
+                                            <option value="Bottles">Bottles</option>
+                                            <option value="Cartons">Cartons</option>
                                         </select>
                                         @error('quantity')
                                             <span class="invalid-feedback" role="alert">
@@ -74,14 +101,28 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-sm-4 mb-1">
+                                <div class="col-lg-2 mb-1">
                                     <label for="cost"
                                         class=" col-form-label text-sm-start">{{ __('Cost (Tsh)') }}</label>
                                     <div class="">
-                                        <input id="cost" type="number" placeholder="Tsh"
+                                        <input id="cost" type="number" step="any" placeholder="Tsh"
                                             class="form-control @error('cost') is-invalid @enderror" name="cost"
-                                            value="{{ old('cost') }}" required autocomplete="cost" autofocus>
+                                            value="{{ old('cost') }}"required autocomplete="cost" autofocus>
                                         @error('cost')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 mb-1">
+                                    <label for="price"
+                                        class=" col-form-label text-sm-start">{{ __('Price (Tsh)') }}</label>
+                                    <div class="">
+                                        <input id="price" type="number" step="any" placeholder="Tsh"
+                                            class="form-control @error('price') is-invalid @enderror" name="price"
+                                            value="{{ old('price') }}"required autocomplete="price" autofocus>
+                                        @error('price')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -107,22 +148,27 @@
                 <thead class="shadow rounded-3">
                     <th style="max-width: 20px">#</th>
                     <th>Name</th>
+                    <th>Type</th>
+                    <th>Volume</th>
                     <th>Quantity</th>
                     <th class="text-right">Cost (Tsh)</th>
+                    <th class="text-right">Price (Tsh)</th>
                     <th>Last Updated</th>
                     <th style="max-width: 50px">Status</th>
                     <th></th>
                     <th></th>
                     <th></th>
-
                 </thead>
                 <tbody>
                     @foreach ($stocks as $index => $stock)
                         <tr>
                             <td>{{ ++$index }}</td>
                             <td>{{ $stock->name }}</td>
+                            <td>{{ $stock->type }}</td>
+                            <td>{{ $stock->volume }} {{ $stock->measure }}</td>
                             <td>{{ $stock->quantity . ' ' . $stock->unit }}</td>
                             <td class="text-right">{{ number_format($stock->cost, 0, '.', ',') }} </td>
+                            <td class="text-right">{{ number_format($stock->product->price, 0, '.', ',') }} </td>
                             <td class="">{{ $stock->updated_at->format('D, d M Y \a\t H:i:s') }} </td>
                             <td class="text-center">
                                 <form id="toggle-status-form-{{ $stock->id }}" method="POST"
@@ -160,21 +206,62 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form method="POST" action="{{ route('watercom.stocks.edit', $stock) }}">
+                                                <form method="POST"
+                                                    action="{{ route('watercom.stocks.edit', $stock) }}">
                                                     @method('PUT')
                                                     @csrf
                                                     <div class="text-start mb-1">
                                                         <label for="name"
                                                             class=" col-form-label text-sm-start">{{ __('Name') }}</label>
-                                                        <input id="name" type="text" placeholder=""
-                                                            class="form-control @error('name') is-invalid @enderror"
-                                                            name="name" value="{{ old('name', $stock->name) }}"
-                                                            required autocomplete="name" autofocus>
-                                                        @error('name')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
+                                                        <div class="input-group">
+                                                            <input id="name" type="text" placeholder=""
+                                                                class="form-control @error('name') is-invalid @enderror"
+                                                                name="name" value="{{ old('name', $stock->name) }}"
+                                                                required autocomplete="name" autofocus
+                                                                style="float: left;">
+                                                            <select class="form-control form-select" name="type"
+                                                                required
+                                                                style="float: left;max-width:115px; width: inaitial; background-color:rgb(238, 238, 242)">
+                                                                <option value="Water"
+                                                                    {{ $stock->type == 'Water' ? 'selected' : '' }}>
+                                                                    Water</option>
+                                                                <option value="Juice"
+                                                                    {{ $stock->type == 'Juice' ? 'selected' : '' }}>
+                                                                    Juice</option>
+                                                            </select>
+                                                            @error('name')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-start mb-1">
+                                                        <label for="volume"
+                                                            class=" col-form-label text-sm-start">{{ __('Volume') }}</label>
+                                                        <div class="input-group">
+                                                            <input id="volume" type="number" step="any"
+                                                                placeholder="00"
+                                                                class="form-control @error('volume') is-invalid @enderror"
+                                                                name="volume"
+                                                                value="{{ old('volume', $stock->volume) }}" required
+                                                                autocomplete="volume" autofocus style="float: left;">
+                                                            <select class="form-control form-select" name="measure"
+                                                                required
+                                                                style="float: left;max-width:115px; width: inaitial; background-color:rgb(238, 238, 242)">
+                                                                <option value="Litres"
+                                                                    {{ $stock->measure == 'Litres' ? 'selected' : '' }}>
+                                                                    Litres</option>
+                                                                <option value="Milli Litres"
+                                                                    {{ $stock->measure == 'Milli Litres' ? 'selected' : '' }}>
+                                                                    Milli Litres</option>
+                                                            </select>
+                                                            @error('volume')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
+                                                        </div>
                                                     </div>
                                                     <div class="text-start mb-1">
                                                         <label for="quantity"
@@ -184,21 +271,18 @@
                                                                 placeholder="00"
                                                                 class="form-control @error('quantity') is-invalid @enderror"
                                                                 name="quantity"
-                                                                value="{{ old('quantity', $stock->quantity) }}"
-                                                                required autocomplete="quantity" autofocus
-                                                                style="float: left;">
+                                                                value="{{ old('quantity', $stock->quantity) }}" required
+                                                                autocomplete="quantity" autofocus style="float: left;">
                                                             <select class="form-control form-select" name="unit"
                                                                 required
                                                                 style="float: left;max-width:115px; width: inaitial; background-color:rgb(238, 238, 242)">
-                                                                <option value="Kilograms"
-                                                                    {{ $stock->unit == 'Kilograms' ? 'selected' : '' }}>
-                                                                    Kilograms</option>
-                                                                <option value="Litres"
-                                                                    {{ $stock->unit == 'Litres' ? 'selected' : '' }}>
-                                                                    Litres</option>
-                                                                <option value="Counts"
-                                                                    {{ $stock->unit == 'Counts' ? 'selected' : '' }}>
-                                                                    Counts</option>
+
+                                                                <option value="Bottles"
+                                                                    {{ $stock->unit == 'Bottles' ? 'selected' : '' }}>
+                                                                    Bottles</option>
+                                                                <option value="Cartons"
+                                                                    {{ $stock->unit == 'Cartons' ? 'selected' : '' }}>
+                                                                    Cartons</option>
                                                             </select>
                                                             @error('quantity')
                                                                 <span class="invalid-feedback" role="alert">
@@ -211,7 +295,7 @@
                                                         <label for="cost"
                                                             class="col-form-label text-sm-start">{{ __('Cost') }}</label>
                                                         <input id="cost" type="number" placeholder="Tsh"
-                                                            class="form-control @error('cost', $stock->cost) is-invalid @enderror"
+                                                            class="form-control @error('cost') is-invalid @enderror"
                                                             name="cost" value="{{ old('cost', $stock->cost) }}"
                                                             required autocomplete="cost" autofocus>
                                                         @error('cost')
@@ -219,7 +303,19 @@
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
                                                         @enderror
-
+                                                    </div>
+                                                    <div class="text-start mb-1">
+                                                        <label for="price"
+                                                            class="col-form-label text-sm-start">{{ __('Price') }}</label>
+                                                        <input id="price" type="number" placeholder="Tsh"
+                                                            class="form-control @error('price') is-invalid @enderror"
+                                                            name="price" value="{{ old('price', $stock->product->price) }}"
+                                                            required autocomplete="price" autofocus>
+                                                        @error('price')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                     </div>
                                                     <div class="row mb-1 mt-2">
                                                         <div class="text-center">

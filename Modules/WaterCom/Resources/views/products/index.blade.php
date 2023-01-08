@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="col text-right">
-                    <a href="#" class="btn btn-sm btn-outline-primary collapsed" type="button"
+                    <a href="#" hidden class="btn btn-sm btn-outline-primary collapsed" type="button"
                         data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
                         aria-controls="collapseTwo">
                         <i class="feather icon-plus"></i> Add Product
@@ -41,11 +41,11 @@
                             <div class="row">
                                 <div class="col-sm-3 mb-1">
                                     <label for="name" class=" col-form-label text-sm-start">{{ __('Name') }}</label>
-                                    <select id="name" class="form-control form-select" name="item_id" required
+                                    <select id="name" class="form-control form-select" name="stock_id" required
                                         style="float: left; width: inaitial; ">
                                         <option value="">{{ 'Name' }}</option>
-                                        @foreach ($items as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @foreach ($stocks as $stock)
+                                            <option value="{{ $stock->id }}">{{ $stock->name.' '.$stock->volume.' '.$stock->measure }}</option>
                                         @endforeach
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">
@@ -69,21 +69,20 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-3 mb-1">
-                                    <label for="quantity"
-                                        class=" col-form-label text-sm-start">{{ __('Quantity') }}</label>
+                                    <label for="volume"
+                                        class=" col-form-label text-sm-start">{{ __('Volume') }}</label>
                                     <div class="input-group">
-                                        <input id="quantity" type="number" step="any" placeholder="00"
-                                            class="form-control @error('quantity') is-invalid @enderror" name="quantity"
-                                            value="{{ old('quantity') }}" required autocomplete="quantity" autofocus
+                                        <input id="volume" type="number" step="any" placeholder="00"
+                                            class="form-control @error('volume') is-invalid @enderror" name="volume"
+                                            value="{{ old('volume') }}" required autocomplete="volume" autofocus
                                             style="float: left;">
                                         <select class="form-control form-select" name="unit" required
                                             style="float: left;max-width:120px; width: inaitial; background-color:rgb(238, 238, 242)">
-                                            <option value="">Unit</option>
-                                            <option value="Kilograms">Kilograms</option>
+                                            <option value="">Measure</option>
                                             <option value="Litres">Litres</option>
-                                            <option value="Counts">Counts</option>
+                                            <option value="Milli Litres">Milli Litres</option>
                                         </select>
-                                        @error('quantity')
+                                        @error('volume')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -119,24 +118,26 @@
                 style="width: 100%">
                 <thead class="shadow rounded-3">
                     <th style="max-width: 20px">#</th>
+                    <th>Type</th>
                     <th>Name</th>
-                    <th>Container</th>
-                    <th>Quantity</th>
+                    <th>Volume</th>
+                    <th>Unit</th>
                     <th class="text-right">Price (Tsh)</th>
                     <th>Last Updated</th>
                     <th style="max-width: 50px">Status</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th hidden></th>
+                    <th hidden></th>
+                    <th hidden></th>
 
                 </thead>
                 <tbody>
                     @foreach ($products as $index => $product)
                         <tr>
                             <td>{{ ++$index }}</td>
-                            <td>{{ $product->item->name }}</td>
-                            <td>{{ $product->container }}</td>
-                            <td>{{ $product->quantity . ' ' . $product->unit }}</td>
+                            <td>{{ $product->type }}</td>
+                            <td>{{ $product->name }}</td>
+                            <td>{{ $product->volume. ' ' . $product->measure  }}</td>
+                            <td>{{ $product->unit }}</td>
                             <td class="text-right">{{ number_format($product->price, 0, '.', ',') }} </td>
                             <td class="">{{ $product->updated_at->format('D, d M Y \a\t H:i:s') }} </td>
                             <td class="text-center">
@@ -153,13 +154,13 @@
                                     @method('PUT')
                                 </form>
                             </td>
-                            <td>
+                            <td hidden>
                                 <a href="{{ route('watercom.products.show', $product) }}"
                                     class="btn btn-sm btn-outline-info collapsed" type="button">
                                     <i class="feather icon-edit"></i> View
                                 </a>
                             </td>
-                            <td class="text-center">
+                            <td hidden class="text-center">
                                 <a href="#" class="btn btn-sm btn-outline-primary collapsed" type="button"
                                     data-bs-toggle="modal" data-bs-target="#editModal-{{ $product->id }}"
                                     aria-expanded="false" aria-controls="collapseTwo">
@@ -182,11 +183,11 @@
                                                         <label for="name"
                                                             class=" col-form-label text-sm-start">{{ __('Name') }}</label>
                                                         <select id="name" class="form-control form-select"
-                                                            name="item_id" required autocomplete="container" autofocus>
-                                                            @foreach ($items as $item)
+                                                            name="stock_id" required autocomplete="container" autofocus>
+                                                            @foreach ($stocks as $stock)
                                                                 <option
-                                                                    value="{{ $item->id }}"{{ $product->item_id == $item->id ? 'selected' : '' }}>
-                                                                    {{ $item->name }}</option>
+                                                                    value="{{ $stock->id }}"{{ $product->stock_id == $stock->id ? 'selected' : '' }}>
+                                                                    {{ $stock->name }}</option>
                                                             @endforeach
                                                             @error('name')
                                                                 <span class="invalid-feedback" role="alert">
@@ -197,41 +198,24 @@
                                                     </div>
 
                                                     <div class="text-start mb-1">
-                                                        <label for="container"
-                                                            class=" col-form-label text-sm-start">{{ __('Container') }}</label>
-                                                        <input id="container" type="text" placeholder="Glass"
-                                                            class="form-control @error('container') is-invalid @enderror"
-                                                            name="container"
-                                                            value="{{ old('container', $product->container) }}" required
-                                                            autocomplete="container" autofocus>
-                                                        @error('container')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
-                                                    </div>
-                                                    <div class="text-start mb-1">
-                                                        <label for="quantity"
-                                                            class=" col-form-label text-sm-start">{{ __('Quantity') }}</label>
+                                                        <label for="volume"
+                                                            class=" col-form-label text-sm-start">{{ __('Volume') }}</label>
                                                         <div class="input-group">
-                                                            <input id="quantity" type="number" step="any"
+                                                            <input id="volume" type="number" step="any"
                                                                 placeholder="00"
-                                                                class="form-control @error('quantity') is-invalid @enderror"
-                                                                name="quantity"
-                                                                value="{{ old('quantity', $product->quantity) }}" required
-                                                                autocomplete="quantity" autofocus style="float: left;">
-                                                            <select class="form-control form-select" name="unit"
+                                                                class="form-control @error('volume') is-invalid @enderror"
+                                                                name="volume"
+                                                                value="{{ old('volume', $product->volume) }}" required
+                                                                autocomplete="volume" autofocus style="float: left;">
+                                                            <select class="form-control form-select" name="measure"
                                                                 required
                                                                 style="float: left;max-width:115px; width: inaitial; background-color:rgb(238, 238, 242)">
-                                                                <option value="Kilograms"
-                                                                    {{ $product->unit == 'Kilograms' ? 'selected' : '' }}>
-                                                                    Kilograms</option>
                                                                 <option value="Litres"
-                                                                    {{ $product->unit == 'Litres' ? 'selected' : '' }}>
+                                                                    {{ $product->measure == 'Litres' ? 'selected' : '' }}>
                                                                     Litres</option>
-                                                                <option value="Counts"
-                                                                    {{ $product->unit == 'Counts' ? 'selected' : '' }}>
-                                                                    Counts</option>
+                                                                <option value="Milli Litres"
+                                                                    {{ $product->measure == 'Milli Litres' ? 'selected' : '' }}>
+                                                                    Milli Litres</option>
                                                             </select>
                                                             @error('quantity')
                                                                 <span class="invalid-feedback" role="alert">
@@ -267,7 +251,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="text-center">
+                            <td hidden class="text-center">
                                 <a href="#" class="btn btn-sm btn-outline-danger"
                                     onclick="if(confirm('Are you sure want to delete {{ $product->name }}?')) document.getElementById('delete-product-{{ $product->id }}').submit()">
                                     <i class="f"></i>Delete

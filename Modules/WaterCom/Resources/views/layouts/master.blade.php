@@ -83,9 +83,9 @@
                     <a href="{{ route('watercom.stocks.index') }}"
                         class="nav_link {{ request()->routeIs('watercom.stocks.index') || request()->routeIs('watercom.stocks.show') ? 'active' : '' }}">
                         <i class='bx bx-layout nav_icon'></i> <span class="nav_name">Stocks</span> </a>
-                    <a href="{{ route('watercom.items.index') }}"
+                    {{-- <a href="{{ route('watercom.items.index') }}"
                         class="nav_link {{ request()->routeIs('watercom.items.index') || request()->routeIs('watercom.items.show') ? 'active' : '' }}">
-                        <i class='bx bx-purchase-tag-alt nav_icon'></i> <span class="nav_name">Items</span> </a>
+                        <i class='bx bx-purchase-tag-alt nav_icon'></i> <span class="nav_name">Items</span> </a> --}}
                     <a href="{{ route('watercom.products.index') }}"
                         class="nav_link {{ request()->routeIs('watercom.products.index') || request()->routeIs('watercom.products.show') ? 'active' : '' }}">
                         <i class='fa fa-product-hunt fa-lg nav_icon'></i> <span class="nav_name">Products</span>

@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Models;
+namespace Modules\Watercom\Entities;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Product extends Model
+class WatercomStock extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
     protected $fillable = [
-        'item_id',
-        'stock_id',
-        'module',
+        'name',
+        'volume',
         'quantity',
-        'container',
-        'price',
+        'type',
+        'measure',
         'unit',
+        'cost',
         'status',
 
     ];
@@ -27,12 +27,13 @@ class Product extends Model
         'deleted_at'
     ];
 
-    public function item()
+
+    public function product()
     {
-        return  $this->belongsTo(Item::class);
+        return  $this->hasOne(WatercomProduct::class);
     }
-    public function stock()
+    public function sales()
     {
-        return  $this->belongsTo(Stock::class);
+        return  $this->hasMany(WatercomSale::class);
     }
 }

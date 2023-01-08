@@ -5,13 +5,13 @@ namespace Modules\Watercom\Http\Controllers;
 use Illuminate\Routing\Controller;
 
 use App\Helpers\ActivityLogHelper;
-use App\Models\Item;
-use App\Models\Product;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Modules\Watercom\Entities\WatercomProduct;
+use Modules\Watercom\Entities\WatercomStock;
 
-class ProductController extends Controller
+class WatercomProductController extends Controller
 {
     /**
      *
@@ -19,44 +19,45 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::where('module', 'watercom')->get();
-        $items = Item::where(['module' => 'watercom', 'status' => 1])->get();
+        $products = WatercomProduct::latest()->get();
+        $stocks = WatercomStock::latest()->get();
 
-        return view('watercom::products.index', compact('products', 'items'));
+        return view('watercom::products.index', compact('products', 'stocks'));
     }
 
     // SHOW PRODUCT
-    public function showProduct(Request $request, Product $product)
+    public function showWatercomProduct(Request $request, WatercomProduct $product)
     {
-        
-        $items = Item::where(['module' => 'watercom', 'status' => 1])->get();
+
+        $stocks = WatercomStock::where(['status' => 1])->get();
         $ingredients = $product->ingredients;
 
-        return view('watercom::products.show', compact('product', 'ingredients', 'items'));
+        return view('watercom::products.show', compact('product', 'ingredients', 'stocks'));
     }
 
     // POST PRODUCT
-    public function postProduct(Request $request)
+    public function postWatercomProduct(Request $request)
     {
+        $stock = WatercomStock::findOrFail($request->stock_id);
 
-        $item = Item::findOrFail($request->input('item_id'));
         try {
             $attributes = $request->validate([
-                'container' => 'required',
-                'quantity' => 'required',
+                'stock_id' => 'required',
+                'name' => 'required',
                 'unit' => 'required',
+                'volume' => 'required',
+                'measure' => 'required',
                 'price' => 'required',
-                'item_id' => 'required',
+                'type' => 'required',
             ]);
 
             $attributes['status'] = true;
-            $attributes['module'] = 'watercom';
-            $product = Product::create($attributes);
+            $product = WatercomProduct::create($attributes);
             ActivityLogHelper::addToLog('Added product ' . $product->name);
 
-            $item->products()->save($product);
+            $stock->products()->save($product);
         } catch (QueryException $th) {
-            notify()->error('Product "' . $request->name . '" with quantity of "' . $request->quantity . '" already exists.');
+            notify()->error('WatercomProduct "' . $request->name . '" with quantity of "' . $request->quantity . '" already exists.');
             return back();
         }
         notify()->success('You have successful added a product');
@@ -65,24 +66,26 @@ class ProductController extends Controller
     }
 
     // EDIT PRODUCT
-    public function putProduct(Request $request, Product $product)
+    public function putWatercomProduct(Request $request, WatercomProduct $product)
     {
-        $item = Item::findOrFail($request->item_id);
+        $stock = WatercomStock::findOrFail($request->stock_id);
 
         try {
             $attributes = $request->validate([
-                'container' => 'required',
-                'quantity' => 'required',
+                'volume' => 'required',
                 'unit' => 'required',
+                'measure' => 'required',
                 'price' => 'required',
+                'type' => 'required',
             ]);
 
-            $attributes['item_id'] = $item->id;
+            $attributes['stock_id'] = $stock->id;
+            $attributes['name'] = $stock->name;
 
             $product->update($attributes);
             ActivityLogHelper::addToLog('Updated product ' . $product->name);
         } catch (QueryException $th) {
-            notify()->error('Product "' . $request->name . '" with quantity of "' . $request->quantity . '" already exists.');
+            notify()->error('Product "' . $request->name . '" with volume of "' . $request->quantity . '" already exists.');
             return back();
         }
         notify()->success('You have successful edited an product');
@@ -90,7 +93,7 @@ class ProductController extends Controller
     }
 
     // TOGGLE PRODUCT STATUS
-    public function toggleStatus(Request $request, Product $product)
+    public function toggleStatus(Request $request, WatercomProduct $product)
     {
 
         $attributes = $request->validate([
@@ -105,7 +108,7 @@ class ProductController extends Controller
     }
 
     // DELETE PRODUCT
-    public function deleteProduct(Product $product)
+    public function deleteWatercomProduct(WatercomProduct $product)
     {
 
         $itsName = $product->name;

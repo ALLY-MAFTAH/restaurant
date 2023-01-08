@@ -34,12 +34,12 @@ Route::prefix('watercom')->group(function () {
     Route::middleware(['auth:watercom'])->group(function () {
 
         // STOCK ROUTES
-        Route::get('/stocks', [StockController::class, 'index'])->name('watercom.stocks.index');
-        Route::post('/add-stock', [StockController::class, 'postStock'])->name('watercom.stocks.add');
-        Route::get('/show-stock/{stock}', [StockController::class, 'showStock'])->name('watercom.stocks.show');
-        Route::put('/edit-stock/{stock}', [StockController::class, 'putStock'])->name('watercom.stocks.edit');
-        Route::delete('/delete-stock/{stock}', [StockController::class, 'deleteStock'])->name('watercom.stocks.delete');
-        Route::put('stocks/{stock}/status', [StockController::class, 'toggleStatus'])->name('watercom.stocks.toggle-status');
+        Route::get('/stocks', [WatercomStockController::class, 'index'])->name('watercom.stocks.index');
+        Route::post('/add-stock', [WatercomStockController::class, 'postWatercomStock'])->name('watercom.stocks.add');
+        Route::get('/show-stock/{stock}', [WatercomStockController::class, 'showWatercomStock'])->name('watercom.stocks.show');
+        Route::put('/edit-stock/{stock}', [WatercomStockController::class, 'putWatercomStock'])->name('watercom.stocks.edit');
+        Route::delete('/delete-stock/{stock}', [WatercomStockController::class, 'deleteWatercomStock'])->name('watercom.stocks.delete');
+        Route::put('stocks/{stock}/status', [WatercomStockController::class, 'toggleStatus'])->name('watercom.stocks.toggle-status');
 
         // ITEM ROUTES
         Route::get('/items', [ItemController::class, 'index'])->name('watercom.items.index');
@@ -53,12 +53,12 @@ Route::prefix('watercom')->group(function () {
         Route::delete('/delete-ingredient/{ingredient}', [ItemController::class, 'deleteIngredient'])->name('watercom.items.delete-ingredient');
 
         // PRODUCTS ROUTES
-        Route::get('/products', [ProductController::class, 'index'])->name('watercom.products.index');
-        Route::post('/add-product', [ProductController::class, 'postProduct'])->name('watercom.products.add');
-        Route::get('/show-product/{product}', [ProductController::class, 'showProduct'])->name('watercom.products.show');
-        Route::put('/edit-product/{product}', [ProductController::class, 'putProduct'])->name('watercom.products.edit');
-        Route::delete('/delete-product/{product}', [ProductController::class, 'deleteProduct'])->name('watercom.products.delete');
-        Route::put('products/{product}/status', [ProductController::class, 'toggleStatus'])->name('watercom.products.toggle-status');
+        Route::get('/products', [WatercomProductController::class, 'index'])->name('watercom.products.index');
+        Route::post('/add-product', [WatercomProductController::class, 'postWatercomProduct'])->name('watercom.products.add');
+        Route::get('/show-product/{product}', [WatercomProductController::class, 'showWatercomProduct'])->name('watercom.products.show');
+        Route::put('/edit-product/{product}', [WatercomProductController::class, 'putWatercomProduct'])->name('watercom.products.edit');
+        Route::delete('/delete-product/{product}', [WatercomProductController::class, 'deleteWatercomProduct'])->name('watercom.products.delete');
+        Route::put('products/{product}/status', [WatercomProductController::class, 'toggleStatus'])->name('watercom.products.toggle-status');
 
         // USERS ROUTES
         Route::get('/watercoms', [UserController::class, 'index'])->name('watercoms.index');
@@ -77,8 +77,8 @@ Route::prefix('watercom')->group(function () {
         Route::delete('/delete-role/{role}', [RoleController::class, 'deleteRole'])->name('watercom.roles.delete');
 
         // SALES ROUTES
-        Route::get('/sales', [SaleController::class, 'index'])->name('watercom.sales.index');
-        Route::post('/sell-product/{product}', [SaleController::class, 'sellProduct'])->name('watercom.products.sell');
+        Route::get('/sales', [WatercomSaleController::class, 'index'])->name('watercom.sales.index');
+        Route::post('/sell-product/{product}', [WatercomSaleController::class, 'sellWatercomProduct'])->name('watercom.products.sell');
 
         // SETTINGS ROUTES
         Route::get('/settings', [SettingController::class, 'index'])->name('watercom.settings.index');

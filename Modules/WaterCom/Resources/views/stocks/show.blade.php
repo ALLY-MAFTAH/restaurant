@@ -31,7 +31,7 @@
                 aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     <div class="card mb-1 p-2" style="background: var(--form-bg-color)">
-                        <form method="POST" action="{{ route('watercom.stocks.edit', $stock) }}">
+                        <form method="POST" action="{{ route('watercom.stocks.edit', $watercomStock) }}">
                             @method('PUT')
                             @csrf
                             <div class="row">
@@ -40,7 +40,7 @@
                                     <label for="name" class=" col-form-label text-sm-start">{{ __('Name') }}</label>
                                     <input id="name" type="text" placeholder=""
                                         class="form-control @error('name') is-invalid @enderror" name="name"
-                                        value="{{ old('name', $stock->name) }}" required autocomplete="name" autofocus>
+                                        value="{{ old('name', $watercomStock->name) }}" required autocomplete="name" autofocus>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -52,16 +52,16 @@
                                     <div class="input-group">
                                         <input id="quantity" type="number" step="any" placeholder="00"
                                             class="form-control @error('quantity') is-invalid @enderror" name="quantity"
-                                            value="{{ old('quantity', $stock->quantity) }}" required
+                                            value="{{ old('quantity', $watercomStock->quantity) }}" required
                                             autocomplete="quantity" autofocus style="float: left;">
                                         <select class="form-control form-select" name="unit" required
                                             style="float: left;max-width:115px; width: inaitial; background-color:rgb(238, 238, 242)">
                                             <option value="Kilograms"
-                                                {{ $stock->unit == 'Kilograms' ? 'selected' : '' }}>
+                                                {{ $watercomStock->unit == 'Kilograms' ? 'selected' : '' }}>
                                                 Kilograms</option>
-                                            <option value="Litres" {{ $stock->unit == 'Litres' ? 'selected' : '' }}>
+                                            <option value="Litres" {{ $watercomStock->unit == 'Litres' ? 'selected' : '' }}>
                                                 Litres</option>
-                                            <option value="Counts" {{ $stock->unit == 'Counts' ? 'selected' : '' }}>
+                                            <option value="Counts" {{ $watercomStock->unit == 'Counts' ? 'selected' : '' }}>
                                                 Counts</option>
                                         </select>
                                         @error('quantity')
@@ -75,8 +75,8 @@
                                     <label for="cost"
                                         class="col-form-label text-sm-start">{{ __('Cost (Tsh)') }}</label>
                                     <input id="cost" type="number" placeholder="Tsh"
-                                        class="form-control @error('cost', $stock->cost) is-invalid @enderror"
-                                        name="cost" value="{{ old('cost', $stock->cost) }}" required
+                                        class="form-control @error('cost', $watercomStock->cost) is-invalid @enderror"
+                                        name="cost" value="{{ old('cost', $watercomStock->cost) }}" required
                                         autocomplete="cost" autofocus>
                                     @error('cost')
                                         <span class="invalid-feedback" role="alert">
@@ -101,19 +101,19 @@
                 <div class="col-md-5">
                     <div class="row">
                         <div class="col-4"><b> Name:</b> </div>
-                        <div class="col-8">{{ $stock->name }}</div>
+                        <div class="col-8">{{ $watercomStock->name }}</div>
                     </div>
                     <div class="row">
                         <div class="col-4"><b> Quantity:</b> </div>
-                        <div class="col-8">{{ $stock->quantity . ' ' . $stock->unit }}</div>
+                        <div class="col-8">{{ $watercomStock->quantity . ' ' . $watercomStock->unit }}</div>
                     </div>
                     <div class="row">
                         <div class="col-4"><b> Cost:</b> </div>
-                        <div class="col-8">{{ number_format($stock->cost, 0, '.', ',') }} Tsh</div>
+                        <div class="col-8">{{ number_format($watercomStock->cost, 0, '.', ',') }} Tsh</div>
                     </div>
                     <div class="row">
                         <div class="col-4"><b> Created:</b> </div>
-                        <div class="col-8">{{ $stock->created_at->format('D, d M Y \a\t H:i') }}</div>
+                        <div class="col-8">{{ $watercomStock->created_at->format('D, d M Y \a\t H:i') }}</div>
                     </div>
                 </div>
             </div><br>

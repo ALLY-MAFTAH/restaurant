@@ -13,16 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('watercom_roles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('item_id');
-            $table->bigInteger('stock_id')->nullable();
-            $table->string('container');
-            $table->string('module');
-            $table->double('quantity');
-            $table->unique(['item_id', 'quantity']);
-            $table->enum('unit', ['Kilograms', 'Litres', 'Counts']);
-            $table->double('price');
+            $table->string('name')->unique();
+            $table->string('description');
             $table->boolean('status');
             $table->timestamps();
             $table->softDeletes();
@@ -36,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('watercom_roles');
     }
 };

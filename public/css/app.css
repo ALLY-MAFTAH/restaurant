@@ -179,7 +179,7 @@ a {
     .header {
         height: calc(var(--header-height) + 1rem);
         padding: 0 2rem 0 calc(var(--nav-width) + 2rem);
-        background-image: linear-gradient(to right, white, rgb(225, 234, 226), rgb(221, 154, 91), rgb(207, 191, 235), rgb(163, 198, 146), rgb(221, 154, 91), white, rgb(221, 154, 91), rgb(163, 198, 146), rgb(207, 191, 235), rgb(221, 154, 91), white);
+        /* background-image: linear-gradient(to right, white, rgb(225, 234, 226), rgb(221, 154, 91), rgb(207, 191, 235), rgb(163, 198, 146), rgb(221, 154, 91), white, rgb(221, 154, 91), rgb(163, 198, 146), rgb(207, 191, 235), rgb(221, 154, 91), white); */
     }
 
     .header_img {
@@ -222,7 +222,8 @@ a {
 
 .header {
     height: calc(var(--header-height) + 1rem);
-    background-image: linear-gradient(to right, white, rgb(225, 234, 226), rgb(221, 154, 91), rgb(207, 191, 235), rgb(163, 198, 146), rgb(221, 154, 91), white, rgb(221, 154, 91), rgb(163, 198, 146), rgb(207, 191, 235), rgb(221, 154, 91), white);
+    border-bottom: 1px solid var(--first-color);
+    /* background-image: linear-gradient(to right, white, rgb(225, 234, 226), rgb(221, 154, 91), rgb(207, 191, 235), rgb(163, 198, 146), rgb(221, 154, 91), white, rgb(221, 154, 91), rgb(163, 198, 146), rgb(207, 191, 235), rgb(221, 154, 91), white); */
 }
 
 .btn.btn-primary {
