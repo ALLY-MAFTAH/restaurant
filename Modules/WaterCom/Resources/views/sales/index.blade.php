@@ -60,7 +60,6 @@
                                                                 <button href="#" class="btn btn-sm btn-primary my-1"
                                                                     style="opacity: var(--bs-btn-disabled-opacity);cursor:auto;pointer-events: none;">
                                                                     {{ $i . ' ' . $product->unit }}
-
                                                                 </button>
                                                             </span>
                                                         @else
