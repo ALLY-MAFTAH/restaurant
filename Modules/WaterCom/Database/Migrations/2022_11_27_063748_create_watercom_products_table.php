@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('type');
             $table->string('unit');
             $table->double('volume');
-            $table->unique(['stock_id', 'volume']);
+            $table->unique(['watercom_stock_id', 'volume']);
             $table->string('measure');
             $table->double('price');
             $table->boolean('status');
