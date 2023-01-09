@@ -263,7 +263,7 @@
                                                     name="ids[]" required style="float: left; width: inaitial; ">
                                                     @foreach ($stocks as $stock)
                                                         <option
-                                                            value="{{ $stock->id }}"{{ $ingredient->stock_id == $stock->id ? 'selected' : '' }}>
+                                                            value="{{ $stock->id }}"{{ $ingredient->watercom_stock_id == $stock->id ? 'selected' : '' }}>
                                                             {{ $stock->name }}</option>
                                                     @endforeach
                                                     @error('ingredient_name')

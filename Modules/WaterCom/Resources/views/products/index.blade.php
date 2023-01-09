@@ -41,7 +41,7 @@
                             <div class="row">
                                 <div class="col-sm-3 mb-1">
                                     <label for="name" class=" col-form-label text-sm-start">{{ __('Name') }}</label>
-                                    <select id="name" class="form-control form-select" name="stock_id" required
+                                    <select id="name" class="form-control form-select" name="watercom_stock_id" required
                                         style="float: left; width: inaitial; ">
                                         <option value="">{{ 'Name' }}</option>
                                         @foreach ($stocks as $stock)
@@ -183,10 +183,10 @@
                                                         <label for="name"
                                                             class=" col-form-label text-sm-start">{{ __('Name') }}</label>
                                                         <select id="name" class="form-control form-select"
-                                                            name="stock_id" required autocomplete="container" autofocus>
+                                                            name="watercom_stock_id" required autocomplete="container" autofocus>
                                                             @foreach ($stocks as $stock)
                                                                 <option
-                                                                    value="{{ $stock->id }}"{{ $product->stock_id == $stock->id ? 'selected' : '' }}>
+                                                                    value="{{ $stock->id }}"{{ $product->watercom_stock_id == $stock->id ? 'selected' : '' }}>
                                                                     {{ $stock->name }}</option>
                                                             @endforeach
                                                             @error('name')

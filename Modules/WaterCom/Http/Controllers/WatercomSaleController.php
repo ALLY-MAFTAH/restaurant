@@ -37,9 +37,9 @@ class WatercomSaleController extends Controller
         $filteredStock = WatercomStock::where([ 'name' => $filteredStockName])->first();
 
         if ($filteredDate != "All Days" && $filteredStockName != "All WatercomProducts") {
-            $sales = WatercomSale::where(['stock_id' => $filteredStock->id, 'date' => $filteredDate])->latest()->get();
+            $sales = WatercomSale::where(['watercom_stock_id' => $filteredStock->id, 'date' => $filteredDate])->latest()->get();
         } elseif ($filteredDate == "All Days" && $filteredStockName != "All WatercomProducts") {
-            $sales = WatercomSale::where(['stock_id' => $filteredStock->id])->latest()->get();
+            $sales = WatercomSale::where(['watercom_stock_id' => $filteredStock->id])->latest()->get();
         } elseif ($filteredStockName == "All WatercomProducts" && $filteredDate != "All Days") {
             $sales = WatercomSale::where('date', $filteredDate)->latest()->get();
         } else {
@@ -67,7 +67,7 @@ class WatercomSaleController extends Controller
         try {
             for ($i = 0; $i < $length; $i++) {
 
-                $stock = WatercomStock::where('module','watercom')->findOrFail($product->stock_id);
+                $stock = WatercomStock::where('module','watercom')->findOrFail($product->watercom_stock_id);
                 if ($product->quantity <= $stock->quantity) {
                     $newQuantity = $stock->quantity - $product->quantity;
                     $stock->update([
@@ -84,7 +84,7 @@ class WatercomSaleController extends Controller
                     'name' => $product->stock->name,
                     'unit' => $product->unit,
                     'price' => $product->price,
-                    'stock_id' => $product->stock_id,
+                    'watercom_stock_id' => $product->watercom_stock_id,
                     'quantity' => $product->quantity,
                     'container' => $product->container,
                     'user_name' => Auth::user()->name,

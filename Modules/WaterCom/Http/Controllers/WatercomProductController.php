@@ -38,11 +38,11 @@ class WatercomProductController extends Controller
     // POST PRODUCT
     public function postWatercomProduct(Request $request)
     {
-        $stock = WatercomStock::findOrFail($request->stock_id);
+        $stock = WatercomStock::findOrFail($request->watercom_stock_id);
 
         try {
             $attributes = $request->validate([
-                'stock_id' => 'required',
+                'watercom_stock_id' => 'required',
                 'name' => 'required',
                 'unit' => 'required',
                 'volume' => 'required',
@@ -68,7 +68,7 @@ class WatercomProductController extends Controller
     // EDIT PRODUCT
     public function putWatercomProduct(Request $request, WatercomProduct $product)
     {
-        $stock = WatercomStock::findOrFail($request->stock_id);
+        $stock = WatercomStock::findOrFail($request->watercom_stock_id);
 
         try {
             $attributes = $request->validate([
@@ -79,7 +79,7 @@ class WatercomProductController extends Controller
                 'type' => 'required',
             ]);
 
-            $attributes['stock_id'] = $stock->id;
+            $attributes['watercom_stock_id'] = $stock->id;
             $attributes['name'] = $stock->name;
 
             $product->update($attributes);

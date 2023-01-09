@@ -51,7 +51,7 @@ class WatercomStockController extends Controller
             notify()->error('Failed to add "' . $request->name . '" stock. It already exists.');
             return back();
         }
-        $request->request->add(['price' => $request->price,'stock_id'=>$stock->id]); //add request
+        $request->request->add(['price' => $request->price,'watercom_stock_id'=>$stock->id]); //add request
 
         $watercomProduct = new WatercomProductController();
         $watercomProduct->postWatercomProduct($request);
@@ -80,7 +80,7 @@ class WatercomStockController extends Controller
             notify()->error('Failed to edit stock. "' . $request->name . '" already exists.');
             return back();
         }
-        $request->request->add(['price' => $request->price,'stock_id'=>$stock->id]); //add request
+        $request->request->add(['price' => $request->price,'watercom_stock_id'=>$stock->id]); //add request
 
         $watercomProduct = new WatercomProductController();
         $watercomProduct->putWatercomProduct($request, $stock->product);

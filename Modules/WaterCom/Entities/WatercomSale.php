@@ -13,8 +13,7 @@ class WatercomSale extends Model
 
     protected $fillable = [
         'product_id',
-        'item_id',
-        'stock_id',
+        'watercom_stock_id',
         'user_id',
         'user_name',
         'name',
