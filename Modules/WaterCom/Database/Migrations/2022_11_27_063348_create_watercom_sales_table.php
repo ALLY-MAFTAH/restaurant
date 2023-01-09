@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('user_id');
             $table->date('date');
             $table->bigInteger('product_id');
-            $table->bigInteger('stock_id');
+            $table->bigInteger('watercom_stock_id');
             $table->string('name');
             $table->string('user_name');
             $table->string('container');
